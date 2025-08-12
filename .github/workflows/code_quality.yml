@@ -1,0 +1,49 @@
+name: Code Quality Checks
+
+on:
+  push:
+    branches: ['**'] # Run on all branches
+  pull_request:
+    branches: [main] # Run on PRs targeting main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linting
+        run: npm run lint
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: init project
+        run: npm run init
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm run ci
