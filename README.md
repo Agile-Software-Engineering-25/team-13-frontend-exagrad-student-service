@@ -1,6 +1,8 @@
-This is a template project. Fork it and customize it to your needs.
+# Exagrad Student Service - Frontend
 
-This project contains example use cases for all technologies listed below. (It is not pretty but that is not the point)
+This is the frontend application for the Exagrad Student Service. It serves as a comprehensive template that you can fork and customize according to your specific requirements.
+
+This project demonstrates practical implementations and example use cases for all the technologies and tools listed below.
 
 # Setup
 
