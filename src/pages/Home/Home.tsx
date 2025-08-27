@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <Box sx={{ padding: 2, mx: 'auto', ml: 10, mr: 10 }}>
       <Typography>{t('pages.home.title')}</Typography>
-      <StudentInfoHeader/>
+      <StudentInfoHeader />
       <Button onClick={() => navigate('/weather')}>
         {t('pages.home.weatherButton')}
       </Button>
