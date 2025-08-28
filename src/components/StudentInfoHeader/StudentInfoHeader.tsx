@@ -65,20 +65,18 @@ const StudentInfoHeader = () => {
     },
   };
 
-
   const student = mockData['3'];
 
   const formatValue = (value: StudentData[keyof StudentData]) => {
-  if (value instanceof Date) {
-    return value.toLocaleDateString(i18n.language, {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-  }
-  return value;
-};
-
+    if (value instanceof Date) {
+      return value.toLocaleDateString(i18n.language, {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      });
+    }
+    return value;
+  };
 
   return (
     <Box
@@ -97,7 +95,7 @@ const StudentInfoHeader = () => {
 
       <Grid container columnSpacing={4} rowSpacing={3} sx={{ flexGrow: 1 }}>
         {headerProperties.map((key, index) => (
-          <Grid xs={index === 0? 4.8: 2.4} key={index}>
+          <Grid xs={index === 0 ? 4.8 : 2.4} key={index}>
             <Box
               sx={{
                 p: 2,
