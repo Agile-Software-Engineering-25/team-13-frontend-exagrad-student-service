@@ -81,15 +81,15 @@ const StudentInfoHeader = () => {
   return (
     <Box
       sx={{
-        pl: 4,
-        pr: 4,
-        pb: 4,
+        pl: 3,
+        pr: 3,
+        pb: 3,
         border: '2px solid',
         borderColor: 'neutral.outlinedBorder',
         borderRadius: 'xl',
       }}
     >
-      <Typography level="h2" padding={2}>
+      <Typography level="h3" padding={2}>
         {t('pages.home.studentInfoHeader.title')}
       </Typography>
 
@@ -98,17 +98,17 @@ const StudentInfoHeader = () => {
           <Grid xs={index === 0 ? 4.8 : 2.4} key={index}>
             <Box
               sx={{
-                p: 2,
+                p: 1,
                 border: '1px solid',
                 borderColor: 'neutral.outlinedBorder',
                 borderRadius: 'lg',
                 textAlign: 'center',
               }}
             >
-              <Typography level="title-lg">
+              <Typography level="title-md">
                 {formatValue(student[key as keyof StudentData])}
               </Typography>
-              <Typography level="body-md">
+              <Typography level="body-sm">
                 {t(`pages.home.studentInfoHeader.${key}`)}
               </Typography>
             </Box>
