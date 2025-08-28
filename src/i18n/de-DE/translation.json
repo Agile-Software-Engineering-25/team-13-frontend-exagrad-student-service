@@ -5,7 +5,16 @@
       "description": "Das ist das frontend-template Projekt. Hier werden die Technologien und Tools vorgestellt, die in diesem Projekt verwendet werden.",
       "weatherButton": "WETTER",
       "studentInfoHeader":{
-        "title": "Dein Status"
+        "title": "Dein Status",
+        "degreeProgram": "Studiengang",
+        "matriculationNumber": "Matrikelnummer",
+        "creditPoints": "Credit Points",
+        "start": "Beginn",
+        "major": "Schwerpunkt",
+        "year": "Jahrgang",
+        "group": "Gruppe",
+        "average": "Durchschnitt",
+        "end": "Ende"
       }
     },
     "weather": {
