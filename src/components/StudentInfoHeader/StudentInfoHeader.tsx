@@ -93,7 +93,7 @@ const StudentInfoHeader = () => {
         {t('pages.home.studentInfoHeader.title')}
       </Typography>
 
-      <Grid container columnSpacing={4} rowSpacing={3} sx={{ flexGrow: 1 }}>
+      <Grid container columnSpacing={4} rowSpacing={2} sx={{ flexGrow: 1 }}>
         {headerProperties.map((key, index) => (
           <Grid xs={index === 0 ? 4.8 : 2.4} key={index}>
             <Box
