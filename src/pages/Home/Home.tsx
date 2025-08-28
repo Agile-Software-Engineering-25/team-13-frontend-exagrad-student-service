@@ -14,16 +14,17 @@ const Home = () => {
       <Typography>{t('pages.home.title')}</Typography>
       <StudentInfoHeader />
       <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        mt: 3,
-        gap: 2
-      }}>
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          mt: 3,
+          gap: 2,
+        }}
+      >
         <Button variant="outlined" onClick={() => navigate('/weather')}>
           {t('pages.home.buttons.re-examinationRegistration')}
         </Button>
-                <Button variant="outlined" onClick={() => navigate('/weather')}>
+        <Button variant="outlined" onClick={() => navigate('/weather')}>
           {t('pages.home.buttons.pubSubmission')}
         </Button>
         <Button variant="outlined" onClick={() => navigate('/weather')}>
