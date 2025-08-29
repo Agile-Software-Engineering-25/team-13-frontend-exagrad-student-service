@@ -40,32 +40,10 @@ const StudentInfoHeader = () => {
       year: '2025',
       group: 'BIN-T25-F-4',
       average: '2.0',
-    },
-    '2': {
-      degreeProgram: 'Bachelor Wirtschaftsinformatik',
-      matriculationNumber: 'A026',
-      creditPoints: '90/170',
-      start: new Date('2025-02-01'),
-      end: new Date('2026-05-03'),
-      major: 'N/A',
-      year: '2025',
-      group: 'BWI-O25-F-1',
-      average: '1.8',
-    },
-    '3': {
-      degreeProgram: 'Bachelor Informatik',
-      matriculationNumber: 'A026',
-      creditPoints: '90/170',
-      start: new Date('2025-02-01'),
-      end: new Date('2026-05-03'),
-      major: 'N/A',
-      year: '2025',
-      group: 'BWI-O25-F-1',
-      average: '4.0',
-    },
+    }
   };
 
-  const student = mockData['3'];
+  const student = mockData['1'];
 
   const formatValue = (value: StudentData[keyof StudentData]) => {
     if (value instanceof Date) {
