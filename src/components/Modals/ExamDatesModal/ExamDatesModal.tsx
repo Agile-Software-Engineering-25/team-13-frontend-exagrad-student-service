@@ -20,13 +20,13 @@ const mockData: Record<string, SemesterData> = {
     exams: [
       {
         code: 'Kurz1',
-        lecturer: 'Herr/Frau Dr. Dozent/in',
+        lecturer: '(Prof.) Dr. FirstName LastName',
         room: 'Raum 101',
         date: '01.02.2025',
       },
       {
         code: 'Kurz2',
-        lecturer: 'Herr/Frau Dr. Dozent/in',
+        lecturer: '(Prof.) Dr. FirstName LastName',
         room: 'Raum 102',
         date: '05.02.2025',
       },
@@ -34,13 +34,13 @@ const mockData: Record<string, SemesterData> = {
     retakes: [
       {
         code: 'Kurz1',
-        lecturer: 'Herr/Frau Dr. Dozent/in',
+        lecturer: '(Prof.) Dr. FirstName LastName',
         room: 'Raum 201',
         date: '10.03.2025',
       },
       {
         code: 'Kurz2',
-        lecturer: 'Herr/Frau Dr. Dozent/in',
+        lecturer: '(Prof.) Dr. FirstName LastName',
         room: 'Raum 202',
         date: '15.03.2025',
       },
@@ -50,13 +50,13 @@ const mockData: Record<string, SemesterData> = {
     exams: [
       {
         code: 'Kurz3',
-        lecturer: 'Herr/Frau Dr. Dozent/in',
+        lecturer: '(Prof.) Dr. FirstName LastName',
         room: 'Raum 301',
         date: '02.07.2025',
       },
       {
         code: 'Kurz4',
-        lecturer: 'Herr/Frau Dr. Dozent/in',
+        lecturer: '(Prof.) Dr. FirstName LastName',
         room: 'Raum 302',
         date: '06.07.2025',
       },
@@ -64,13 +64,13 @@ const mockData: Record<string, SemesterData> = {
     retakes: [
       {
         code: 'Kurz3',
-        lecturer: 'Herr/Frau Dr. Dozent/in',
+        lecturer: '(Prof.) Dr. FirstName LastName',
         room: 'Raum 401',
         date: '20.09.2025',
       },
       {
         code: 'Kurz4',
-        lecturer: 'Herr/Frau Dr. Dozent/in',
+        lecturer: '(Prof.) Dr. FirstName LastName',
         room: 'Raum 402',
         date: '25.09.2025',
       },
