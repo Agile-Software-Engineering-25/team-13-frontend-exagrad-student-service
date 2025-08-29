@@ -27,5 +27,19 @@
       "weatherHeader": "Current Weather",
       "temperature": "Temperature"
     }
+  },
+  "components": {
+    "examDatesModal": {
+      "header": "Exam Dates Overview",
+      "semester": "Semester",
+      "exams": "Exams",
+      "retakes": "Retake Exams",
+      "table": {
+        "code": "Course Code",
+        "lecturer": "Lecturer",
+        "room": "Room",
+        "date": "Date"
+      }
+    }
   }
 }

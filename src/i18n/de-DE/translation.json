@@ -27,5 +27,19 @@
       "weatherHeader": "Aktuelles Wetter",
       "temperature": "Temperatur"
     }
+  },
+  "components": {
+    "examDatesModal": {
+      "header": "Übersicht Prüfungstermine",
+      "semester": "Semester",
+      "exams": "Prüfungstermine",
+      "retakes": "Nachprüfungstermine",
+      "table": {
+        "code": "Modulkürzel",
+        "lecturer": "Dozent/in",
+        "room": "Raum",
+        "date": "Datum"
+      }
+    }
   }
 }
