@@ -1,7 +1,6 @@
 {
   "pages": {
     "home": {
-      "title": "Startseite",
       "buttons": {
         "downloadPerformanceOverview": "Leistungsübersicht herunterladen",
         "viewExamDates": "Prüfungstermine einsehen",

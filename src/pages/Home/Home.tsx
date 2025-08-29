@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/joy';
+import { Box } from '@mui/joy';
 import LanguageSelectorComponent from '@components/LanguageSelectorComponent/LanguageSelectorComponent';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
@@ -11,7 +11,6 @@ const Home = () => {
 
   return (
     <Box sx={{ padding: 2, mx: 'auto', ml: 10, mr: 10 }}>
-      <Typography>{t('pages.home.title')}</Typography>
       <StudentInfoHeader />
       <Box
         sx={{

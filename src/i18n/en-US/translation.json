@@ -1,7 +1,6 @@
 {
   "pages": {
     "home": {
-      "title": "Home",
       "buttons": {
         "downloadPerformanceOverview": "Download Performance Overview",
         "viewExamDates": "View Exam Dates",
