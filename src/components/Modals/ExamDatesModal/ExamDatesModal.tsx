@@ -92,7 +92,7 @@ const ExamDatesModal = ({ open, setOpen }: ExamDatesModalProps) => {
 
   return (
     <GenericModal
-      header={t('components.examDatesModal.header')}
+      header={t("components.examDatesModal.header")}
       open={open}
       setOpen={setOpen}
       modalDialogSX={{ minWidth: '700px' }}
@@ -100,7 +100,7 @@ const ExamDatesModal = ({ open, setOpen }: ExamDatesModalProps) => {
       {/* Semester Dropdown */}
       <Box sx={{ mb: 2 }}>
         <Typography level="body-sm" sx={{ mb: 0.5 }}>
-          {t('components.examDatesModal.semester')}
+          {t("components.examDatesModal.semester")}
         </Typography>
         <Select
           value={semester}
@@ -116,17 +116,16 @@ const ExamDatesModal = ({ open, setOpen }: ExamDatesModalProps) => {
       </Box>
 
       {/* Prüfungstermine Section */}
-      <Typography level="title-md" sx={{ mb: 1 }}>
-        {t('components.examDatesModal.exams')}
+      <Typography level="title-md" color='primary'>
+        {t("components.examDatesModal.exams")}
       </Typography>
-      <Divider sx={{ mb: 1 }} />
       <Table>
         <thead>
           <tr>
-            <th>{t('components.examDatesModal.table.code')}</th>
-            <th>{t('components.examDatesModal.table.lecturer')}</th>
-            <th>{t('components.examDatesModal.table.room')}</th>
-            <th>{t('components.examDatesModal.table.date')}</th>
+            <th>{t("components.examDatesModal.table.code")}</th>
+            <th>{t("components.examDatesModal.table.lecturer")}</th>
+            <th>{t("components.examDatesModal.table.room")}</th>
+            <th>{t("components.examDatesModal.table.date")}</th>
           </tr>
         </thead>
         <tbody>
@@ -142,17 +141,16 @@ const ExamDatesModal = ({ open, setOpen }: ExamDatesModalProps) => {
       </Table>
 
       {/* Nachprüfungstermine Section */}
-      <Typography level="title-md" sx={{ mt: 3, mb: 1 }}>
-        {t('components.examDatesModal.retakes')}
+      <Typography level="title-md" color='primary' sx={{ mt: 3, mb: 0 }}>
+        {t("components.examDatesModal.retakes")}
       </Typography>
-      <Divider sx={{ mb: 1 }} />
       <Table>
         <thead>
           <tr>
-            <th>{t('components.examDatesModal.table.code')}</th>
-            <th>{t('components.examDatesModal.table.lecturer')}</th>
-            <th>{t('components.examDatesModal.table.room')}</th>
-            <th>{t('components.examDatesModal.table.date')}</th>
+            <th>{t("components.examDatesModal.table.code")}</th>
+            <th>{t("components.examDatesModal.table.lecturer")}</th>
+            <th>{t("components.examDatesModal.table.room")}</th>
+            <th>{t("components.examDatesModal.table.date")}</th>
           </tr>
         </thead>
         <tbody>
