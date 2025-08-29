@@ -40,7 +40,7 @@ const StudentInfoHeader = () => {
       year: '2025',
       group: 'BIN-T25-F-4',
       average: '2.0',
-    }
+    },
   };
 
   const student = mockData['1'];
