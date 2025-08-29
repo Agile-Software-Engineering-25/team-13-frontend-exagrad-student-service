@@ -6,18 +6,6 @@
         "viewExamDates": "Prüfungstermine einsehen",
         "pubSubmission": "PUB-Abgabe",
         "re-examinationRegistration": "Nachprüfungsanmeldung"
-      },
-      "studentInfoHeader":{
-        "title": "Dein Status",
-        "degreeProgram": "Studiengang",
-        "matriculationNumber": "Matrikelnummer",
-        "creditPoints": "Credit Points",
-        "start": "Beginn",
-        "major": "Schwerpunkt",
-        "year": "Jahrgang",
-        "group": "Gruppe",
-        "average": "Durchschnitt",
-        "end": "Ende"
       }
     },
     "weather": {
@@ -29,6 +17,18 @@
     }
   },
   "components": {
+    "studentInfoHeader": {
+      "title": "Dein Status",
+      "degreeProgram": "Studiengang",
+      "matriculationNumber": "Matrikelnummer",
+      "creditPoints": "Credit Points",
+      "start": "Beginn",
+      "major": "Schwerpunkt",
+      "year": "Jahrgang",
+      "group": "Gruppe",
+      "average": "Durchschnitt",
+      "end": "Ende"
+    },
     "examDatesModal": {
       "header": "Übersicht Prüfungstermine",
       "semester": "Semester",

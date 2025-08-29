@@ -68,7 +68,7 @@ const StudentInfoHeader = () => {
       }}
     >
       <Typography level="h3" padding={2}>
-        {t('pages.home.studentInfoHeader.title')}
+        {t('components.studentInfoHeader.title')}
       </Typography>
 
       <Grid container columnSpacing={4} rowSpacing={2} sx={{ flexGrow: 1 }}>
@@ -87,7 +87,7 @@ const StudentInfoHeader = () => {
                 {formatValue(student[key as keyof StudentData])}
               </Typography>
               <Typography level="body-sm">
-                {t(`pages.home.studentInfoHeader.${key}`)}
+                {t(`components.studentInfoHeader.${key}`)}
               </Typography>
             </Box>
           </Grid>

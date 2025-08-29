@@ -6,18 +6,6 @@
         "viewExamDates": "View Exam Dates",
         "pubSubmission": "Submission of Incapacity Certificate",
         "re-examinationRegistration": "Re-examination Registration"
-      },
-      "studentInfoHeader":{
-        "title": "Your Status",
-        "degreeProgram": "Degree Program",
-        "matriculationNumber": "Matriculation Number",
-        "creditPoints": "Credit Points",
-        "start": "Start",
-        "major": "Major",
-        "year": "Year",
-        "group": "Group",
-        "average": "Average",
-        "end": "End"
       }
     },
     "weather": {
@@ -29,6 +17,18 @@
     }
   },
   "components": {
+    "studentInfoHeader": {
+      "title": "Your Status",
+      "degreeProgram": "Degree Program",
+      "matriculationNumber": "Matriculation Number",
+      "creditPoints": "Credit Points",
+      "start": "Start",
+      "major": "Major",
+      "year": "Year",
+      "group": "Group",
+      "average": "Average",
+      "end": "End"
+    },
     "examDatesModal": {
       "header": "Exam Dates Overview",
       "semester": "Semester",
