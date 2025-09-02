@@ -42,22 +42,22 @@ const RetakeRegistrationModal = ({ open, setOpen }: RetakeRegistrationModalProps
 
   return (
     <GenericModal
-      header={t('components.retakeRegistrationModal.header', 'Nachprüfungsanmeldung')}
+      header={t('components.retakeRegistrationModal.header')}
       open={open}
       setOpen={setOpen}
       modalDialogSX={{ minWidth: '700px' }}
     >
       <Typography level="title-md" sx={{ mb: 1 }}>
-        {t('components.retakeRegistrationModal.requiredRetakes', 'Erforderliche Nachprüfungstermine')}
+        {t('components.retakeRegistrationModal.requiredRetakes')}
       </Typography>
 
       <Table>
         <thead>
           <tr>
-            <th>{t('components.retakeRegistrationModal.table.code', 'Modulkürzel')}</th>
-            <th>{t('components.retakeRegistrationModal.table.lecturer', 'Dozent/in')}</th>
-            <th>{t('components.retakeRegistrationModal.table.date', 'Datum')}</th>
-            <th>{t('components.retakeRegistrationModal.table.register', 'Anmelden')}</th>
+            <th>{t('components.retakeRegistrationModal.table.code')}</th>
+            <th>{t('components.retakeRegistrationModal.table.lecturer')}</th>
+            <th>{t('components.retakeRegistrationModal.table.date')}</th>
+            <th>{t('components.retakeRegistrationModal.table.register')}</th>
           </tr>
         </thead>
         <tbody>
@@ -84,7 +84,7 @@ const RetakeRegistrationModal = ({ open, setOpen }: RetakeRegistrationModalProps
         disabled={selected.size === 0}
         onClick={handleRegister}
       >
-        {t('components.retakeRegistrationModal.registerButton', 'Anmelden')}
+        {t('components.retakeRegistrationModal.registerButton')}
       </Button>
     </GenericModal>
   );
