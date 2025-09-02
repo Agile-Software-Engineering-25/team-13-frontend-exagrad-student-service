@@ -9,29 +9,6 @@
         "viewExamDates": "Prüfungstermine einsehen",
         "pubSubmission": "PUB-Abgabe",
         "re-examinationRegistration": "Nachprüfungsanmeldung"
-      },
-      "studentInfoHeader":{
-        "title": "Dein Status",
-        "degreeProgram": "Studiengang",
-        "matriculationNumber": "Matrikelnummer",
-        "creditPoints": "Credit Points",
-        "start": "Beginn",
-        "major": "Schwerpunkt",
-        "year": "Jahrgang",
-        "group": "Gruppe",
-        "average": "Durchschnitt",
-        "end": "Ende"
-      },
-      "semesterOverview": {
-        "title": "Semester Überblick",
-        "semesters": {
-          "firstSemester": "Semester 1",
-          "secondSemester": "Semester 2",
-          "thirdSemester": "Semester 3",
-          "fourthSemester": "Semester 4",
-          "fifthSemester": "Semester 5",
-          "sixthSemester": "Semester 6"
-        }
       }
     },
     "weather": {
@@ -40,6 +17,43 @@
       "getWeatherButton": "WETTER ABRUFEN",
       "weatherHeader": "Aktuelles Wetter",
       "temperature": "Temperatur"
+    }
+  },
+  "components": {
+    "studentInfoHeader": {
+      "title": "Dein Status",
+      "degreeProgram": "Studiengang",
+      "matriculationNumber": "Matrikelnummer",
+      "creditPoints": "Credit Points",
+      "start": "Beginn",
+      "major": "Schwerpunkt",
+      "year": "Jahrgang",
+      "group": "Gruppe",
+      "average": "Durchschnitt",
+      "end": "Ende"
+    },
+    "examDatesModal": {
+      "header": "Übersicht Prüfungstermine",
+      "semester": "Semester",
+      "exams": "Prüfungstermine",
+      "retakes": "Nachprüfungstermine",
+      "table": {
+        "code": "Modulkürzel",
+        "lecturer": "Dozent/in",
+        "room": "Raum",
+        "date": "Datum"
+      }
+    },
+    "semesterOverview": {
+      "title": "Semester Überblick",
+      "semesters": {
+        "firstSemester": "Semester 1",
+        "secondSemester": "Semester 2",
+        "thirdSemester": "Semester 3",
+        "fourthSemester": "Semester 4",
+        "fifthSemester": "Semester 5",
+        "sixthSemester": "Semester 6"
+      }
     }
   }
 }
