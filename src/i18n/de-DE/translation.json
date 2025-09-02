@@ -2,14 +2,6 @@
   "pages": {
     "home": {
       "title": "Startseite",
-      "semesters": {
-        "firstSemester": "Semester 1",
-        "secondSemester": "Semester 2",
-        "thirdSemester": "Semester 3",
-        "fourthSemester": "Semester 4",
-        "fifthSemester": "Semester 5",
-        "sixthSemester": "Semester 6"
-      },
       "description": "Das ist das frontend-template Projekt. Hier werden die Technologien und Tools vorgestellt, die in diesem Projekt verwendet werden.",
       "weatherButton": "WETTER",
       "buttons": {
@@ -29,6 +21,17 @@
         "group": "Gruppe",
         "average": "Durchschnitt",
         "end": "Ende"
+      },
+      "semesterOverview": {
+        "title": "Semester Überblick",
+        "semesters": {
+          "firstSemester": "Semester 1",
+          "secondSemester": "Semester 2",
+          "thirdSemester": "Semester 3",
+          "fourthSemester": "Semester 4",
+          "fifthSemester": "Semester 5",
+          "sixthSemester": "Semester 6"
+        }
       }
     },
     "weather": {
