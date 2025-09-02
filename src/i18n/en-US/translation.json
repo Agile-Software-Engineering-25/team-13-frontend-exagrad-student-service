@@ -2,6 +2,14 @@
   "pages": {
     "home": {
       "title": "Home",
+      "semesters": {
+        "firstSemester": "Semester 1",
+        "secondSemester": "Semester 2",
+        "thirdSemester": "Semester 3",
+        "fourthSemester": "Semester 4",
+        "fifthSemester": "Semester 5",
+        "sixthSemester": "Semester 6"
+      },
       "description": "This is the frontend-template project. Here you can find the technologies and tools used in this project.",
       "weatherButton": "WEATHER"
     },

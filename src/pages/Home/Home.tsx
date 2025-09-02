@@ -3,6 +3,7 @@ import LanguageSelectorComponent from '@components/LanguageSelectorComponent/Lan
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { Button } from '@mui/material';
+import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ const Home = () => {
         {t('pages.home.weatherButton')}
       </Button>
       <LanguageSelectorComponent />
+      <SemesterOverviewComponent/>
     </Box>
   );
 };
