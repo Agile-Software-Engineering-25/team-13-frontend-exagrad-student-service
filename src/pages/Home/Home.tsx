@@ -26,7 +26,10 @@ const Home = () => {
           gap: 2,
         }}
       >
-        <Button variant="outlined" onClick={() => setViewRetakeRegistration(true)}>
+        <Button
+          variant="outlined"
+          onClick={() => setViewRetakeRegistration(true)}
+        >
           {t('pages.home.buttons.re-examinationRegistration')}
         </Button>
 
@@ -44,7 +47,10 @@ const Home = () => {
       </Box>
 
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
-      <RetakeRegistrationModal open={viewRetakeRegistration} setOpen={setViewRetakeRegistration} />
+      <RetakeRegistrationModal
+        open={viewRetakeRegistration}
+        setOpen={setViewRetakeRegistration}
+      />
 
       <LanguageSelectorComponent />
     </Box>

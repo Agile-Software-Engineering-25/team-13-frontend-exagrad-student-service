@@ -23,20 +23,27 @@ const mockRetakes: RetakeExam[] = [
   { code: 'Kurz5', lecturer: 'Herr/Frau Dr. Dozent/in', date: '30.03.2025' },
 ];
 
-const RetakeRegistrationModal = ({ open, setOpen }: RetakeRegistrationModalProps) => {
+const RetakeRegistrationModal = ({
+  open,
+  setOpen,
+}: RetakeRegistrationModalProps) => {
   const { t } = useTranslation();
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const toggleSelection = (code: string) => {
-    setSelected(prev => {
+    setSelected((prev) => {
       const copy = new Set(prev);
-      copy.has(code) ? copy.delete(code) : copy.add(code);
+      if (copy.has(code)) {
+        copy.delete(code);
+      } else {
+        copy.add(code);
+      }
       return copy;
     });
   };
 
   const handleRegister = () => {
-    console.log("Angemeldet für:", Array.from(selected));
+    console.log('Angemeldet für:', Array.from(selected));
     setOpen(false);
   };
 
