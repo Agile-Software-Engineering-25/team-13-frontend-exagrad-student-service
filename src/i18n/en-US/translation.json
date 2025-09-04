@@ -40,6 +40,17 @@
         "room": "Room",
         "date": "Date"
       }
+    },
+    "retakeRegistrationModal": {
+      "header": "Re-examination Registration",
+      "requiredRetakes": "Required Re-examination Dates",
+      "table": {
+        "code": "Module Code",
+        "lecturer": "Lecturer",
+        "date": "Date",
+        "register": "Register"
+      },
+      "registerButton": "Register"
     }
   }
 }

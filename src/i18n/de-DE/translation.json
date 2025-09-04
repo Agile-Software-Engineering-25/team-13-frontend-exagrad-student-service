@@ -40,6 +40,17 @@
         "room": "Raum",
         "date": "Datum"
       }
+    },
+    "retakeRegistrationModal": {
+      "header": "Nachprüfungsanmeldung",
+      "requiredRetakes": "Erforderliche Nachprüfungstermine",
+      "table": {
+        "code": "Modulkürzel",
+        "lecturer": "Dozent/in",
+        "date": "Datum",
+        "register": "Anmelden"
+      },
+      "registerButton": "Anmelden"
     }
   }
 }

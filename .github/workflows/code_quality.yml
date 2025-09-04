@@ -2,9 +2,9 @@ name: Code Quality Checks
 
 on:
   push:
-    branches: ['**'] # Run on all branches
+    branches: [main]
   pull_request:
-    branches: [main] # Run on PRs targeting main
+    branches: [main]
 
 jobs:
   lint:
