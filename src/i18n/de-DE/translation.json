@@ -45,7 +45,7 @@
       }
     },
     "semesterOverview": {
-      "title": "Semester Überblick",
+      "title": "Semesterüberblick",
       "semesters": {
         "firstSemester": "Semester 1",
         "secondSemester": "Semester 2",
@@ -53,6 +53,11 @@
         "fourthSemester": "Semester 4",
         "fifthSemester": "Semester 5",
         "sixthSemester": "Semester 6"
+      }
+    },
+    "moduleOverview": {
+      "buttons": {
+        "back": "Zurück"
       }
     }
   }

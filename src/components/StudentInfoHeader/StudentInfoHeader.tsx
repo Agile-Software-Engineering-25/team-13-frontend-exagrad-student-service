@@ -57,42 +57,48 @@ const StudentInfoHeader = () => {
   };
 
   return (
-    <Box
+    <Box 
       sx={{
-        pl: 3,
-        pr: 3,
-        pb: 3,
-        border: '2px solid',
-        borderColor: 'neutral.outlinedBorder',
-        borderRadius: 'xl',
+        pl: '250px',
+        pr: '250px'
       }}
     >
-      <Typography level="h3" padding={2}>
-        {t('components.studentInfoHeader.title')}
-      </Typography>
+      <Box
+        sx={{
+          pl: 3,
+          pr: 3,
+          pb: 3,
+          background: '#F3F8FF',
+          borderRadius: 30,
+        }}
+      >
+        <Typography level="h3" padding={2} sx={{ color: '#00122B' }}>
+          {t('components.studentInfoHeader.title')}
+        </Typography>
 
-      <Grid container columnSpacing={4} rowSpacing={2} sx={{ flexGrow: 1 }}>
-        {headerProperties.map((key, index) => (
-          <Grid xs={index === 0 ? 4.8 : 2.4} key={index}>
-            <Box
-              sx={{
-                p: 1,
-                border: '1px solid',
-                borderColor: 'neutral.outlinedBorder',
-                borderRadius: 'lg',
-                textAlign: 'center',
-              }}
-            >
-              <Typography level="title-md">
-                {formatValue(student[key as keyof StudentData])}
-              </Typography>
-              <Typography level="body-sm">
-                {t(`components.studentInfoHeader.${key}`)}
-              </Typography>
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
+        <Grid container columnSpacing={4} rowSpacing={2} sx={{ flexGrow: 1 }}>
+          {headerProperties.map((key, index) => (
+            <Grid xs={index === 0 ? 4.8 : 2.4} key={index}>
+              <Box
+                sx={{
+                  p: 1,
+                  background: '#FFFFFF',
+                  border: '2px solid #C2CAD5',
+                  borderRadius: 14,
+                  textAlign: 'center',
+                }}
+              >
+                <Typography level="title-md" sx={{ color: '#00122B' }}>
+                  {formatValue(student[key as keyof StudentData])}
+                </Typography>
+                <Typography level="body-sm" sx={{ color: '#314055' }}>
+                  {t(`components.studentInfoHeader.${key}`)}
+                </Typography>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </Box>
   );
 };

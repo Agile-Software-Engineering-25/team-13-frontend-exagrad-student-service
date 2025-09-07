@@ -54,6 +54,11 @@
         "fifthSemester": "Semester 5",
         "sixthSemester": "Semester 6"
       }
+    },
+    "moduleOverview": {
+      "buttons": {
+        "back": "Back"
+      }
     }
   }
 }
