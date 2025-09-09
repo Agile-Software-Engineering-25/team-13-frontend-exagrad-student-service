@@ -7,14 +7,16 @@ import { Button } from '@mui/joy';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
+import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
 
 const Home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [viewExamDates, setViewExamDates] = useState(false);
+  const [selectedBox, setSelectedBox] = useState<number | null>(null);
 
   return (
-    <Box sx={{ padding: 2, mx: 'auto', ml: 10, mr: 10 }}>
+    <Box sx={{ paddingInline: 30, paddingBlock: 2, mx: 'auto' }}>
       <StudentInfoHeader />
       <Box
         sx={{
@@ -38,8 +40,19 @@ const Home = () => {
         </Button>
       </Box>
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
+      <>
+        {selectedBox === null ? (
+          <SemesterOverviewComponent setSelectedBox={setSelectedBox} />
+        ) : (
+          <ModuleOverviewComponent
+            selectedBox={selectedBox}
+            setSelectedBox={setSelectedBox}
+            boxTitle={'actually nen String'}
+          />
+        )}
+      </>
+
       <LanguageSelectorComponent />
-      <SemesterOverviewComponent/>
     </Box>
   );
 };
