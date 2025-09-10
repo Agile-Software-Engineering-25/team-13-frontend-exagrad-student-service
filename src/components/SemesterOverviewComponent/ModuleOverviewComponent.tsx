@@ -118,8 +118,8 @@ const ModuleOverviewComponent = (props: {
           startDecorator={<ArrowBackIosNewIcon />}
           size="md"
           sx={{
-            width: '170px',
-            height: '40px',
+            width: '10',
+            height: 5,
           }}
           onClick={() => props.setSelectedBox(null)}
         >
