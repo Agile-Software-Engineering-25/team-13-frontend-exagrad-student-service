@@ -6,11 +6,13 @@ import { useNavigate } from 'react-router';
 import { Button } from '@mui/joy';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
+import PubUploadModal from '@/components/Modals/PubUploadModal/PubUploadModal';
 
 const Home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [viewExamDates, setViewExamDates] = useState(false);
+  const [viewPubUpload, setViewPubUpload] = useState(false);
 
   return (
     <Box sx={{ padding: 2, mx: 'auto', ml: 10, mr: 10 }}>
@@ -26,7 +28,7 @@ const Home = () => {
         <Button variant="outlined" onClick={() => navigate('/weather')}>
           {t('pages.home.buttons.re-examinationRegistration')}
         </Button>
-        <Button variant="outlined" onClick={() => navigate('/weather')}>
+        <Button variant="outlined" onClick={() => setViewPubUpload(true)}>
           {t('pages.home.buttons.pubSubmission')}
         </Button>
         <Button variant="outlined" onClick={() => setViewExamDates(true)}>
@@ -37,6 +39,7 @@ const Home = () => {
         </Button>
       </Box>
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
+      <PubUploadModal open={viewPubUpload} setOpen={setViewPubUpload} />
       <LanguageSelectorComponent />
     </Box>
   );
