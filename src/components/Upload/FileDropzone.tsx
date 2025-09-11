@@ -18,7 +18,7 @@ const handleChange = (files: File | File[]) => {
         types={fileTypes} 
         children={void 0}
     />
-  ); 
+  );
 }
 
 export default FileDropzone;
