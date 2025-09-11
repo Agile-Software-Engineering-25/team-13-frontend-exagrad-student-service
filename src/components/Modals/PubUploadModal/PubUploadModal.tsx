@@ -6,10 +6,6 @@ import FormLabel from '@mui/joy/FormLabel';
 import FileDropzone from '@/components/FileDropzone/FileDropzone';
 import { useTranslation } from 'react-i18next';
 
-type Upload = {
-  id?: string | number;
-  name: string;           // filename
-};
 
 type PubUploadModalProps = {
   open: boolean;
