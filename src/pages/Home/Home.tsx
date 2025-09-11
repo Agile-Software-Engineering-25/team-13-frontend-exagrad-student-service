@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import RetakeRegistrationModal from '@/components/Modals/RetakeRegistrationModal/RetakeRegistrationModal';
+import ModuleDetailView from '@/components/ModuleOverview/ModuleDetailView';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -51,6 +52,8 @@ const Home = () => {
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
       />
+
+      <ModuleDetailView />
 
       <LanguageSelectorComponent />
     </Box>

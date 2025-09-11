@@ -51,6 +51,21 @@
         "register": "Register"
       },
       "registerButton": "Register"
+    },
+    "moduleDetailView":{
+      "moduleName": "Module Name",
+      "moduleProperties":{
+        "moduleCode": "Module Code",
+        "lecturer": "Lecturer",
+        "creditPoints":"Credit Points",
+        "grade": "Grade"
+      },
+      "table":{
+        "assessment": "Assessment",
+        "weight": "Weight",
+        "grade": "Grade",
+        "date":"Date"
+      }
     }
   }
 }

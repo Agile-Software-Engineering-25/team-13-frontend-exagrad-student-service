@@ -51,6 +51,21 @@
         "register": "Anmelden"
       },
       "registerButton": "Anmelden"
+    },
+    "moduleDetailView":{
+      "moduleName": "Modulname",
+      "moduleProperties":{
+        "moduleCode": "Modulkürzel",
+        "lecturer": "Dozent/in",
+        "creditPoints":"Credit Points",
+        "grade": "Note"
+      },
+      "table":{
+        "assessment": "Prüfungsleistung",
+        "weight": "Gewichtung",
+        "grade": "Note",
+        "date":"Datum"
+      }
     }
   }
 }
