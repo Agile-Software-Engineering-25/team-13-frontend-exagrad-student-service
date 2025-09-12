@@ -7,7 +7,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from '@mui/joy';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'; //npm install @mui/icons-material @mui/material @emotion/styled @emotion/react to make it run
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from 'react-i18next';
 
 type Semester = {
