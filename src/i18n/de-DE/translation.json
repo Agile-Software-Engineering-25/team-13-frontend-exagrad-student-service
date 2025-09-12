@@ -64,7 +64,8 @@
         "assessment": "Prüfungsleistung",
         "weight": "Gewichtung",
         "grade": "Note",
-        "date":"Datum"
+        "date":"Termin",
+        "submit": "Datei Hochladen"
       }
     }
   }

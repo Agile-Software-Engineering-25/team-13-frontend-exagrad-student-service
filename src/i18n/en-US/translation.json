@@ -64,7 +64,8 @@
         "assessment": "Assessment",
         "weight": "Weight",
         "grade": "Grade",
-        "date":"Date"
+        "date":"Date",
+        "submit": "Upload File"
       }
     }
   }

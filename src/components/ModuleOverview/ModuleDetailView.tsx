@@ -1,15 +1,17 @@
-import { Box, Divider, Table, Typography } from '@mui/joy';
+import { Box, Divider, Table, Typography , Button} from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
 
 const ModuleDetailView = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   type Assessment = {
   assessmentTyp: string;
   weight: string;
   grade: number | "N/A";
   date: string;
+  requiresSubmission: boolean;
+
 };
 
 type ModuleInfo = {
@@ -46,8 +48,22 @@ type ModuleInfo = {
         assessmentTyp: "schriftliche Prüfung",
         weight: "40%",
         grade: "N/A",
-        date: "15.10.2025 11:15 Uhr"
-
+        date: "15.10.2025 11:15 Uhr",
+        requiresSubmission: false
+      },
+      {
+        assessmentTyp: "WAB",
+        weight: "50%",
+        grade: "N/A",
+        date: "07.10.2025 23:59 Uhr",
+        requiresSubmission: true
+      },
+      {
+        assessmentTyp: "Präsentation",
+        weight: "10%",
+        grade: "N/A",
+        date: "17.11.2025 15:00 Uhr",
+        requiresSubmission: true
       }
 
       ]
@@ -104,6 +120,7 @@ type ModuleInfo = {
             <th>{t('components.moduleDetailView.table.weight')}</th>
             <th>{t('components.moduleDetailView.table.grade')}</th>
             <th>{t('components.moduleDetailView.table.date')}</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -113,6 +130,13 @@ type ModuleInfo = {
               <td>{assessment.weight}</td>
               <td>{assessment.grade}</td>
               <td>{assessment.date}</td>
+              <td>
+                {assessment.requiresSubmission && (
+                    <Button size="sm" variant="soft">
+                    {t('components.moduleDetailView.table.submit')}
+                    </Button>
+                )}
+                </td>
             </tr>
           ))}
         </tbody>
