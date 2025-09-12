@@ -41,6 +41,22 @@
         "date": "Date"
       }
     },
+    "semesterOverview":{
+      "title": "Semester Overview",
+      "semesters": {
+        "firstSemester": "Semester 1",
+        "secondSemester": "Semester 2",
+        "thirdSemester": "Semester 3",
+        "fourthSemester": "Semester 4",
+        "fifthSemester": "Semester 5",
+        "sixthSemester": "Semester 6"
+      }
+    },
+    "moduleOverview": {
+      "buttons": {
+        "back": "Back to Semester Overview"
+      }
+    },
     "retakeRegistrationModal": {
       "header": "Re-examination Registration",
       "requiredRetakes": "Required Re-examination Dates",
