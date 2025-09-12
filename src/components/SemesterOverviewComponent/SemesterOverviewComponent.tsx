@@ -1,9 +1,11 @@
 import { Box, Grid, Typography } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 
-
 const SemesterOverviewComponent = (props: {
-  setSelectedSemester: (semester: {id: number | null; titleKey: string | null}) => void;
+  setSelectedSemester: (semester: {
+    id: number | null;
+    titleKey: string | null;
+  }) => void;
 }) => {
   const { t } = useTranslation();
 
@@ -12,27 +14,27 @@ const SemesterOverviewComponent = (props: {
   const semesterBoxes = [
     {
       id: 1,
-      title: `components.semesterOverview.semesters.firstSemester`
+      title: `components.semesterOverview.semesters.firstSemester`,
     },
     {
       id: 2,
-      title: `components.semesterOverview.semesters.secondSemester`
+      title: `components.semesterOverview.semesters.secondSemester`,
     },
     {
       id: 3,
-      title: `components.semesterOverview.semesters.thirdSemester`
+      title: `components.semesterOverview.semesters.thirdSemester`,
     },
     {
       id: 4,
-      title: `components.semesterOverview.semesters.fourthSemester`
+      title: `components.semesterOverview.semesters.fourthSemester`,
     },
     {
       id: 5,
-      title: `components.semesterOverview.semesters.fifthSemester`
+      title: `components.semesterOverview.semesters.fifthSemester`,
     },
     {
       id: 6,
-      title: `components.semesterOverview.semesters.sixthSemester`
+      title: `components.semesterOverview.semesters.sixthSemester`,
     },
   ];
 
@@ -68,7 +70,9 @@ const SemesterOverviewComponent = (props: {
                   boxShadow: '0px 4px 4px rgba(0,0,0,0.2)',
                 },
               }}
-              onClick={() => props.setSelectedSemester({id: box.id, titleKey: box.title}) }
+              onClick={() =>
+                props.setSelectedSemester({ id: box.id, titleKey: box.title })
+              }
             >
               <Typography level="h4" sx={{ color: '#002E6D' }}>
                 {t(box.title)}

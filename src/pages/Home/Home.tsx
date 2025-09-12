@@ -14,7 +14,10 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [viewExamDates, setViewExamDates] = useState(false);
-  const [selectedSemester, setSelectedSemester] = useState<{id: number | null; titleKey: string | null}>({id: null, titleKey: null});
+  const [selectedSemester, setSelectedSemester] = useState<{
+    id: number | null;
+    titleKey: string | null;
+  }>({ id: null, titleKey: null });
   const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
 
   return (
@@ -52,7 +55,9 @@ const Home = () => {
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
       <>
         {selectedSemester.id === null ? (
-          <SemesterOverviewComponent setSelectedSemester={setSelectedSemester} />
+          <SemesterOverviewComponent
+            setSelectedSemester={setSelectedSemester}
+          />
         ) : (
           <ModuleOverviewComponent
             selectedSemester={selectedSemester}
