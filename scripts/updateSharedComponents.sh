@@ -3,7 +3,7 @@
 echo "Updating shared components to the newest version..."
 
 # Initialize shared-components
-git submodule update
+git submodule update --remote --merge
 cd shared-components
 npm install
 npm run build
