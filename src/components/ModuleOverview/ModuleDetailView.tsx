@@ -4,13 +4,13 @@ import { useTranslation } from 'react-i18next';
 import RetakeRegistrationModal from '../Modals/RetakeRegistrationModal/RetakeRegistrationModal';
 import { useState } from 'react';
 import PubSubmissionModal from '../Modals/PubSubmissionModal/PubSubmissionModal';
+import DocumentModal from '../Modals/DocumentModal/DocumentModal';
 
 const ModuleDetailView = () => {
   const { t } = useTranslation();
   const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
   const [viewPubSubmission, setViewPubSubmission] = useState(false);
-
-
+  const [viewDocuments, setViewDocuments] = useState(false);
 
   type Assessment = {
     assessmentTyp: string;
@@ -189,7 +189,11 @@ const ModuleDetailView = () => {
               <td>{assessment.date}</td>
               <td>
                 {assessment.requiresSubmission && (
-                  <Button size="sm" variant="soft">
+                  <Button
+                  size="sm"
+                  variant="soft"
+                  onClick={()=> setViewDocuments(true)}
+                  >
                     {t('components.moduleDetailView.table.submit')}
                   </Button>
                 )}
@@ -206,6 +210,10 @@ const ModuleDetailView = () => {
       <PubSubmissionModal
       open={viewPubSubmission}
       setOpen={setViewPubSubmission}
+      />
+      <DocumentModal
+      open={viewDocuments}
+      setOpen={setViewDocuments}
       />
     </Box>
   );

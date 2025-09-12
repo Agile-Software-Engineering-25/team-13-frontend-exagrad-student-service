@@ -2,36 +2,36 @@ import { Typography, Button } from '@mui/joy';
 import GenericModal from '@components/Modals/GenericModal';
 import { useTranslation } from 'react-i18next';
 
-type PubSubmissionModalProps = {
+type DocumentModalProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
 };
 
-const PubSubmissionModal = ({
+const DocumentModal = ({
   open,
   setOpen,
-}: PubSubmissionModalProps) => {
+}: DocumentModalProps) => {
   const { t } = useTranslation();
 
   return (
     <GenericModal
-      header={t('components.pubSubmissionModal.header')}
+      header={t('components.dokumentModal.header')}
       open={open}
       setOpen={setOpen}
       modalDialogSX={{ minWidth: '700px' }}
     >
       <Typography level="title-md" sx={{ mb: 1 }}>
-        {t('components.pubSubmissionModal.sampleText')}
+        {t('components.dokumentModal.sampleText')}
       </Typography>
       <Button
         variant="solid"
         color="primary"
         sx={{ mt: 2, float: 'right' }}
       >
-        {t('components.pubSubmissionModal.submissionButton')}
+        {t('components.dokumentModal.submissionButton')}
       </Button>
     </GenericModal>
   );
 };
 
-export default PubSubmissionModal;
+export default DocumentModal;

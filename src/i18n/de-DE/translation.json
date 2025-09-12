@@ -72,6 +72,11 @@
       "header": "Abgabe einer Prüfungsunfähigkeitsbescheinigung",
       "sampleText": "Lorem Ipsum",
       "submissionButton": "Abgeben"
+    },
+    "dokumentModal": {
+      "header": "Prüfungsdokumente",
+      "sampleText": "Lorem Ipsum",
+      "submissionButton": "Abgeben"
     }
   }
 }

@@ -72,6 +72,11 @@
       "header": "Submission of Incapacity Certificate",
       "sampleText": "Lorem Ipsum",
       "submissionButton": "Submit"
+    },
+    "dokumentModal": {
+      "header": "Exam Documents",
+      "sampleText": "Lorem Ipsum",
+      "submissionButton": "Submit"
     }
   }
 }
