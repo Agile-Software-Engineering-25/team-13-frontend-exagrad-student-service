@@ -8,6 +8,7 @@ import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/Se
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
 import RetakeRegistrationModal from '@/components/Modals/RetakeRegistrationModal/RetakeRegistrationModal';
+import TmpThemeSelectorComponent from '@/components/TmpThemeSelectorComponent/TmpThemeSelectorComponent';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -53,7 +54,7 @@ const Home = () => {
       </Box>
 
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
-      <>
+      <Box sx={{ mt: 4 }}>
         {selectedSemester.id === null ? (
           <SemesterOverviewComponent
             setSelectedSemester={setSelectedSemester}
@@ -64,12 +65,13 @@ const Home = () => {
             setSelectedSemester={setSelectedSemester}
           />
         )}
-      </>
+      </Box>
       <RetakeRegistrationModal
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
       />
 
+      <TmpThemeSelectorComponent />
       <LanguageSelectorComponent />
     </Box>
   );
