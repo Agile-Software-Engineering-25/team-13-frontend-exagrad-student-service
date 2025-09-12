@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
+import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
 import RetakeRegistrationModal from '@/components/Modals/RetakeRegistrationModal/RetakeRegistrationModal';
 
 const Home = () => {
@@ -13,10 +14,11 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [viewExamDates, setViewExamDates] = useState(false);
+  const [selectedSemester, setSelectedSemester] = useState<{id: number | null; titleKey: string | null}>({id: null, titleKey: null});
   const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
 
   return (
-    <Box sx={{ padding: 2, mx: 'auto', ml: 10, mr: 10 }}>
+    <Box sx={{ paddingInline: 30, paddingBlock: 2, mx: 'auto' }}>
       <StudentInfoHeader />
 
       <Box
@@ -48,13 +50,22 @@ const Home = () => {
       </Box>
 
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
+      <>
+        {selectedSemester.id === null ? (
+          <SemesterOverviewComponent setSelectedSemester={setSelectedSemester} />
+        ) : (
+          <ModuleOverviewComponent
+            selectedSemester={selectedSemester}
+            setSelectedSemester={setSelectedSemester}
+          />
+        )}
+      </>
       <RetakeRegistrationModal
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
       />
 
       <LanguageSelectorComponent />
-      <SemesterOverviewComponent/>
     </Box>
   );
 };
