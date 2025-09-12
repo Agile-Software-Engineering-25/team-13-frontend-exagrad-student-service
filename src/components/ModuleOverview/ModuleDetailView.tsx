@@ -92,7 +92,7 @@ type ModuleInfo = {
 
       <Grid container columnSpacing={4} rowSpacing={5} >
         {moduleProperties.map((key, index) => (
-          <Grid xs={3} key={index}>
+          <Grid xs={2.4} key={index}>
             <Box
               sx={{
                 p: 1,
@@ -111,6 +111,18 @@ type ModuleInfo = {
             </Box>
           </Grid>
         ))}
+
+        <Grid xs={2.4}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            <Button variant="solid" color="primary" fullWidth sx={{p:1.5}}>
+                {t('components.moduleDetailView.pubSubmission')}
+            </Button>
+
+            <Button variant="solid" color="primary" fullWidth sx={{p:1.5}}>
+                {t('components.moduleDetailView.retakeRegistration')}
+            </Button>
+            </Box>
+        </Grid>
       </Grid>
 
       <Table>

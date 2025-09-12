@@ -3,9 +3,7 @@
     "home": {
       "buttons": {
         "downloadPerformanceOverview": "Download Performance Overview",
-        "viewExamDates": "View Exam Dates",
-        "pubSubmission": "Submission of Incapacity Certificate",
-        "re-examinationRegistration": "Re-examination Registration"
+        "viewExamDates": "View Exam Dates"
       }
     },
     "weather": {
@@ -54,6 +52,8 @@
     },
     "moduleDetailView":{
       "moduleName": "Module Name",
+      "pubSubmission": "Submission of Incapacity Certificate",
+      "retakeRegistration": "Retake Registration",
       "moduleProperties":{
         "moduleCode": "Module Code",
         "lecturer": "Lecturer",

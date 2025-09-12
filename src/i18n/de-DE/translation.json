@@ -3,9 +3,7 @@
     "home": {
       "buttons": {
         "downloadPerformanceOverview": "Leistungsübersicht herunterladen",
-        "viewExamDates": "Prüfungstermine einsehen",
-        "pubSubmission": "PUB-Abgabe",
-        "re-examinationRegistration": "Nachprüfungsanmeldung"
+        "viewExamDates": "Prüfungstermine einsehen"
       }
     },
     "weather": {
@@ -54,6 +52,8 @@
     },
     "moduleDetailView":{
       "moduleName": "Modulname",
+      "pubSubmission": "PUB-Abgabe",
+      "retakeRegistration": "Nachprüfungsanmeldung",
       "moduleProperties":{
         "moduleCode": "Modulkürzel",
         "lecturer": "Dozent/in",

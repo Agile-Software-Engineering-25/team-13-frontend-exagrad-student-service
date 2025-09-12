@@ -27,17 +27,6 @@ const Home = () => {
           gap: 2,
         }}
       >
-        <Button
-          variant="outlined"
-          onClick={() => setViewRetakeRegistration(true)}
-        >
-          {t('pages.home.buttons.re-examinationRegistration')}
-        </Button>
-
-        <Button variant="outlined" onClick={() => navigate('/weather')}>
-          {t('pages.home.buttons.pubSubmission')}
-        </Button>
-
         <Button variant="outlined" onClick={() => setViewExamDates(true)}>
           {t('pages.home.buttons.viewExamDates')}
         </Button>
