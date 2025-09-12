@@ -68,9 +68,41 @@ type ModuleInfo = {
 
       ]
     },
+    '2':{
+        moduleInfo:
+        {
+            moduleName: "Interkulturelle Kommunikation und heterogene Teams",
+            moduleCode: "IKHT",
+            lecturer: "Frau Prof. Dr. Rieke Engelhardt",
+            creditPoints: 5,
+            grade: 1.0
+        },
+      assessments: [{
+        assessmentTyp: "Präsentation",
+        weight: "50%",
+        grade: 1.0,
+        date: "15.10.2025 11:15 Uhr",
+        requiresSubmission: true
+      },
+      {
+        assessmentTyp: "Gruppenbericht",
+        weight: "50%",
+        grade: 1.0,
+        date: "07.10.2025 23:59 Uhr",
+        requiresSubmission: true
+      },
+      ]
+    },
   };
 
-  const data: ModuleData = mockData['1'];
+  const data: ModuleData = mockData['2'];
+
+  const columnWidths: Record<string, number> = {
+  moduleCode: 1.5,
+  lecturer: 4,
+  creditPoints: 2,
+  grade: 2,
+};
 
 
   return (
@@ -92,7 +124,7 @@ type ModuleInfo = {
 
       <Grid container columnSpacing={4} rowSpacing={5} >
         {moduleProperties.map((key, index) => (
-          <Grid xs={2.4} key={index}>
+          <Grid xs={columnWidths[key]} key={index}>
             <Box
               sx={{
                 p: 1,
@@ -112,7 +144,7 @@ type ModuleInfo = {
           </Grid>
         ))}
 
-        <Grid xs={2.4}>
+        <Grid xs={2.5}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
             <Button variant="solid" color="primary" fullWidth sx={{p:1.5}}>
                 {t('components.moduleDetailView.pubSubmission')}
