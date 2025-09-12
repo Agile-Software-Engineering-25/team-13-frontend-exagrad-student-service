@@ -1,8 +1,9 @@
 import { Box, Grid, Typography } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 
+
 const SemesterOverviewComponent = (props: {
-  setSelectedBox: (id: number | null) => void;
+  setSelectedSemester: (semester: {id: number | null; titleKey: string | null}) => void;
 }) => {
   const { t } = useTranslation();
 
@@ -11,60 +12,29 @@ const SemesterOverviewComponent = (props: {
   const semesterBoxes = [
     {
       id: 1,
-      title: (
-        <Typography>
-          {t(`components.semesterOverview.semesters.firstSemester`)}
-        </Typography>
-      ),
+      title: `components.semesterOverview.semesters.firstSemester`
     },
     {
       id: 2,
-      title: (
-        <Typography>
-          {t(`components.semesterOverview.semesters.secondSemester`)}
-        </Typography>
-      ),
+      title: `components.semesterOverview.semesters.secondSemester`
     },
     {
       id: 3,
-      title: (
-        <Typography>
-          {t(`components.semesterOverview.semesters.thirdSemester`)}
-        </Typography>
-      ),
+      title: `components.semesterOverview.semesters.thirdSemester`
     },
     {
       id: 4,
-      title: (
-        <Typography>
-          {t(`components.semesterOverview.semesters.fourthSemester`)}
-        </Typography>
-      ),
+      title: `components.semesterOverview.semesters.fourthSemester`
     },
     {
       id: 5,
-      title: (
-        <Typography>
-          {t(`components.semesterOverview.semesters.fifthSemester`)}
-        </Typography>
-      ),
+      title: `components.semesterOverview.semesters.fifthSemester`
     },
     {
       id: 6,
-      title: (
-        <Typography>
-          {t(`components.semesterOverview.semesters.sixthSemester`)}
-        </Typography>
-      ),
+      title: `components.semesterOverview.semesters.sixthSemester`
     },
   ];
-
-  //remembers which semesterBox has been clicked and shows the ModuleOverview for that semester, has a "back"-Button to go back to semesterOverview
-  /*if (selectedBox !== null) {
-    const box = semesterBoxes.find((b) => b.id === selectedBox)!;
-
-    );
-  }*/
 
   return (
     <Box
@@ -98,10 +68,10 @@ const SemesterOverviewComponent = (props: {
                   boxShadow: '0px 4px 4px rgba(0,0,0,0.2)',
                 },
               }}
-              onClick={() => props.setSelectedBox(box.id)}
+              onClick={() => props.setSelectedSemester({id: box.id, titleKey: box.title}) }
             >
               <Typography level="h4" sx={{ color: '#002E6D' }}>
-                {box.title}
+                {t(box.title)}
               </Typography>
             </Box>
           </Grid>

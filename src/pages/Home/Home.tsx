@@ -14,7 +14,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [viewExamDates, setViewExamDates] = useState(false);
-  const [selectedBox, setSelectedBox] = useState<number | null>(null);
+  const [selectedSemester, setSelectedSemester] = useState<{id: number | null; titleKey: string | null}>({id: null, titleKey: null});
   const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
 
   return (
@@ -51,13 +51,12 @@ const Home = () => {
 
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
       <>
-        {selectedBox === null ? (
-          <SemesterOverviewComponent setSelectedBox={setSelectedBox} />
+        {selectedSemester.id === null ? (
+          <SemesterOverviewComponent setSelectedSemester={setSelectedSemester} />
         ) : (
           <ModuleOverviewComponent
-            selectedBox={selectedBox}
-            setSelectedBox={setSelectedBox}
-            boxTitle={'actually nen String'}
+            selectedSemester={selectedSemester}
+            setSelectedSemester={setSelectedSemester}
           />
         )}
       </>

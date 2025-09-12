@@ -10,10 +10,14 @@ import {
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'; //npm install @mui/icons-material @mui/material @emotion/styled @emotion/react to make it run
 import { useTranslation } from 'react-i18next';
 
+type Semester = {
+  id: number | null;
+  titleKey: string | null;
+};
+
 const ModuleOverviewComponent = (props: {
-  selectedBox: number;
-  setSelectedBox: (id: null) => void;
-  boxTitle: string;
+  selectedSemester: Semester;
+  setSelectedSemester: React.Dispatch<React.SetStateAction<Semester>>;
 }) => {
   const { t } = useTranslation();
   const semester1MockData: Record<string, SemesterData> = {
@@ -121,7 +125,7 @@ const ModuleOverviewComponent = (props: {
             width: '10',
             height: 5,
           }}
-          onClick={() => props.setSelectedBox(null)}
+          onClick={() => props.setSelectedSemester({id: null, titleKey: null})}
         >
           <Typography level="body-sm" padding={2} sx={{ color: '#FFFFFF' }}>
             {t('components.moduleOverview.buttons.back')}
@@ -129,7 +133,7 @@ const ModuleOverviewComponent = (props: {
         </Button>
       </Box>
       <Typography level="h3" padding={2}>
-        {props.boxTitle}
+        {props.selectedSemester.titleKey}
       </Typography>
       {/*maybe use accordion here? didnt really function tho*/}
       <AccordionGroup
@@ -139,7 +143,7 @@ const ModuleOverviewComponent = (props: {
           flexGrow: 1,
         }}
       >
-        {props.selectedBox === 1
+        {props.selectedSemester.id === 1
           ? Object.values(semester1).map((moduleName, i) => (
               <Accordion key={i}>
                 <AccordionSummary>
@@ -154,7 +158,7 @@ const ModuleOverviewComponent = (props: {
               </Accordion>
             ))
           : null}
-        {props.selectedBox === 2
+        {props.selectedSemester.id === 2
           ? Object.values(semester2).map((moduleName, i) => (
               <Accordion key={i}>
                 <AccordionSummary>
@@ -169,7 +173,7 @@ const ModuleOverviewComponent = (props: {
               </Accordion>
             ))
           : null}
-        {props.selectedBox === 3
+        {props.selectedSemester.id === 3
           ? Object.values(semester3).map((moduleName, i) => (
               <Accordion key={i}>
                 <AccordionSummary>
@@ -184,7 +188,7 @@ const ModuleOverviewComponent = (props: {
               </Accordion>
             ))
           : null}
-        {props.selectedBox === 4
+        {props.selectedSemester.id === 4
           ? Object.values(semester4).map((moduleName, i) => (
               <Accordion key={i}>
                 <AccordionSummary>
@@ -199,7 +203,7 @@ const ModuleOverviewComponent = (props: {
               </Accordion>
             ))
           : null}
-        {props.selectedBox === 5
+        {props.selectedSemester.id === 5
           ? Object.values(semester5).map((moduleName, i) => (
               <Accordion key={i}>
                 <AccordionSummary>
@@ -214,7 +218,7 @@ const ModuleOverviewComponent = (props: {
               </Accordion>
             ))
           : null}
-        {props.selectedBox === 6
+        {props.selectedSemester.id === 6
           ? Object.values(semester6).map((moduleName, i) => (
               <Accordion key={i}>
                 <AccordionSummary>
