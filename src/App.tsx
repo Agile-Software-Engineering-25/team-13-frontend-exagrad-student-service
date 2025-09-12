@@ -5,7 +5,11 @@ import {
   createCustomMuiTheme,
 } from '@agile-software/shared-components';
 import { THEME_ID as MATERIAL_THEME_ID, ThemeProvider } from '@mui/material';
-import { CssBaseline, GlobalStyles, CssVarsProvider as JoyCssVarsProvider } from '@mui/joy';
+import {
+  CssBaseline,
+  GlobalStyles,
+  CssVarsProvider as JoyCssVarsProvider,
+} from '@mui/joy';
 import './i18n';
 import { Provider } from 'react-redux';
 import store from '@stores/index.ts';
@@ -27,7 +31,7 @@ function App({ basename }: AppProps) {
           modeStorageKey="joy-mode"
           colorSchemeStorageKey="joy-color-scheme"
         >
-        <CssBaseline />
+          <CssBaseline />
           <GlobalStyles
             styles={(theme) => ({
               html: {
