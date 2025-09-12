@@ -1,15 +1,10 @@
 import { useState } from 'react';
 import GenericModal from '@components/Modals/GenericModal';
-import { Typography, Select, Option, Box, Button, Sheet, Table } from '@mui/joy';
+import { Box, Button } from '@mui/joy';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import FileDropzone from '@/components/FileDropzone/FileDropzone';
 import { useTranslation } from 'react-i18next';
-
-type Upload = {
-  id?: string | number;
-  name: string;           // filename
-};
 
 type PubUploadModalProps = {
   open: boolean;
@@ -45,19 +40,6 @@ const PubUpload = ({ open, setOpen }: PubUploadModalProps) => {
               types={['PDF', 'PNG', 'JPG']}
               onFileChange={setFile}
             />
-            
-              {/* <Box
-                sx={{
-                  pl: 3,
-                  pr: 3,
-                  pb: 3,
-                  border: '2px solid',
-                  borderColor: 'neutral.outlinedBorder',
-                  borderRadius: 'xl',
-                  minHeight: 50,
-                }}>S
-
-              </Box> */}
 
             <Button sx={{ mt: 2 }} onClick={() => { if (file) FileUploader(file); }} disabled={!file}>{t('components.pubUploadModal.uploadButton')}</Button>
           </Box>
