@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
-import RetakeRegistrationModal from '@/components/Modals/RetakeRegistrationModal/RetakeRegistrationModal';
 import ModuleDetailView from '@/components/ModuleOverview/ModuleDetailView';
 
 const Home = () => {
@@ -13,7 +12,6 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [viewExamDates, setViewExamDates] = useState(false);
-  const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
 
   return (
     <Box sx={{ padding: 2, mx: 'auto', ml: 10, mr: 10 }}>
@@ -37,10 +35,6 @@ const Home = () => {
       </Box>
 
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
-      <RetakeRegistrationModal
-        open={viewRetakeRegistration}
-        setOpen={setViewRetakeRegistration}
-      />
 
       <ModuleDetailView />
 

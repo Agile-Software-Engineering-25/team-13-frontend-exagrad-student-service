@@ -67,6 +67,11 @@
         "date":"Date",
         "submit": "Documents"
       }
+    },
+    "pubSubmissionModal": {
+      "header": "Submission of Incapacity Certificate",
+      "sampleText": "Lorem Ipsum",
+      "submissionButton": "Submit"
     }
   }
 }

@@ -1,9 +1,16 @@
-import { Box, Divider, Table, Typography, Button } from '@mui/joy';
+import { Box, Divider, Table, Typography,Button } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
+import RetakeRegistrationModal from '../Modals/RetakeRegistrationModal/RetakeRegistrationModal';
+import { useState } from 'react';
+import PubSubmissionModal from '../Modals/PubSubmissionModal/PubSubmissionModal';
 
 const ModuleDetailView = () => {
   const { t } = useTranslation();
+  const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
+  const [viewPubSubmission, setViewPubSubmission] = useState(false);
+
+
 
   type Assessment = {
     assessmentTyp: string;
@@ -140,11 +147,23 @@ const ModuleDetailView = () => {
 
         <Grid xs={2.5}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-            <Button variant="solid" color="primary" fullWidth sx={{ p: 1.5 }}>
+            <Button 
+            variant="solid" 
+            color="primary" 
+            fullWidth
+            sx={{ p: 1.5 }}
+            onClick={() => setViewPubSubmission(true)}
+            >
               {t('components.moduleDetailView.pubSubmission')}
             </Button>
 
-            <Button variant="solid" color="primary" fullWidth sx={{ p: 1.5 }}>
+            <Button
+            variant="solid" 
+            color="primary" 
+            fullWidth 
+            sx={{ p: 1.5 }}
+            onClick={() => setViewRetakeRegistration(true)}
+            >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
           </Box>
@@ -179,6 +198,15 @@ const ModuleDetailView = () => {
           ))}
         </tbody>
       </Table>
+
+      <RetakeRegistrationModal
+        open={viewRetakeRegistration}
+        setOpen={setViewRetakeRegistration}
+      />
+      <PubSubmissionModal
+      open={viewPubSubmission}
+      setOpen={setViewPubSubmission}
+      />
     </Box>
   );
 };

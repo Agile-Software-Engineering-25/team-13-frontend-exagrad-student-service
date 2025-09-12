@@ -67,6 +67,11 @@
         "date":"Termin",
         "submit": "Dokumente"
       }
+    },
+    "pubSubmissionModal": {
+      "header": "Abgabe einer Prüfungsunfähigkeitsbescheinigung",
+      "sampleText": "Lorem Ipsum",
+      "submissionButton": "Abgeben"
     }
   }
 }
