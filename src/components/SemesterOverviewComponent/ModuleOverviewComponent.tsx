@@ -125,7 +125,9 @@ const ModuleOverviewComponent = (props: {
             width: '10',
             height: 5,
           }}
-          onClick={() => props.setSelectedSemester({id: null, titleKey: null})}
+          onClick={() =>
+            props.setSelectedSemester({ id: null, titleKey: null })
+          }
         >
           <Typography level="body-sm" padding={2} sx={{ color: '#FFFFFF' }}>
             {t('components.moduleOverview.buttons.back')}
@@ -133,7 +135,9 @@ const ModuleOverviewComponent = (props: {
         </Button>
       </Box>
       <Typography level="h3" padding={2}>
-        {props.selectedSemester.titleKey}
+        {props.selectedSemester.titleKey
+          ? t(props.selectedSemester.titleKey)
+          : ''}
       </Typography>
       {/*maybe use accordion here? didnt really function tho*/}
       <AccordionGroup
