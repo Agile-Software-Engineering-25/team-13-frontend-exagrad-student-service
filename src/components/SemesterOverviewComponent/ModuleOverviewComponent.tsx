@@ -133,7 +133,7 @@ const ModuleOverviewComponent = (props: {
         </Button>
       </Box>
       <Typography level="h3" padding={2}>
-        {props.selectedSemester.titleKey}
+        {props.selectedSemester.titleKey ? t(props.selectedSemester.titleKey) : ''}
       </Typography>
       {/*maybe use accordion here? didnt really function tho*/}
       <AccordionGroup
