@@ -7,10 +7,7 @@ type PubSubmissionModalProps = {
   setOpen: (open: boolean) => void;
 };
 
-const PubSubmissionModal = ({
-  open,
-  setOpen,
-}: PubSubmissionModalProps) => {
+const PubSubmissionModal = ({ open, setOpen }: PubSubmissionModalProps) => {
   const { t } = useTranslation();
 
   return (
@@ -23,11 +20,7 @@ const PubSubmissionModal = ({
       <Typography level="title-md" sx={{ mb: 1 }}>
         {t('components.pubSubmissionModal.sampleText')}
       </Typography>
-      <Button
-        variant="solid"
-        color="primary"
-        sx={{ mt: 2, float: 'right' }}
-      >
+      <Button variant="solid" color="primary" sx={{ mt: 2, float: 'right' }}>
         {t('components.pubSubmissionModal.submissionButton')}
       </Button>
     </GenericModal>

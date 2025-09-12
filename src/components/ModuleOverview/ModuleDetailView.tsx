@@ -1,4 +1,4 @@
-import { Box, Divider, Table, Typography,Button } from '@mui/joy';
+import { Box, Divider, Table, Typography, Button } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
 import RetakeRegistrationModal from '../Modals/RetakeRegistrationModal/RetakeRegistrationModal';
@@ -147,22 +147,22 @@ const ModuleDetailView = () => {
 
         <Grid xs={2.5}>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-            <Button 
-            variant="solid" 
-            color="primary" 
-            fullWidth
-            sx={{ p: 1.5 }}
-            onClick={() => setViewPubSubmission(true)}
+            <Button
+              variant="solid"
+              color="primary"
+              fullWidth
+              sx={{ p: 1.5 }}
+              onClick={() => setViewPubSubmission(true)}
             >
               {t('components.moduleDetailView.pubSubmission')}
             </Button>
 
             <Button
-            variant="solid" 
-            color="primary" 
-            fullWidth 
-            sx={{ p: 1.5 }}
-            onClick={() => setViewRetakeRegistration(true)}
+              variant="solid"
+              color="primary"
+              fullWidth
+              sx={{ p: 1.5 }}
+              onClick={() => setViewRetakeRegistration(true)}
             >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
@@ -190,9 +190,9 @@ const ModuleDetailView = () => {
               <td>
                 {assessment.requiresSubmission && (
                   <Button
-                  size="sm"
-                  variant="soft"
-                  onClick={()=> setViewDocuments(true)}
+                    size="sm"
+                    variant="soft"
+                    onClick={() => setViewDocuments(true)}
                   >
                     {t('components.moduleDetailView.table.submit')}
                   </Button>
@@ -208,13 +208,10 @@ const ModuleDetailView = () => {
         setOpen={setViewRetakeRegistration}
       />
       <PubSubmissionModal
-      open={viewPubSubmission}
-      setOpen={setViewPubSubmission}
+        open={viewPubSubmission}
+        setOpen={setViewPubSubmission}
       />
-      <DocumentModal
-      open={viewDocuments}
-      setOpen={setViewDocuments}
-      />
+      <DocumentModal open={viewDocuments} setOpen={setViewDocuments} />
     </Box>
   );
 };

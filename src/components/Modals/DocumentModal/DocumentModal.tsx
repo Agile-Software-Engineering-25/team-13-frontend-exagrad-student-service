@@ -7,10 +7,7 @@ type DocumentModalProps = {
   setOpen: (open: boolean) => void;
 };
 
-const DocumentModal = ({
-  open,
-  setOpen,
-}: DocumentModalProps) => {
+const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
   const { t } = useTranslation();
 
   return (
@@ -23,11 +20,7 @@ const DocumentModal = ({
       <Typography level="title-md" sx={{ mb: 1 }}>
         {t('components.dokumentModal.sampleText')}
       </Typography>
-      <Button
-        variant="solid"
-        color="primary"
-        sx={{ mt: 2, float: 'right' }}
-      >
+      <Button variant="solid" color="primary" sx={{ mt: 2, float: 'right' }}>
         {t('components.dokumentModal.submissionButton')}
       </Button>
     </GenericModal>
