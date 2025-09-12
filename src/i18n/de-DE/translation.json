@@ -41,12 +41,25 @@
         "date": "Datum"
       }
     },
+<<<<<<< HEAD
     "pubUploadModal": {
       "header": "Prüfungsunfähigkeitsbescheinigung hochladen",
       "description": "Hier kannst du deine Prüfungsunfähigkeitsbescheinigung hochladen. Akzeptierte Dateiformate sind PDF, JPG und PNG.",
       "fileLabel": "Datei auswählen oder hier ablegen",
       "fileHelperText": "Maximale Dateigröße: 5MB",
       "uploadButton": "Hochladen"
+=======
+    "retakeRegistrationModal": {
+      "header": "Nachprüfungsanmeldung",
+      "requiredRetakes": "Erforderliche Nachprüfungstermine",
+      "table": {
+        "code": "Modulkürzel",
+        "lecturer": "Dozent/in",
+        "date": "Datum",
+        "register": "Anmelden"
+      },
+      "registerButton": "Anmelden"
+>>>>>>> main
     }
   }
 }

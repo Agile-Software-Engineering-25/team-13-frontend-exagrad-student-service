@@ -1,4 +1,9 @@
 declare module '@agile-software/shared-components' {
-  export function createCustomJoyTheme(): Record<string, unknown>;
-  export function createCustomMuiTheme(): Record<string, unknown>;
+  import { extendTheme } from '@mui/joy/styles';
+  import { Theme } from '@mui/material/styles';
+
+  export type CustomTheme = ReturnType<typeof extendTheme>;
+
+  export function createCustomJoyTheme(): CustomTheme;
+  export function createCustomMuiTheme(): Theme;
 }
