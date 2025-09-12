@@ -1,4 +1,4 @@
-import { Box, Divider, Table, Typography , Button} from '@mui/joy';
+import { Box, Divider, Table, Typography, Button } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
 
@@ -6,104 +6,96 @@ const ModuleDetailView = () => {
   const { t } = useTranslation();
 
   type Assessment = {
-  assessmentTyp: string;
-  weight: string;
-  grade: number | "N/A";
-  date: string;
-  requiresSubmission: boolean;
+    assessmentTyp: string;
+    weight: string;
+    grade: string | 'N/A';
+    date: string;
+    requiresSubmission: boolean;
+  };
 
-};
-
-type ModuleInfo = {
+  type ModuleInfo = {
     moduleName: string;
     moduleCode: string;
     lecturer: string;
     creditPoints: number;
-    grade: number | "N/A";
-}
+    grade: string | 'N/A';
+  };
 
   interface ModuleData {
     moduleInfo: ModuleInfo;
     assessments: Assessment[];
   }
 
-  const moduleProperties = [
-    'moduleCode',
-    'lecturer',
-    'creditPoints',
-    'grade',
-  ];
+  const moduleProperties = ['moduleCode', 'lecturer', 'creditPoints', 'grade'];
 
   const mockData: Record<string, ModuleData> = {
     '1': {
-        moduleInfo:
+      moduleInfo: {
+        moduleName: 'Agile Software Engineering',
+        moduleCode: 'ASE',
+        lecturer: 'Herr Philipp Ceh',
+        creditPoints: 10,
+        grade: 'N/A',
+      },
+      assessments: [
         {
-            moduleName: "Agile Software Engineering",
-            moduleCode: "ASE",
-            lecturer: "Herr Philipp Ceh",
-            creditPoints: 10,
-            grade: "N/A"
+          assessmentTyp: 'schriftliche Prüfung',
+          weight: '40%',
+          grade: 'N/A',
+          date: '15.10.2025 11:15 Uhr',
+          requiresSubmission: false,
         },
-      assessments: [{
-        assessmentTyp: "schriftliche Prüfung",
-        weight: "40%",
-        grade: "N/A",
-        date: "15.10.2025 11:15 Uhr",
-        requiresSubmission: false
-      },
-      {
-        assessmentTyp: "WAB",
-        weight: "50%",
-        grade: "N/A",
-        date: "07.10.2025 23:59 Uhr",
-        requiresSubmission: true
-      },
-      {
-        assessmentTyp: "Präsentation",
-        weight: "10%",
-        grade: "N/A",
-        date: "17.11.2025 15:00 Uhr",
-        requiresSubmission: true
-      }
-
-      ]
+        {
+          assessmentTyp: 'WAB',
+          weight: '50%',
+          grade: 'N/A',
+          date: '07.10.2025 23:59 Uhr',
+          requiresSubmission: true,
+        },
+        {
+          assessmentTyp: 'Präsentation',
+          weight: '10%',
+          grade: 'N/A',
+          date: '17.11.2025 15:00 Uhr',
+          requiresSubmission: true,
+        },
+      ],
     },
-    '2':{
-        moduleInfo:
+    '2': {
+      moduleInfo: {
+        moduleName: 'Interkulturelle Kommunikation und heterogene Teams',
+        moduleCode: 'IKHT',
+        lecturer: 'Frau Prof. Dr. Rieke Engelhardt',
+        creditPoints: 5,
+        grade: '1.0',
+      },
+      assessments: [
         {
-            moduleName: "Interkulturelle Kommunikation und heterogene Teams",
-            moduleCode: "IKHT",
-            lecturer: "Frau Prof. Dr. Rieke Engelhardt",
-            creditPoints: 5,
-            grade: 1.0
+          assessmentTyp: 'Präsentation',
+          weight: '50%',
+          grade: '1.0',
+          date: '15.10.2025 11:15 Uhr',
+          requiresSubmission: true,
         },
-      assessments: [{
-        assessmentTyp: "Präsentation",
-        weight: "50%",
-        grade: 1.0,
-        date: "15.10.2025 11:15 Uhr",
-        requiresSubmission: true
-      },
-      {
-        assessmentTyp: "Gruppenbericht",
-        weight: "50%",
-        grade: 1.0,
-        date: "07.10.2025 23:59 Uhr",
-        requiresSubmission: true
-      },
-      ]
+        {
+          assessmentTyp: 'Gruppenbericht',
+          weight: '50%',
+          grade: '1.0',
+          date: '07.10.2025 23:59 Uhr',
+          requiresSubmission: true,
+        },
+      ],
     },
   };
 
   const data: ModuleData = mockData['2'];
 
   const columnWidths: Record<string, number> = {
-  moduleCode: 1.5,
-  lecturer: 4,
-  creditPoints: 2,
-  grade: 2,
-};
-
+    moduleCode: 1.5,
+    lecturer: 4,
+    creditPoints: 2,
+    grade: 2,
+  };
 
   return (
     <Box
@@ -119,10 +111,9 @@ type ModuleInfo = {
       <Typography level="title-md" padding={2}>
         {data.moduleInfo.moduleName}
       </Typography>
-        <Divider inset="none" sx={{ marginBottom: 1 }} />
+      <Divider inset="none" sx={{ marginBottom: 1 }} />
 
-
-      <Grid container columnSpacing={4} rowSpacing={5} >
+      <Grid container columnSpacing={4} rowSpacing={5}>
         {moduleProperties.map((key, index) => (
           <Grid xs={columnWidths[key]} key={index}>
             <Box
@@ -133,11 +124,14 @@ type ModuleInfo = {
                 textAlign: 'left',
               }}
             >
-              <Typography level="title-md" sx={{paddingInline: 2, pt:1}}>
+              <Typography level="title-md" sx={{ paddingInline: 2, pt: 1 }}>
                 {data.moduleInfo[key as keyof ModuleInfo]}
               </Typography>
-              <Divider/>
-              <Typography level="body-sm" sx={{paddingBlock:1, paddingInline:2}}>
+              <Divider />
+              <Typography
+                level="body-sm"
+                sx={{ paddingBlock: 1, paddingInline: 2 }}
+              >
                 {t(`components.moduleDetailView.moduleProperties.${key}`)}
               </Typography>
             </Box>
@@ -145,15 +139,15 @@ type ModuleInfo = {
         ))}
 
         <Grid xs={2.5}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-            <Button variant="solid" color="primary" fullWidth sx={{p:1.5}}>
-                {t('components.moduleDetailView.pubSubmission')}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+            <Button variant="solid" color="primary" fullWidth sx={{ p: 1.5 }}>
+              {t('components.moduleDetailView.pubSubmission')}
             </Button>
 
-            <Button variant="solid" color="primary" fullWidth sx={{p:1.5}}>
-                {t('components.moduleDetailView.retakeRegistration')}
+            <Button variant="solid" color="primary" fullWidth sx={{ p: 1.5 }}>
+              {t('components.moduleDetailView.retakeRegistration')}
             </Button>
-            </Box>
+          </Box>
         </Grid>
       </Grid>
 
@@ -176,18 +170,16 @@ type ModuleInfo = {
               <td>{assessment.date}</td>
               <td>
                 {assessment.requiresSubmission && (
-                    <Button size="sm" variant="soft">
+                  <Button size="sm" variant="soft">
                     {t('components.moduleDetailView.table.submit')}
-                    </Button>
+                  </Button>
                 )}
-                </td>
+              </td>
             </tr>
           ))}
         </tbody>
       </Table>
-      
     </Box>
-    
   );
 };
 
