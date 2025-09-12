@@ -96,16 +96,16 @@ type ModuleInfo = {
             <Box
               sx={{
                 p: 1,
-                border: '1px solid',
                 borderColor: 'neutral.outlinedBorder',
                 borderRadius: 'lg',
-                textAlign: 'center',
+                textAlign: 'left',
               }}
             >
-              <Typography level="title-md">
+              <Typography level="title-md" sx={{paddingInline: 2, pt:1}}>
                 {data.moduleInfo[key as keyof ModuleInfo]}
               </Typography>
-              <Typography level="body-sm">
+              <Divider/>
+              <Typography level="body-sm" sx={{paddingBlock:1, paddingInline:2}}>
                 {t(`components.moduleDetailView.moduleProperties.${key}`)}
               </Typography>
             </Box>
