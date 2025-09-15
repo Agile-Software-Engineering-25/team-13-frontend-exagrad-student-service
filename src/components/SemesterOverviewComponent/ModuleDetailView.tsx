@@ -6,96 +6,34 @@ import { useState } from 'react';
 import PubSubmissionModal from '../Modals/PubSubmissionModal/PubSubmissionModal';
 import DocumentModal from '../Modals/DocumentModal/DocumentModal';
 
-const ModuleDetailView = () => {
+type Assessment = {
+  assessmentTyp: string;
+  weight: string;
+  grade: string | 'N/A';
+  date: string;
+  requiresSubmission: boolean;
+};
+
+type ModuleInfo = {
+  moduleName: string;
+  moduleCode: string;
+  lecturer: string;
+  creditPoints: number;
+  grade: string | 'N/A';
+};
+
+interface ModuleData {
+  moduleInfo: ModuleInfo;
+  assessments: Assessment[];
+}
+
+const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
   const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
   const [viewPubSubmission, setViewPubSubmission] = useState(false);
   const [viewDocuments, setViewDocuments] = useState(false);
 
-  type Assessment = {
-    assessmentTyp: string;
-    weight: string;
-    grade: string | 'N/A';
-    date: string;
-    requiresSubmission: boolean;
-  };
-
-  type ModuleInfo = {
-    moduleName: string;
-    moduleCode: string;
-    lecturer: string;
-    creditPoints: number;
-    grade: string | 'N/A';
-  };
-
-  interface ModuleData {
-    moduleInfo: ModuleInfo;
-    assessments: Assessment[];
-  }
-
   const moduleProperties = ['moduleCode', 'lecturer', 'creditPoints', 'grade'];
-
-  const mockData: Record<string, ModuleData> = {
-    '1': {
-      moduleInfo: {
-        moduleName: 'Agile Software Engineering',
-        moduleCode: 'ASE',
-        lecturer: 'Herr Philipp Ceh',
-        creditPoints: 10,
-        grade: 'N/A',
-      },
-      assessments: [
-        {
-          assessmentTyp: 'schriftliche Prüfung',
-          weight: '40%',
-          grade: 'N/A',
-          date: '15.10.2025 11:15 Uhr',
-          requiresSubmission: false,
-        },
-        {
-          assessmentTyp: 'WAB',
-          weight: '50%',
-          grade: 'N/A',
-          date: '07.10.2025 23:59 Uhr',
-          requiresSubmission: true,
-        },
-        {
-          assessmentTyp: 'Präsentation',
-          weight: '10%',
-          grade: 'N/A',
-          date: '17.11.2025 15:00 Uhr',
-          requiresSubmission: true,
-        },
-      ],
-    },
-    '2': {
-      moduleInfo: {
-        moduleName: 'Interkulturelle Kommunikation und heterogene Teams',
-        moduleCode: 'IKHT',
-        lecturer: 'Frau Prof. Dr. Rieke Engelhardt',
-        creditPoints: 5,
-        grade: '1.0',
-      },
-      assessments: [
-        {
-          assessmentTyp: 'Präsentation',
-          weight: '50%',
-          grade: '1.0',
-          date: '15.10.2025 11:15 Uhr',
-          requiresSubmission: true,
-        },
-        {
-          assessmentTyp: 'Gruppenbericht',
-          weight: '50%',
-          grade: '1.0',
-          date: '07.10.2025 23:59 Uhr',
-          requiresSubmission: true,
-        },
-      ],
-    },
-  };
-
-  const data: ModuleData = mockData['2'];
 
   const columnWidths: Record<string, number> = {
     moduleCode: 1.5,
@@ -110,16 +48,8 @@ const ModuleDetailView = () => {
         pl: 3,
         pr: 3,
         pb: 3,
-        border: '2px solid',
-        borderColor: 'neutral.outlinedBorder',
-        borderRadius: 'xl',
       }}
     >
-      <Typography level="title-md" padding={2}>
-        {data.moduleInfo.moduleName}
-      </Typography>
-      <Divider inset="none" sx={{ marginBottom: 1 }} />
-
       <Grid container columnSpacing={4} rowSpacing={5}>
         {moduleProperties.map((key, index) => (
           <Grid xs={columnWidths[key]} key={index}>
@@ -132,7 +62,7 @@ const ModuleDetailView = () => {
               }}
             >
               <Typography level="title-md" sx={{ paddingInline: 2, pt: 1 }}>
-                {data.moduleInfo[key as keyof ModuleInfo]}
+                {props.selectedModuleData.moduleInfo[key as keyof ModuleInfo]}
               </Typography>
               <Divider />
               <Typography
@@ -181,25 +111,27 @@ const ModuleDetailView = () => {
           </tr>
         </thead>
         <tbody>
-          {data.assessments.map((assessment: Assessment, idx: number) => (
-            <tr key={idx}>
-              <td>{assessment.assessmentTyp}</td>
-              <td>{assessment.weight}</td>
-              <td>{assessment.grade}</td>
-              <td>{assessment.date}</td>
-              <td>
-                {assessment.requiresSubmission && (
-                  <Button
-                    size="sm"
-                    variant="soft"
-                    onClick={() => setViewDocuments(true)}
-                  >
-                    {t('components.moduleDetailView.table.submit')}
-                  </Button>
-                )}
-              </td>
-            </tr>
-          ))}
+          {props.selectedModuleData.assessments.map(
+            (assessment: Assessment, idx: number) => (
+              <tr key={idx}>
+                <td>{assessment.assessmentTyp}</td>
+                <td>{assessment.weight}</td>
+                <td>{assessment.grade}</td>
+                <td>{assessment.date}</td>
+                <td>
+                  {assessment.requiresSubmission && (
+                    <Button
+                      size="sm"
+                      variant="soft"
+                      onClick={() => setViewDocuments(true)}
+                    >
+                      {t('components.moduleDetailView.table.submit')}
+                    </Button>
+                  )}
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </Table>
 

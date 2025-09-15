@@ -7,7 +7,6 @@ import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader'
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
-import ModuleDetailView from '@/components/ModuleOverview/ModuleDetailView';
 import TmpThemeSelectorComponent from '@/components/TmpThemeSelectorComponent/TmpThemeSelectorComponent';
 
 const Home = () => {
@@ -19,7 +18,6 @@ const Home = () => {
     id: number | null;
     titleKey: string | null;
   }>({ id: null, titleKey: null });
-  const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
 
   return (
     <Box sx={{ paddingInline: 30, paddingBlock: 2, mx: 'auto' }}>
@@ -55,9 +53,6 @@ const Home = () => {
           />
         )}
       </Box>
-
-      <ModuleDetailView />
-
       <TmpThemeSelectorComponent />
       <LanguageSelectorComponent />
     </Box>

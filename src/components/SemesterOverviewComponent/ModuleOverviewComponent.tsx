@@ -9,91 +9,391 @@ import {
 } from '@mui/joy';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from 'react-i18next';
+import ModuleDetailView from './ModuleDetailView';
 
 type Semester = {
   id: number | null;
   titleKey: string | null;
 };
 
+type Assessment = {
+  assessmentTyp: string;
+  weight: string;
+  grade: string | 'N/A';
+  date: string;
+  requiresSubmission: boolean;
+};
+
+type ModuleInfo = {
+  moduleName: string;
+  moduleCode: string;
+  lecturer: string;
+  creditPoints: number;
+  grade: string | 'N/A';
+};
+
+interface ModuleData {
+  moduleInfo: ModuleInfo;
+  assessments: Assessment[];
+}
+
+type SemesterData = Record<string, ModuleData>;
+
 const ModuleOverviewComponent = (props: {
   selectedSemester: Semester;
   setSelectedSemester: React.Dispatch<React.SetStateAction<Semester>>;
 }) => {
   const { t } = useTranslation();
-  const semester1MockData: Record<string, SemesterData> = {
-    '1': {
-      name: 'Mathematik 1',
-      name2: 'Sprachkompetenz Englisch',
-      name3: 'Grundlagen der Informatik',
-      name4: 'Lerntechniken und wissenschaftliches Arbeiten',
-      name5: 'Programmierung',
+
+  const semesterMockData: Record<number, SemesterData> = {
+    1: {
+      '1': {
+        moduleInfo: {
+          moduleName: 'Mathematik 1',
+          moduleCode: 'MATH1',
+          lecturer: 'Prof. Müller',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '2': {
+        moduleInfo: {
+          moduleName: 'Sprachkompetenz Englisch',
+          moduleCode: 'ENG1',
+          lecturer: 'Dr. Schmidt',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '3': {
+        moduleInfo: {
+          moduleName: 'Grundlagen der Informatik',
+          moduleCode: 'INFO1',
+          lecturer: 'Prof. Weber',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '4': {
+        moduleInfo: {
+          moduleName: 'Lerntechniken und wissenschaftliches Arbeiten',
+          moduleCode: 'LWA',
+          lecturer: 'Dr. Hoffmann',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '5': {
+        moduleInfo: {
+          moduleName: 'Programmierung',
+          moduleCode: 'PROG1',
+          lecturer: 'Prof. Fischer',
+          creditPoints: 10,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+    },
+
+    2: {
+      '1': {
+        moduleInfo: {
+          moduleName: 'Algorithmen und Datenstrukturen',
+          moduleCode: 'ADS',
+          lecturer: 'Prof. Keller',
+          creditPoints: 10,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '2': {
+        moduleInfo: {
+          moduleName: 'Fortgeschrittene Programmierung',
+          moduleCode: 'PROG2',
+          lecturer: 'Dr. Lange',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '3': {
+        moduleInfo: {
+          moduleName: 'Kommunikationskompetenz',
+          moduleCode: 'KOMM',
+          lecturer: 'Dr. Lehmann',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '4': {
+        moduleInfo: {
+          moduleName: 'Mathematik 2',
+          moduleCode: 'MATH2',
+          lecturer: 'Prof. Schneider',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '5': {
+        moduleInfo: {
+          moduleName: 'Theoretische Informatik',
+          moduleCode: 'TI',
+          lecturer: 'Prof. Braun',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+    },
+
+    3: {
+      '1': {
+        moduleInfo: {
+          moduleName: 'Betriebssysteme',
+          moduleCode: 'OS',
+          lecturer: 'Prof. Schulz',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '2': {
+        moduleInfo: {
+          moduleName: 'Datenmodellierung und Datenbanken',
+          moduleCode: 'DB',
+          lecturer: 'Dr. Zimmermann',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '3': {
+        moduleInfo: {
+          moduleName: 'Informationssicherheit',
+          moduleCode: 'SEC',
+          lecturer: 'Prof. Richter',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '4': {
+        moduleInfo: {
+          moduleName: 'Netze und verteilte Systeme',
+          moduleCode: 'NET',
+          lecturer: 'Dr. Wolf',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '5': {
+        moduleInfo: {
+          moduleName: 'Projektmanagement',
+          moduleCode: 'PM',
+          lecturer: 'Dr. Becker',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+    },
+
+    4: {
+      '1': {
+        moduleInfo: {
+          moduleName: 'Agile Software Engineering und Softwaretechnik',
+          moduleCode: 'ASE',
+          lecturer: 'Herr Philipp Ceh',
+          creditPoints: 10,
+          grade: 'N/A',
+        },
+        assessments: [
+          {
+            assessmentTyp: 'schriftliche Prüfung',
+            weight: '40%',
+            grade: 'N/A',
+            date: '15.10.2025 11:15 Uhr',
+            requiresSubmission: false,
+          },
+          {
+            assessmentTyp: 'WAB',
+            weight: '50%',
+            grade: 'N/A',
+            date: '07.10.2025 23:59 Uhr',
+            requiresSubmission: true,
+          },
+          {
+            assessmentTyp: 'Präsentation',
+            weight: '10%',
+            grade: 'N/A',
+            date: '17.11.2025 15:00 Uhr',
+            requiresSubmission: true,
+          },
+        ],
+      },
+      '2': {
+        moduleInfo: {
+          moduleName: 'Data Analytics & Big Data',
+          moduleCode: 'DABD',
+          lecturer: 'Dr. Wagner',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '3': {
+        moduleInfo: {
+          moduleName: 'Human-Computer-Interaction',
+          moduleCode: 'HCI',
+          lecturer: 'Dr. Franke',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '4': {
+        moduleInfo: {
+          moduleName: 'Interkulturelle Kommunikation und heterogene Teams',
+          moduleCode: 'IKHT',
+          lecturer: 'Frau Prof. Dr. Rieke Engelhardt',
+          creditPoints: 5,
+          grade: '1.0',
+        },
+        assessments: [
+          {
+            assessmentTyp: 'Präsentation',
+            weight: '50%',
+            grade: '1.0',
+            date: '15.10.2025 11:15 Uhr',
+            requiresSubmission: true,
+          },
+          {
+            assessmentTyp: 'Gruppenbericht',
+            weight: '50%',
+            grade: '1.0',
+            date: '07.10.2025 23:59 Uhr',
+            requiresSubmission: true,
+          },
+        ],
+      },
+      '5': {
+        moduleInfo: {
+          moduleName: 'Technische Informatik und Rechnerarchitekturen und XAAS',
+          moduleCode: 'TIRA',
+          lecturer: 'Prof. Krüger',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+    },
+
+    5: {
+      '1': {
+        moduleInfo: {
+          moduleName: 'Betriebswirtschaftslehre und IT-Service-Management',
+          moduleCode: 'BWLIT',
+          lecturer: 'Dr. Peters',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '2': {
+        moduleInfo: {
+          moduleName: 'Künstliche Intelligenz und Maschinelles Lernen',
+          moduleCode: 'KIML',
+          lecturer: 'Prof. Neumann',
+          creditPoints: 10,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '3': {
+        moduleInfo: {
+          moduleName: 'Software Anwendungsarchitekturen und Microservice APIs',
+          moduleCode: 'SAAM',
+          lecturer: 'Dr. Groß',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '4': {
+        moduleInfo: {
+          moduleName: 'Projektpraktikum',
+          moduleCode: 'PRAK',
+          lecturer: 'Prof. Sommer',
+          creditPoints: 10,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '5': {
+        moduleInfo: {
+          moduleName: 'Wahlpflichtmodul: Mobile Anwendungen',
+          moduleCode: 'MOBAPP',
+          lecturer: 'Dr. Klein',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+    },
+
+    6: {
+      '1': {
+        moduleInfo: {
+          moduleName: 'Bachelor-Thesis',
+          moduleCode: 'BA',
+          lecturer: 'Betreuer: nach Wahl',
+          creditPoints: 15,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '2': {
+        moduleInfo: {
+          moduleName: 'Präsentation zur Bachelor-Thesis',
+          moduleCode: 'BA-PRES',
+          lecturer: 'Betreuer: nach Wahl',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '3': {
+        moduleInfo: {
+          moduleName:
+            'New Trends in IT und Management der Digitalen Transformation',
+          moduleCode: 'NTIT',
+          lecturer: 'Dr. Vogel',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
+      '4': {
+        moduleInfo: {
+          moduleName: 'Recht und Datenschutz',
+          moduleCode: 'LAW',
+          lecturer: 'Prof. Schwarz',
+          creditPoints: 5,
+          grade: 'N/A',
+        },
+        assessments: [],
+      },
     },
   };
 
-  const semester2MockData: Record<string, SemesterData> = {
-    '1': {
-      name: 'Algorithmen und Datenstrukturen',
-      name2: 'Fortgeschrittene Programmierung',
-      name3: 'Kommunikationskompetenz',
-      name4: 'Mathematik 2',
-      name5: 'Theoretische Informatik',
-    },
-  };
-
-  const semester3MockData: Record<string, SemesterData> = {
-    '1': {
-      name: 'Betriebssysteme',
-      name2: 'Datenmodellierung und Datenbanken',
-      name3: 'Informationssicherheit',
-      name4: 'Netze und verteilte Systeme',
-      name5: 'Projektmanagement',
-    },
-  };
-
-  const semester4MockData: Record<string, SemesterData> = {
-    '1': {
-      name: 'Agile Software Engineering und Softwaretechnik',
-      name2: 'Data Analytics & Big Data',
-      name3: 'Human-Computer-Interaction',
-      name4: 'Interkulturelle Kommunikation und heterogene Teams',
-      name5: 'Technische Informatik und Rechnerarchitekturen und XAAS',
-    },
-  };
-
-  const semester5MockData: Record<string, SemesterData> = {
-    '1': {
-      name: 'Betriebswirtschaftslehre und IT-Service-Management',
-      name2: 'Künstliche Intelligenz und Maschinelles Lernen',
-      name3: 'Software Anwendungsarchitekturen und Microservice APIs',
-      name4: 'Projektpraktikum',
-      name5: 'Wahlpflichtmodul: Mobile Anwendungen',
-    },
-  };
-
-  const semester6MockData: Record<string, SemesterData> = {
-    '1': {
-      name: 'Bachelor-Thesis',
-      name2: 'Präsentation zur Bachelor-Thesis',
-      name3: 'New Trends in IT und Management der Digitalen Transformation',
-      name4: 'Recht und Datenschutz',
-      name5: 'empty',
-    },
-  };
-
-  const semester1 = semester1MockData['1'];
-  const semester2 = semester2MockData['1'];
-  const semester3 = semester3MockData['1'];
-  const semester4 = semester4MockData['1'];
-  const semester5 = semester5MockData['1'];
-  const semester6 = semester6MockData['1'];
-
-  interface SemesterData {
-    name: string;
-    name2: string;
-    name3: string;
-    name4: string;
-    name5: string;
-  }
+  const currentSemester = semesterMockData[props.selectedSemester.id ?? 0];
 
   return (
     <Box
@@ -147,97 +447,20 @@ const ModuleOverviewComponent = (props: {
           flexGrow: 1,
         }}
       >
-        {props.selectedSemester.id === 1
-          ? Object.values(semester1).map((moduleName, i) => (
-              <Accordion key={i}>
-                <AccordionSummary>
-                  <Typography level="h4" sx={{ color: '#00122B' }}>
-                    {moduleName}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </AccordionDetails>
-              </Accordion>
-            ))
-          : null}
-        {props.selectedSemester.id === 2
-          ? Object.values(semester2).map((moduleName, i) => (
-              <Accordion key={i}>
-                <AccordionSummary>
-                  <Typography level="h4" sx={{ color: '#00122B' }}>
-                    {moduleName}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </AccordionDetails>
-              </Accordion>
-            ))
-          : null}
-        {props.selectedSemester.id === 3
-          ? Object.values(semester3).map((moduleName, i) => (
-              <Accordion key={i}>
-                <AccordionSummary>
-                  <Typography level="h4" sx={{ color: '#00122B' }}>
-                    {moduleName}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </AccordionDetails>
-              </Accordion>
-            ))
-          : null}
-        {props.selectedSemester.id === 4
-          ? Object.values(semester4).map((moduleName, i) => (
-              <Accordion key={i}>
-                <AccordionSummary>
-                  <Typography level="h4" sx={{ color: '#00122B' }}>
-                    {moduleName}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </AccordionDetails>
-              </Accordion>
-            ))
-          : null}
-        {props.selectedSemester.id === 5
-          ? Object.values(semester5).map((moduleName, i) => (
-              <Accordion key={i}>
-                <AccordionSummary>
-                  <Typography level="h4" sx={{ color: '#00122B' }}>
-                    {moduleName}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </AccordionDetails>
-              </Accordion>
-            ))
-          : null}
-        {props.selectedSemester.id === 6
-          ? Object.values(semester6).map((moduleName, i) => (
-              <Accordion key={i}>
-                <AccordionSummary>
-                  <Typography level="h4" sx={{ color: '#00122B' }}>
-                    {moduleName}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </AccordionDetails>
-              </Accordion>
-            ))
-          : null}
-      </AccordionGroup>
+        {currentSemester &&
+          Object.values(currentSemester).map((moduleData, i) => (
+            <Accordion key={i}>
+              <AccordionSummary>
+                <Typography level="h4" sx={{ color: '#00122B' }}>
+                  {moduleData.moduleInfo.moduleName}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <ModuleDetailView selectedModuleData={moduleData} />
+              </AccordionDetails>
+            </Accordion>
+          ))}
+      </AccordionGroup>{' '}
     </Box>
   );
 };
