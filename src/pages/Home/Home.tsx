@@ -9,6 +9,7 @@ import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
 import RetakeRegistrationModal from '@/components/Modals/RetakeRegistrationModal/RetakeRegistrationModal';
 import TmpThemeSelectorComponent from '@/components/TmpThemeSelectorComponent/TmpThemeSelectorComponent';
+import PubUploadModal from '@/components/Modals/PubUploadModal/PubUploadModal';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ const Home = () => {
     titleKey: string | null;
   }>({ id: null, titleKey: null });
   const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
+  const [viewPubUpload, setViewPubUpload] = useState(false);
 
   return (
     <Box sx={{ paddingInline: 30, paddingBlock: 2, mx: 'auto' }}>
@@ -39,11 +41,9 @@ const Home = () => {
         >
           {t('pages.home.buttons.re-examinationRegistration')}
         </Button>
-
-        <Button variant="outlined" onClick={() => navigate('/weather')}>
+        <Button variant="outlined" onClick={() => setViewPubUpload(true)}>
           {t('pages.home.buttons.pubSubmission')}
         </Button>
-
         <Button variant="outlined" onClick={() => setViewExamDates(true)}>
           {t('pages.home.buttons.viewExamDates')}
         </Button>
@@ -70,7 +70,7 @@ const Home = () => {
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
       />
-
+      <PubUploadModal open={viewPubUpload} setOpen={setViewPubUpload} />
       <TmpThemeSelectorComponent />
       <LanguageSelectorComponent />
     </Box>

@@ -41,6 +41,11 @@
         "date": "Datum"
       }
     },
+    "pubUploadModal": {
+      "header": "Prüfungsunfähigkeitsbescheinigung hochladen",
+      "fileLabel": "Datei auswählen oder hier ablegen",
+      "uploadButton": "Hochladen"
+    },
     "semesterOverview": {
       "title": "Semesterüberblick",
       "semesters": {
