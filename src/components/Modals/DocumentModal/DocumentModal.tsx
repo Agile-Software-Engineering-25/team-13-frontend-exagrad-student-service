@@ -1,4 +1,4 @@
-import { Typography, Button } from '@mui/joy';
+import { Typography, Button, Box } from '@mui/joy';
 import GenericModal from '@components/Modals/GenericModal';
 import { useTranslation } from 'react-i18next';
 
@@ -17,9 +17,18 @@ const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
       setOpen={setOpen}
       modalDialogSX={{ minWidth: '700px' }}
     >
-      <Typography level="title-md" sx={{ mb: 1 }}>
-        {t('components.dokumentModal.sampleText')}
-      </Typography>
+      <Box>
+        <Box>
+          <Typography level='title-md'>
+            {t('components.dokumentModal.uploadFiles')}
+          </Typography>
+        </Box>
+        <Box>
+          <Typography level='title-md'>
+            {t('components.dokumentModal.lecturerFiles')}
+          </Typography>
+        </Box>
+      </Box>
       <Button variant="solid" color="primary" sx={{ mt: 2, float: 'right' }}>
         {t('components.dokumentModal.submissionButton')}
       </Button>

@@ -64,7 +64,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
               </Typography>
               <Divider />
               <Typography
-                level="body-sm"
+                level="body-md"
                 sx={{ paddingBlock: 1, paddingInline: 2 }}
               >
                 {t(`components.moduleDetailView.moduleProperties.${key}`)}
