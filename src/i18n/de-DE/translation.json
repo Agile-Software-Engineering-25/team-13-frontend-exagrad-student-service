@@ -46,6 +46,22 @@
       "fileLabel": "Datei auswählen oder hier ablegen",
       "uploadButton": "Hochladen"
     },
+    "semesterOverview": {
+      "title": "Semesterüberblick",
+      "semesters": {
+        "firstSemester": "Semester 1",
+        "secondSemester": "Semester 2",
+        "thirdSemester": "Semester 3",
+        "fourthSemester": "Semester 4",
+        "fifthSemester": "Semester 5",
+        "sixthSemester": "Semester 6"
+      }
+    },
+    "moduleOverview": {
+      "buttons": {
+        "back": "Zurück zur Semesterübersicht"
+      }
+    },
     "retakeRegistrationModal": {
       "header": "Nachprüfungsanmeldung",
       "requiredRetakes": "Erforderliche Nachprüfungstermine",

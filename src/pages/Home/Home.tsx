@@ -4,8 +4,11 @@ import LanguageSelectorComponent from '@components/LanguageSelectorComponent/Lan
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
+import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
+import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
 import RetakeRegistrationModal from '@/components/Modals/RetakeRegistrationModal/RetakeRegistrationModal';
+import TmpThemeSelectorComponent from '@/components/TmpThemeSelectorComponent/TmpThemeSelectorComponent';
 import PubUploadModal from '@/components/Modals/PubUploadModal/PubUploadModal';
 
 const Home = () => {
@@ -13,11 +16,15 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [viewExamDates, setViewExamDates] = useState(false);
+  const [selectedSemester, setSelectedSemester] = useState<{
+    id: number | null;
+    titleKey: string | null;
+  }>({ id: null, titleKey: null });
   const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
   const [viewPubUpload, setViewPubUpload] = useState(false);
 
   return (
-    <Box sx={{ padding: 2, mx: 'auto', ml: 10, mr: 10 }}>
+    <Box sx={{ paddingInline: 30, paddingBlock: 2, mx: 'auto' }}>
       <StudentInfoHeader />
 
       <Box
@@ -47,11 +54,24 @@ const Home = () => {
       </Box>
 
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
+      <Box sx={{ mt: 4 }}>
+        {selectedSemester.id === null ? (
+          <SemesterOverviewComponent
+            setSelectedSemester={setSelectedSemester}
+          />
+        ) : (
+          <ModuleOverviewComponent
+            selectedSemester={selectedSemester}
+            setSelectedSemester={setSelectedSemester}
+          />
+        )}
+      </Box>
       <RetakeRegistrationModal
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
       />
       <PubUploadModal open={viewPubUpload} setOpen={setViewPubUpload} />
+      <TmpThemeSelectorComponent />
       <LanguageSelectorComponent />
     </Box>
   );
