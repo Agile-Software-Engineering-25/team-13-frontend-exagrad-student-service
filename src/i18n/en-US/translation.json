@@ -43,9 +43,7 @@
     },
     "pubUploadModal": {
       "header": "Upload Incapacity Certificate",
-      "description": "Here you can upload your incapacity certificate. Accepted file formats are PDF, JPG, and PNG.",
       "fileLabel": "Select file or drop it here",
-      "fileHelperText": "Maximum file size: 5MB",
       "uploadButton": "Upload"
     },
     "retakeRegistrationModal": {
