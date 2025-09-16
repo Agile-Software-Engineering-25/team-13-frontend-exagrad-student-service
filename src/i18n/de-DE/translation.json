@@ -50,11 +50,6 @@
         "sixthSemester": "Semester 6"
       }
     },
-    "moduleOverview": {
-      "buttons": {
-        "back": "Zurück zur Semesterübersicht"
-      }
-    },
     "retakeRegistrationModal": {
       "header": "Nachprüfungsanmeldung",
       "requiredRetakes": "Erforderliche Nachprüfungstermine",

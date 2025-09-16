@@ -50,11 +50,6 @@
         "sixthSemester": "Semester 6"
       }
     },
-    "moduleOverview": {
-      "buttons": {
-        "back": "Back to Semester Overview"
-      }
-    },
     "retakeRegistrationModal": {
       "header": "Re-examination Registration",
       "requiredRetakes": "Required Re-examination Dates",

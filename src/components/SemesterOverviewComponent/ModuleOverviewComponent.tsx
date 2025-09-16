@@ -1,11 +1,11 @@
 import {
   Box,
   Typography,
-  Button,
   AccordionGroup,
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  IconButton,
 } from '@mui/joy';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from 'react-i18next';
@@ -411,34 +411,31 @@ const ModuleOverviewComponent = (props: {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'flex-end',
+          justifyContent: 'flex-start',
           pt: '8px',
+          alignItems: 'center',
         }}
       >
-        {/*make it be on same line as Kasten-Überschrift*/}
-        {/*Anpassen wenn shared components*/}
-        <Button
-          //add padding somehow, button isnt correctly styled either
-          startDecorator={<ArrowBackIosNewIcon />}
+        <IconButton
           size="md"
-          sx={{
-            width: '10',
-            height: 5,
-          }}
           onClick={() =>
             props.setSelectedSemester({ id: null, titleKey: null })
           }
+          variant="solid"
+          color="primary"
+          sx={{
+            width: 40,
+            height: 40,
+          }}
         >
-          <Typography level="body-sm" padding={2} sx={{ color: '#FFFFFF' }}>
-            {t('components.moduleOverview.buttons.back')}
-          </Typography>
-        </Button>
+          <ArrowBackIosNewIcon fontSize="small" />
+        </IconButton>
+        <Typography level="h3" padding={2}>
+          {props.selectedSemester.titleKey
+            ? t(props.selectedSemester.titleKey)
+            : ''}
+        </Typography>
       </Box>
-      <Typography level="h3" padding={2}>
-        {props.selectedSemester.titleKey
-          ? t(props.selectedSemester.titleKey)
-          : ''}
-      </Typography>
       {/*maybe use accordion here? didnt really function tho*/}
       <AccordionGroup
         sx={{
