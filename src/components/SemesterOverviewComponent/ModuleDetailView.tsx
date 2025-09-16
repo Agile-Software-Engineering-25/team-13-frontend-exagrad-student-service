@@ -45,9 +45,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   return (
     <Box
       sx={{
-        pl: 3,
-        pr: 3,
-        pb: 3,
+        p:3
       }}
     >
       <Grid container columnSpacing={4} rowSpacing={5}>
