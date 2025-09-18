@@ -62,12 +62,11 @@ const StudentInfoHeader = () => {
         pl: 3,
         pr: 3,
         pb: 3,
-        border: '2px solid',
-        borderColor: 'neutral.outlinedBorder',
-        borderRadius: 'xl',
+        background: '#F3F8FF',
+        borderRadius: 30,
       }}
     >
-      <Typography level="h3" padding={2}>
+      <Typography level="h3" padding={2} sx={{ color: '#00122B' }}>
         {t('components.studentInfoHeader.title')}
       </Typography>
 
@@ -77,16 +76,16 @@ const StudentInfoHeader = () => {
             <Box
               sx={{
                 p: 1,
-                border: '1px solid',
-                borderColor: 'neutral.outlinedBorder',
-                borderRadius: 'lg',
+                background: '#FFFFFF',
+                border: '2px solid #C2CAD5',
+                borderRadius: 14,
                 textAlign: 'center',
               }}
             >
-              <Typography level="title-md">
+              <Typography level="title-md" sx={{ color: '#00122B' }}>
                 {formatValue(student[key as keyof StudentData])}
               </Typography>
-              <Typography level="body-sm">
+              <Typography level="body-sm" sx={{ color: '#314055' }}>
                 {t(`components.studentInfoHeader.${key}`)}
               </Typography>
             </Box>
