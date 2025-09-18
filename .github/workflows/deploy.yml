@@ -2,7 +2,7 @@ name: Build and Deploy to MinIO
 
 on:
   push:
-    branches: [ "**" ]
+    branches: [ "**" ] #test
   workflow_dispatch: # Allow manual triggering
 
 jobs:
