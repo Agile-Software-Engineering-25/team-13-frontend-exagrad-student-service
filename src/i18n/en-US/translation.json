@@ -39,6 +39,11 @@
         "date": "Date"
       }
     },
+    "pubUploadModal": {
+      "header": "Upload Incapacity Certificate",
+      "fileLabel": "Select file or drop it here",
+      "uploadButton": "Upload"
+    },
     "semesterOverview":{
       "title": "Semester Overview",
       "semesters": {
