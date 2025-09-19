@@ -1,5 +1,4 @@
-import { Box, Divider, Typography, Button } from '@mui/joy';
-import Grid from '@mui/joy/Grid';
+import { Box, Divider, Typography, Button, Grid } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import RetakeRegistrationModal from '../Modals/RetakeRegistrationModal/RetakeRegistrationModal';
 import { useState } from 'react';
