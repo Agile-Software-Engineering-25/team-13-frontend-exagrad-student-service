@@ -3,8 +3,8 @@ import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
 import RetakeRegistrationModal from '../Modals/RetakeRegistrationModal/RetakeRegistrationModal';
 import { useState } from 'react';
-import PubSubmissionModal from '../Modals/PubSubmissionModal/PubSubmissionModal';
 import DocumentModal from '../Modals/DocumentModal/DocumentModal';
+import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
 
 type Assessment = {
   assessmentTyp: string;
@@ -137,7 +137,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
       />
-      <PubSubmissionModal
+      <PubUploadModal
         open={viewPubSubmission}
         setOpen={setViewPubSubmission}
       />
