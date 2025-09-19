@@ -1,0 +1,72 @@
+import { Box, Table, Button } from '@mui/joy';
+import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import DocumentModal from '../Modals/DocumentModal/DocumentModal';
+
+type Assessment = {
+  assessmentTyp: string;
+  weight: string;
+  grade: string | 'N/A';
+  date: string;
+  requiresSubmission: boolean;
+};
+
+type ModuleInfo = {
+  moduleName: string;
+  moduleCode: string;
+  lecturer: string;
+  creditPoints: number;
+  grade: string | 'N/A';
+};
+
+interface ModuleData {
+  moduleInfo: ModuleInfo;
+  assessments: Assessment[];
+}
+
+const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
+  const { t } = useTranslation();
+  const [viewDocuments, setViewDocuments] = useState(false);
+
+  return (
+    <Box>
+      <Table>
+        <thead>
+          <tr>
+            <th>{t('components.moduleDetailView.table.assessment')}</th>
+            <th>{t('components.moduleDetailView.table.weight')}</th>
+            <th>{t('components.moduleDetailView.table.grade')}</th>
+            <th>{t('components.moduleDetailView.table.date')}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.selectedModuleData.assessments.map(
+            (assessment: Assessment, idx: number) => (
+              <tr key={idx}>
+                <td>{assessment.assessmentTyp}</td>
+                <td>{assessment.weight}</td>
+                <td>{assessment.grade}</td>
+                <td>{assessment.date}</td>
+                <td>
+                  {assessment.requiresSubmission && (
+                    <Button
+                      size="sm"
+                      variant="soft"
+                      onClick={() => setViewDocuments(true)}
+                    >
+                      {t('components.moduleDetailView.table.submit')}
+                    </Button>
+                  )}
+                </td>
+              </tr>
+            )
+          )}
+        </tbody>
+      </Table>
+      <DocumentModal open={viewDocuments} setOpen={setViewDocuments} />
+    </Box>
+  );
+};
+
+export default AssessmentTable;

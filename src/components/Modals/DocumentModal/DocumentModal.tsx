@@ -60,7 +60,7 @@ const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
               width: '100%',
             }}
           >
-            <FileDropzone/>
+            <FileDropzone />
             {files.map((file, index) => (
               <Sheet
                 key={index}

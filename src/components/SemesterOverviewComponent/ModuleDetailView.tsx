@@ -1,10 +1,10 @@
-import { Box, Divider, Table, Typography, Button } from '@mui/joy';
+import { Box, Divider, Typography, Button } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
 import RetakeRegistrationModal from '../Modals/RetakeRegistrationModal/RetakeRegistrationModal';
 import { useState } from 'react';
-import DocumentModal from '../Modals/DocumentModal/DocumentModal';
 import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
+import AssessmentTable from './AssessmentTable';
 
 type Assessment = {
   assessmentTyp: string;
@@ -31,7 +31,6 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
   const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
   const [viewPubSubmission, setViewPubSubmission] = useState(false);
-  const [viewDocuments, setViewDocuments] = useState(false);
 
   const moduleProperties = ['moduleCode', 'lecturer', 'creditPoints', 'grade'];
 
@@ -98,50 +97,13 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
         </Grid>
       </Grid>
 
-      <Table>
-        <thead>
-          <tr>
-            <th>{t('components.moduleDetailView.table.assessment')}</th>
-            <th>{t('components.moduleDetailView.table.weight')}</th>
-            <th>{t('components.moduleDetailView.table.grade')}</th>
-            <th>{t('components.moduleDetailView.table.date')}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.selectedModuleData.assessments.map(
-            (assessment: Assessment, idx: number) => (
-              <tr key={idx}>
-                <td>{assessment.assessmentTyp}</td>
-                <td>{assessment.weight}</td>
-                <td>{assessment.grade}</td>
-                <td>{assessment.date}</td>
-                <td>
-                  {assessment.requiresSubmission && (
-                    <Button
-                      size="sm"
-                      variant="soft"
-                      onClick={() => setViewDocuments(true)}
-                    >
-                      {t('components.moduleDetailView.table.submit')}
-                    </Button>
-                  )}
-                </td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </Table>
+      <AssessmentTable selectedModuleData={props.selectedModuleData} />
 
       <RetakeRegistrationModal
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
       />
-      <PubUploadModal
-        open={viewPubSubmission}
-        setOpen={setViewPubSubmission}
-      />
-      <DocumentModal open={viewDocuments} setOpen={setViewDocuments} />
+      <PubUploadModal open={viewPubSubmission} setOpen={setViewPubSubmission} />
     </Box>
   );
 };
