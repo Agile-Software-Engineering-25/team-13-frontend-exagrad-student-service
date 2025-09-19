@@ -3,9 +3,7 @@
     "home": {
       "buttons": {
         "downloadPerformanceOverview": "Leistungsübersicht herunterladen",
-        "viewExamDates": "Prüfungstermine einsehen",
-        "pubSubmission": "PUB-Abgabe",
-        "re-examinationRegistration": "Nachprüfungsanmeldung"
+        "viewExamDates": "Prüfungstermine einsehen"
       }
     },
     "weather": {
@@ -57,11 +55,6 @@
         "sixthSemester": "Semester 6"
       }
     },
-    "moduleOverview": {
-      "buttons": {
-        "back": "Zurück zur Semesterübersicht"
-      }
-    },
     "retakeRegistrationModal": {
       "header": "Nachprüfungsanmeldung",
       "requiredRetakes": "Erforderliche Nachprüfungstermine",
@@ -72,6 +65,29 @@
         "register": "Anmelden"
       },
       "registerButton": "Anmelden"
+    },
+    "moduleDetailView":{
+      "moduleName": "Modulname",
+      "pubSubmission": "PUB-Abgabe",
+      "retakeRegistration": "Nachprüfungsanmeldung",
+      "moduleProperties":{
+        "moduleCode": "Modulkürzel",
+        "lecturer": "Dozent/in",
+        "creditPoints":"Credit Points",
+        "grade": "Note"
+      },
+      "table":{
+        "assessment": "Prüfungsleistung",
+        "weight": "Gewichtung",
+        "grade": "Note",
+        "date":"Termin",
+        "submit": "Dokumente"
+      }
+    },
+    "dokumentModal": {
+      "header": "Prüfungsdokumente",
+      "uploadFiles": "Datein Hochladen",
+      "lecturerFiles": "Durch Dozenten Hochgeladen"
     }
   }
 }

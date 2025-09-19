@@ -16,7 +16,7 @@
     "ci": "start-server-and-test dev http://localhost:5173 cy:run"
   },
   "dependencies": {
-    "@agile-software/shared-components": "file:./shared-components",
+    "@agile-software/shared-components": "file:shared-components",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.2",
@@ -57,6 +57,7 @@
     "@typescript-eslint/parser": "^8.39.0",
     "@vitejs/plugin-react": "^4.7.0",
     "cypress": "^14.5.3",
+    "esbuild": "^0.25.10",
     "eslint": "^9.33.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
