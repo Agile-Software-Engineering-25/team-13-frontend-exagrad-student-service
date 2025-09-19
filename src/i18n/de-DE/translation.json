@@ -87,8 +87,7 @@
     "dokumentModal": {
       "header": "Prüfungsdokumente",
       "uploadFiles": "Datein Hochladen",
-      "lecturerFiles": "Durch Dozenten Hochgeladen",
-      "searchFiles": "Datein Durchsuchen"
+      "lecturerFiles": "Durch Dozenten Hochgeladen"
     }
   }
 }

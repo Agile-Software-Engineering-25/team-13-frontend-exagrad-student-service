@@ -1,9 +1,10 @@
-import { Typography, Button, Box, IconButton, Sheet, Divider } from '@mui/joy';
+import { Typography, Box, IconButton, Sheet, Divider } from '@mui/joy';
 import GenericModal from '@components/Modals/GenericModal';
 import { useTranslation } from 'react-i18next';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
+import FileDropzone from '@/components/FileDropzone/FileDropzone';
 
 type DocumentModalProps = {
   open: boolean;
@@ -46,9 +47,6 @@ const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
             <Typography level="title-md">
               {t('components.dokumentModal.uploadFiles')}
             </Typography>
-            <Button variant="solid" color="primary">
-              {t('components.dokumentModal.searchFiles')}
-            </Button>
           </Box>
           <Box
             sx={{
@@ -62,6 +60,7 @@ const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
               width: '100%',
             }}
           >
+            <FileDropzone/>
             {files.map((file, index) => (
               <Sheet
                 key={index}

@@ -87,8 +87,7 @@
     "dokumentModal": {
       "header": "Exam Documents",
       "uploadFiles": "Upload Files",
-      "lecturerFiles": "Files from Lecturer",
-      "searchFiles": "Search Files"
+      "lecturerFiles": "Files from Lecturer"
     }
   }
 }
