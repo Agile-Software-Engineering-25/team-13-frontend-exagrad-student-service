@@ -42,7 +42,11 @@
     "pubUploadModal": {
       "header": "Upload Incapacity Certificate",
       "fileLabel": "Select file or drop it here",
-      "uploadButton": "Upload"
+      "uploadButton": "Upload",
+      "dateFormat": "DD.MM.YYYY",
+      "from": "From",
+      "to": "to"
+
     },
     "semesterOverview":{
       "title": "Semester Overview",
