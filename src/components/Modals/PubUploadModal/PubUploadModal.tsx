@@ -5,61 +5,80 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import FileDropzone from '@/components/FileDropzone/FileDropzone';
 import { useTranslation } from 'react-i18next';
+import usePubDocuments from '@/hooks/usePubDocuments';
+import type { PubDocumentRequest } from '@custom-types/pubDocument';
 
 const dateRegex = /^\d{2}\.\d{2}\.\d{4}$/; // DD.MM.YYYY
 
 type PubUploadModalProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
+  studentId: string;
 };
 
-const PubUpload = ({ open, setOpen }: PubUploadModalProps) => {
+const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   const { t } = useTranslation();
-
-  const FileUploader = (file: File) => {
-    alert(`Uploading file: ` + file.name);
-  };
+  const { uploadPubDocument } = usePubDocuments();
 
   const [file, setFile] = useState<File | null>(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [errors, setErrors] = useState<{ start?: string; end?: string; range?: string }>({});
+  const [dateErrors, setDateErrors] = useState<{ start?: string; end?: string; range?: string }>({});
+  const [loading, setLoading] = useState(false);
 
   const validateDateField = (value: string, field: 'start' | 'end') => {
     if (!dateRegex.test(value)) {
-      setErrors((prev) => ({ ...prev, [field]: t('components.pubUploadModal.dateError') }));
+      setDateErrors((prev) => ({ ...prev, [field]: t('components.pubUploadModal.dateError') }));
     } else {
-      setErrors((prev) => ({ ...prev, [field]: undefined }));
+      setDateErrors((prev) => ({ ...prev, [field]: undefined }));
     }
   };
 
   const validateDates = () => {
-    const newErrors: { start?: string; end?: string; range?: string } = {};
+    const dateErrors: { start?: string; end?: string; range?: string } = {};
 
-    if (!dateRegex.test(startDate)) {
-      newErrors.start = t('components.pubUploadModal.dateError');
-    }
-    if (!dateRegex.test(endDate)) {
-      newErrors.end = t('components.pubUploadModal.dateError');
-    }
+    if (!dateRegex.test(startDate)) dateErrors.start = t('components.pubUploadModal.dateError');
+    if (!dateRegex.test(endDate)) dateErrors.end = t('components.pubUploadModal.dateError');
 
     if (dateRegex.test(startDate) && dateRegex.test(endDate)) {
       const [sd, sm, sy] = startDate.split('.').map(Number);
       const [ed, em, ey] = endDate.split('.').map(Number);
       const start = new Date(sy, sm - 1, sd);
       const end = new Date(ey, em - 1, ed);
-      if (start > end) {
-        newErrors.range = t('components.pubUploadModal.rangeError');
-      }
+      if (start > end) dateErrors.range = t('components.pubUploadModal.rangeError');
     }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setDateErrors(dateErrors);
+    return Object.keys(dateErrors).length === 0;
   };
 
-  const handleUpload = () => {
-    if (!validateDates()) return;
-    if (file) FileUploader(file);
+  
+  const handleUpload = async () => {
+    if (!validateDates() || !file) return;
+
+    setLoading(true);
+    try {
+      const [sd, sm, sy] = startDate.split('.').map(Number);
+      const [ed, em, ey] = endDate.split('.').map(Number);
+
+      const metadata: PubDocumentRequest = {
+        studentId,
+        startDate: `${sy}-${String(sm).padStart(2, '0')}-${String(sd).padStart(2, '0')}`,
+        endDate: `${ey}-${String(em).padStart(2, '0')}-${String(ed).padStart(2, '0')}`,
+      };
+
+      await uploadPubDocument(file, metadata);
+
+      setFile(null);
+      setStartDate('');
+      setEndDate('');
+      setDateErrors({});
+      setOpen(false);
+    } catch (err: any) {
+      console.error(err);
+      alert(t('components.pubUploadModal.uploadError') + err ); // Optional: nicer UI Snackbar
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -80,9 +99,9 @@ const PubUpload = ({ open, setOpen }: PubUploadModalProps) => {
               onChange={(e) => setStartDate(e.target.value)}
               onBlur={() => validateDateField(startDate, 'start')}
             />
-            {errors.start && (
+            {dateErrors.start && (
               <Typography level="body-sm" color="danger">
-                {errors.start}
+                {dateErrors.start}
               </Typography>
             )}
           </FormControl>
@@ -96,17 +115,17 @@ const PubUpload = ({ open, setOpen }: PubUploadModalProps) => {
               onChange={(e) => setEndDate(e.target.value)}
               onBlur={() => validateDateField(endDate, 'end')}
             />
-            {errors.end && (
+            {dateErrors.end && (
               <Typography level="body-sm" color="danger">
-                {errors.end}
+                {dateErrors.end}
               </Typography>
             )}
           </FormControl>
         </Box>
 
-        {errors.range && (
+        {dateErrors.range && (
           <Typography level="body-sm" color="danger" sx={{ mb: 2 }}>
-            {errors.range}
+            {dateErrors.range}
           </Typography>
         )}
 
@@ -116,8 +135,8 @@ const PubUpload = ({ open, setOpen }: PubUploadModalProps) => {
 
         <FileDropzone types={['PDF', 'PNG', 'JPG']} onFileChange={setFile} />
 
-        <Button sx={{ mt: 2 }} onClick={handleUpload} disabled={!file}>
-          {t('components.pubUploadModal.uploadButton')}
+        <Button sx={{ mt: 2 }} onClick={handleUpload} disabled={!file || loading}>
+          {loading ? t('components.pubUploadModal.uploading') : t('components.pubUploadModal.uploadButton')}
         </Button>
       </Box>
     </GenericModal>

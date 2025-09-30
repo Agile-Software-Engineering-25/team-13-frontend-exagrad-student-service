@@ -20,7 +20,7 @@ const Home = () => {
   }>({ id: null, titleKey: null });
 
   return (
-    <Box sx={{ paddingInline: 30, paddingBlock: 2, mx: 'auto' }}>
+    <Box sx={{ paddingInline: 20, paddingBlock: 2, mx: 'auto' }}>
       <StudentInfoHeader />
 
       <Box
