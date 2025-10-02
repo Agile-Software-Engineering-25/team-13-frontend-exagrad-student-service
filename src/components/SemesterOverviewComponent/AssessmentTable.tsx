@@ -9,6 +9,8 @@ type Assessment = {
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
+  examId?: string;
+  deadline?: string;
 };
 
 type ModuleInfo = {
@@ -27,6 +29,13 @@ interface ModuleData {
 const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
   const [viewDocuments, setViewDocuments] = useState(false);
+  const [selectedAssessment, setSelectedAssessment] =
+    useState<Assessment | null>(null);
+
+  const handleOpenDocuments = (assessment: Assessment) => {
+    setSelectedAssessment(assessment);
+    setViewDocuments(true);
+  };
 
   return (
     <Box>
@@ -53,7 +62,7 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
                     <Button
                       size="sm"
                       variant="soft"
-                      onClick={() => setViewDocuments(true)}
+                      onClick={() => handleOpenDocuments(assessment)}
                     >
                       {t('components.moduleDetailView.table.submit')}
                     </Button>
@@ -64,7 +73,11 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
           )}
         </tbody>
       </Table>
-      <DocumentModal open={viewDocuments} setOpen={setViewDocuments} />
+      <DocumentModal
+        open={viewDocuments}
+        setOpen={setViewDocuments}
+        assessment={selectedAssessment}
+      />
     </Box>
   );
 };
