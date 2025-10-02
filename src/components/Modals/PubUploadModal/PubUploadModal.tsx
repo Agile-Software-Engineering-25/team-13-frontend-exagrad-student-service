@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import GenericModal from '@components/Modals/GenericModal';
-import { Box, Button, Input, Typography } from '@mui/joy';
+import { Box, Button, IconButton, Input, Sheet, Typography } from '@mui/joy';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import FileDropzone from '@/components/FileDropzone/FileDropzone';
 import { useTranslation } from 'react-i18next';
 import usePubDocuments from '@/hooks/usePubDocuments';
-import type { PubDocumentRequest } from '@custom-types/pubDocument';
+import type {
+  PubDocumentRequest,
+  PubDocumentResponse,
+} from '@custom-types/pubDocument';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 type PubUploadModalProps = {
   open: boolean;
@@ -16,58 +21,67 @@ type PubUploadModalProps = {
 
 const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   const { t } = useTranslation();
-  const { uploadPubDocument } = usePubDocuments();
+  const { uploadPubDocument, getPubDocuments } = usePubDocuments();
 
   const [file, setFile] = useState<File | null>(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [dateErrors, setDateErrors] = useState<{ start?: string; end?: string; range?: string }>({});
+  const [dateErrors, setDateErrors] = useState<{
+    start?: string;
+    end?: string;
+    range?: string;
+  }>({});
   const [loading, setLoading] = useState(false);
-
+  const [documents, setDocuments] = useState<PubDocumentResponse[]>([]);
   const dateFormatRegex = /^\d{2}\.\d{2}\.\d{4}$/;
+  
 
-const isValidDate = (dateStr: string) => {
-  if (!dateFormatRegex.test(dateStr)) return false;
+  const isValidDate = (dateStr: string) => {
+    if (!dateFormatRegex.test(dateStr)) return false;
 
-  const [dd, mm, yyyy] = dateStr.split('.').map(Number);
-  const date = new Date(yyyy, mm - 1, dd);
+    const [dd, mm, yyyy] = dateStr.split('.').map(Number);
+    const date = new Date(yyyy, mm - 1, dd);
 
-  return (
-    date.getFullYear() === yyyy &&
-    date.getMonth() === mm - 1 &&
-    date.getDate() === dd
-  );
-};
-
+    return (
+      date.getFullYear() === yyyy &&
+      date.getMonth() === mm - 1 &&
+      date.getDate() === dd
+    );
+  };
 
   const validateDateField = (value: string, field: 'start' | 'end') => {
-  if (!isValidDate(value)) {
-    setDateErrors((prev) => ({ ...prev, [field]: t('components.pubUploadModal.dateError') }));
-  } else {
-    setDateErrors((prev) => ({ ...prev, [field]: undefined }));
-  }
-};
-
+    if (!isValidDate(value)) {
+      setDateErrors((prev) => ({
+        ...prev,
+        [field]: t('components.pubUploadModal.dateError'),
+      }));
+    } else {
+      setDateErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
 
   const validateDates = () => {
-  const dateErrors: { start?: string; end?: string; range?: string } = {};
+    const dateErrors: { start?: string; end?: string; range?: string } = {};
 
-  if (!isValidDate(startDate)) dateErrors.start = t('components.pubUploadModal.dateError');
-  if (!isValidDate(endDate)) dateErrors.end = t('components.pubUploadModal.dateError');
+    if (!isValidDate(startDate))
+      dateErrors.start = t('components.pubUploadModal.dateError');
+    if (!isValidDate(endDate))
+      dateErrors.end = t('components.pubUploadModal.dateError');
 
-  if (isValidDate(startDate) && isValidDate(endDate)) {
-    const [sd, sm, sy] = startDate.split('.').map(Number);
-    const [ed, em, ey] = endDate.split('.').map(Number);
-    const start = new Date(sy, sm - 1, sd);
-    const end = new Date(ey, em - 1, ed);
+    if (isValidDate(startDate) && isValidDate(endDate)) {
+      const [sd, sm, sy] = startDate.split('.').map(Number);
+      const [ed, em, ey] = endDate.split('.').map(Number);
+      const start = new Date(sy, sm - 1, sd);
+      const end = new Date(ey, em - 1, ed);
 
-    if (start > end) dateErrors.range = t('components.pubUploadModal.rangeError');
-  }
+      if (start > end)
+        dateErrors.range = t('components.pubUploadModal.rangeError');
+    }
 
-  setDateErrors(dateErrors);
-  return Object.keys(dateErrors).length === 0;
-};
-  
+    setDateErrors(dateErrors);
+    return Object.keys(dateErrors).length === 0;
+  };
+
   const handleUpload = async () => {
     if (!validateDates() || !file) return;
 
@@ -91,26 +105,37 @@ const isValidDate = (dateStr: string) => {
       setOpen(false);
     } catch (err: any) {
       console.error(err);
-      alert(t('components.pubUploadModal.uploadError') + err ); // Optional: nicer UI Snackbar
+      alert(t('components.pubUploadModal.uploadError') + err); // Optional: nicer UI Snackbar
     } finally {
       setLoading(false);
     }
   };
 
   const handleClose = () => {
-  setFile(null);
-  setStartDate('');
-  setEndDate('');
-  setDateErrors({});
-  setOpen(false);
-};
+    setFile(null);
+    setStartDate('');
+    setEndDate('');
+    setDateErrors({});
+    setOpen(false);
+  };
 
+  useEffect(() => {
+  if (open) {
+    (async () => {
+      try {
+        const docs = await getPubDocuments(studentId);
+        setDocuments(docs);
+            } catch (err) {
+        console.error(err);
+        setDocuments([]);
+      }
+    })();
+  }
+}, [open, studentId, getPubDocuments]);
 
-const isFormValid =
-  !!file &&
-  startDate.trim() !== '' &&
-  endDate.trim() !== '';
-  
+  const isFormValid =
+    !!file && startDate.trim() !== '' && endDate.trim() !== '';
+
   return (
     <GenericModal
       header={t('components.pubUploadModal.header')}
@@ -120,8 +145,64 @@ const isFormValid =
       modalDialogSX={{ minWidth: '700px' }}
     >
       <Box sx={{ mb: 2 }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            p: 2,
+            border: '1px solid #C2CAD5',
+            borderRadius: 'lg',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 1.5,
+            width: '100%',
+          }}
+        >
+          <Typography level="title-sm">
+            {t('components.pubUploadModal.uploadedPubs')}
+          </Typography>
+
+          {Array.isArray(documents) && documents.length === 0 ? (
+            <Typography level="body-sm" color="neutral">
+              {t('components.pubUploadModal.nothingUploadedYet')}
+            </Typography>
+          ) : (
+            documents.map((doc) => (
+              <Sheet
+                key={doc.id}
+                variant="outlined"
+                sx={{
+                  borderRadius: 50,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  px: 1.5,
+                  py: 0.5,
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <IconButton size="sm" color="neutral" variant="plain">
+                    <CloseRoundedIcon />
+                  </IconButton>
+                  <Typography
+                    sx={{
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      maxWidth: '90%',
+                    }}
+                  >
+                    {doc.fileName}
+                  </Typography>
+                </Box>
+                <PictureAsPdfIcon color="error" />
+              </Sheet>
+            ))
+          )}
+        </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-          <Typography level="body-md">{t('components.pubUploadModal.from')}</Typography>
+          <Typography level="body-md">
+            {t('components.pubUploadModal.from')}
+          </Typography>
           <FormControl sx={{ flex: 1 }}>
             <Input
               placeholder={t('components.pubUploadModal.dateFormat')}
@@ -136,7 +217,9 @@ const isFormValid =
             )}
           </FormControl>
 
-          <Typography level="body-md">{t('components.pubUploadModal.to')}</Typography>
+          <Typography level="body-md">
+            {t('components.pubUploadModal.to')}
+          </Typography>
 
           <FormControl sx={{ flex: 1 }}>
             <Input
@@ -165,8 +248,14 @@ const isFormValid =
 
         <FileDropzone types={['PDF', 'PNG', 'JPG']} onFileChange={setFile} />
 
-        <Button sx={{ mt: 2 }} onClick={handleUpload} disabled={!isFormValid || loading}>
-          {loading ? t('components.pubUploadModal.uploading') : t('components.pubUploadModal.uploadButton')}
+        <Button
+          sx={{ mt: 2 }}
+          onClick={handleUpload}
+          disabled={!isFormValid || loading}
+        >
+          {loading
+            ? t('components.pubUploadModal.uploading')
+            : t('components.pubUploadModal.uploadButton')}
         </Button>
       </Box>
     </GenericModal>

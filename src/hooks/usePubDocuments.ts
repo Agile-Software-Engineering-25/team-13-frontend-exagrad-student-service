@@ -15,7 +15,7 @@ const usePubDocuments = () => {
       const response = await axiosInstance.get('/documents/pub', {
         params: { studentId },
       });
-      return response.data as PubDocumentResponse[];
+      return response.data.data as PubDocumentResponse[];
     },
     [axiosInstance]
   );

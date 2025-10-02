@@ -13,3 +13,14 @@ export interface PubDocumentResponse {
   downloadUrl: string;
   fileName: string;
 }
+
+export type PubDocumentsApiResponse = {
+  success: boolean;
+  statusCode: number;
+  status: string;
+  message: string | null;
+  timestamp: string;
+  endpoint: string;
+  data: PubDocumentResponse[];
+  error: any;
+};
