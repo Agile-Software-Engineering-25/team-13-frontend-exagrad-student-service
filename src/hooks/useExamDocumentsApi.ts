@@ -46,15 +46,23 @@ const useExamDocumentsApi = () => {
           dispatch(addDocument(response.data.data));
           return response.data.data;
         } else {
-          throw new Error(
-            response.data.error?.message || 'Upload failed'
-          );
+          throw new Error(response.data.error?.message || 'Upload failed');
         }
-      } catch (error: any) {
-        const errorMessage =
-          error.response?.data?.error?.message ||
-          error.message ||
-          'Upload failed';
+      } catch (error: unknown) {
+        let errorMessage = 'Upload failed';
+        if (typeof error === 'object' && error !== null) {
+          if (
+            'response' in error &&
+            typeof (error as any).response?.data?.error?.message === 'string'
+          ) {
+            errorMessage = (error as any).response.data.error.message;
+          } else if (
+            'message' in error &&
+            typeof (error as any).message === 'string'
+          ) {
+            errorMessage = (error as any).message;
+          }
+        }
         dispatch(setError(errorMessage));
         throw error;
       }
@@ -78,11 +86,21 @@ const useExamDocumentsApi = () => {
             response.data.error?.message || 'Failed to fetch documents'
           );
         }
-      } catch (error: any) {
-        const errorMessage =
-          error.response?.data?.error?.message ||
-          error.message ||
-          'Failed to fetch documents';
+      } catch (error: unknown) {
+        let errorMessage = 'Failed to fetch documents';
+        if (typeof error === 'object' && error !== null) {
+          if (
+            'response' in error &&
+            typeof (error as any).response?.data?.error?.message === 'string'
+          ) {
+            errorMessage = (error as any).response.data.error.message;
+          } else if (
+            'message' in error &&
+            typeof (error as any).message === 'string'
+          ) {
+            errorMessage = (error as any).message;
+          }
+        }
         dispatch(setError(errorMessage));
         throw error;
       }
@@ -105,11 +123,21 @@ const useExamDocumentsApi = () => {
         }
 
         return false;
-      } catch (error: any) {
-        const errorMessage =
-          error.response?.data?.error?.message ||
-          error.message ||
-          'Delete failed';
+      } catch (error: unknown) {
+        let errorMessage = 'Delete failed';
+        if (typeof error === 'object' && error !== null) {
+          if (
+            'response' in error &&
+            typeof (error as any).response?.data?.error?.message === 'string'
+          ) {
+            errorMessage = (error as any).response.data.error.message;
+          } else if (
+            'message' in error &&
+            typeof (error as any).message === 'string'
+          ) {
+            errorMessage = (error as any).message;
+          }
+        }
         dispatch(setError(errorMessage));
         throw error;
       }
@@ -132,11 +160,21 @@ const useExamDocumentsApi = () => {
         link.click();
         link.remove();
         window.URL.revokeObjectURL(url);
-      } catch (error: any) {
-        const errorMessage =
-          error.response?.data?.error?.message ||
-          error.message ||
-          'Download failed';
+      } catch (error: unknown) {
+        let errorMessage = 'Download failed';
+        if (typeof error === 'object' && error !== null) {
+          if (
+            'response' in error &&
+            typeof (error as any).response?.data?.error?.message === 'string'
+          ) {
+            errorMessage = (error as any).response.data.error.message;
+          } else if (
+            'message' in error &&
+            typeof (error as any).message === 'string'
+          ) {
+            errorMessage = (error as any).message;
+          }
+        }
         dispatch(setError(errorMessage));
         throw error;
       }

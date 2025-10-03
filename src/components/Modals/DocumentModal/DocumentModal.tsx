@@ -95,9 +95,7 @@ const DocumentModal = ({ open, setOpen, assessment }: DocumentModalProps) => {
       setSelectedFile(null);
     } catch (error: any) {
       setErrorMessage(
-        error.response?.data?.error?.message ||
-          error.message ||
-          'Upload failed'
+        error.response?.data?.error?.message || error.message || 'Upload failed'
       );
     } finally {
       setUploading(false);
@@ -115,9 +113,7 @@ const DocumentModal = ({ open, setOpen, assessment }: DocumentModalProps) => {
       await deleteExamDocument(documentId);
     } catch (error: any) {
       setErrorMessage(
-        error.response?.data?.error?.message ||
-          error.message ||
-          'Delete failed'
+        error.response?.data?.error?.message || error.message || 'Delete failed'
       );
     }
   };
