@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import GenericModal from '@components/Modals/GenericModal';
-import { Box, Button, IconButton, Input, Sheet, Typography } from '@mui/joy';
+import { Box, Button, Input, Sheet, Typography } from '@mui/joy';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import FileDropzone from '@/components/FileDropzone/FileDropzone';
@@ -10,7 +10,6 @@ import type {
   PubDocumentRequest,
   PubDocumentResponse,
 } from '@custom-types/pubDocument';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 type PubUploadModalProps = {
@@ -38,10 +37,8 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
 
   const isValidDate = (dateStr: string) => {
     if (!dateFormatRegex.test(dateStr)) return false;
-
     const [dd, mm, yyyy] = dateStr.split('.').map(Number);
     const date = new Date(yyyy, mm - 1, dd);
-
     return (
       date.getFullYear() === yyyy &&
       date.getMonth() === mm - 1 &&
@@ -62,47 +59,40 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
 
   const validateDates = () => {
     const dateErrors: { start?: string; end?: string; range?: string } = {};
-
     if (!isValidDate(startDate))
       dateErrors.start = t('components.pubUploadModal.dateError');
     if (!isValidDate(endDate))
       dateErrors.end = t('components.pubUploadModal.dateError');
-
     if (isValidDate(startDate) && isValidDate(endDate)) {
       const [sd, sm, sy] = startDate.split('.').map(Number);
       const [ed, em, ey] = endDate.split('.').map(Number);
       const start = new Date(sy, sm - 1, sd);
       const end = new Date(ey, em - 1, ed);
-
       if (start > end)
         dateErrors.range = t('components.pubUploadModal.rangeError');
     }
-
     setDateErrors(dateErrors);
     return Object.keys(dateErrors).length === 0;
   };
 
   const handleUpload = async () => {
     if (!validateDates() || !file) return;
-
     setLoading(true);
     try {
       const [sd, sm, sy] = startDate.split('.').map(Number);
       const [ed, em, ey] = endDate.split('.').map(Number);
-
       const metadata: PubDocumentRequest = {
         studentId,
         startDate: `${sy}-${String(sm).padStart(2, '0')}-${String(sd).padStart(2, '0')}`,
         endDate: `${ey}-${String(em).padStart(2, '0')}-${String(ed).padStart(2, '0')}`,
       };
-
       await uploadPubDocument(file, metadata);
-
+      const docs = await getPubDocuments(studentId);
+      setDocuments(docs);
       setFile(null);
       setStartDate('');
       setEndDate('');
       setDateErrors({});
-      setOpen(false);
     } catch (err: any) {
       console.error(err);
       alert(t('components.pubUploadModal.uploadError') + err); // Optional: nicer UI Snackbar
@@ -135,6 +125,16 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
 
   const isFormValid =
     !!file && startDate.trim() !== '' && endDate.trim() !== '';
+
+  const formatDateToGerman = (dateString: string) => {
+    if (!dateString) return '';
+    const d = new Date(dateString);
+    const day = String(d.getDate()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${day}.${month}.${year}`;
+  };
+
 
   return (
     <GenericModal
@@ -180,9 +180,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
                 }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <IconButton size="sm" color="neutral" variant="plain">
-                    <CloseRoundedIcon />
-                  </IconButton>
+                {formatDateToGerman(doc.startDate)} - {formatDateToGerman(doc.endDate)}
                   <Typography
                     sx={{
                       whiteSpace: 'nowrap',
