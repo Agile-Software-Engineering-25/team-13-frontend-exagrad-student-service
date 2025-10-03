@@ -40,13 +40,18 @@
       }
     },
     "pubUploadModal": {
-      "header": "Upload Incapacity Certificate",
-      "fileLabel": "Select file or drop it here",
+      "header": "Upload Medical Certificate",
+      "fileLabel": "Select or drop a file here",
       "uploadButton": "Upload",
+      "uploading": "Uploading...",
       "dateFormat": "DD.MM.YYYY",
       "from": "From",
-      "to": "to"
-
+      "to": "To",
+      "dateError": "Please enter a valid date.",
+      "rangeError": "The start date cannot be after the end date.",
+      "uploadedPubs": "Uploaded PUBs",
+      "uploadPub": "Upload new PUB",
+      "nothingUploadedYet": "No documents uploaded yet."
     },
     "semesterOverview":{
       "title": "Semester Overview",

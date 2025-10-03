@@ -43,11 +43,15 @@
       "header": "Prüfungsunfähigkeitsbescheinigung hochladen",
       "fileLabel": "Datei auswählen oder hier ablegen",
       "uploadButton": "Hochladen",
+      "uploading": "Wird hochgeladen...",
       "dateFormat": "TT.MM.JJJJ",
       "from": "Von",
-      "to": "bis",
+      "to": "Bis",
       "dateError": "Bitte gib ein gültiges Datum ein.",
-      "rangeError": "Das Startdatum darf nicht nach dem Enddatum liegen."
+      "rangeError": "Das Startdatum darf nicht nach dem Enddatum liegen.",
+      "uploadedPubs": "Hochgeladene PUBs",
+      "uploadPub": "Neue PUB Hochladen",
+      "nothingUploadedYet": "Noch keine Dokumente hochgeladen."
     },
     "semesterOverview": {
       "title": "Semesterüberblick",
