@@ -3,6 +3,8 @@ import { Typography, Table, Button, Checkbox } from '@mui/joy';
 import GenericModal from '@components/Modals/GenericModal';
 import { useTranslation } from 'react-i18next';
 
+//sollte weg weil sollte doch der Link nur sein oder??
+
 type RetakeExam = {
   code: string;
   lecturer: string;

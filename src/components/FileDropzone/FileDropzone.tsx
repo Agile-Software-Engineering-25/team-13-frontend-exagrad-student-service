@@ -3,6 +3,8 @@ import { FileUploader } from 'react-drag-drop-files';
 import { Box, IconButton } from '@mui/joy';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
+//kann weg?
+
 type FileDropzoneProps = {
   types?: string[]; //default all file types
   multiple?: boolean; //default false

@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import DocumentModal from '../Modals/DocumentModal/DocumentModal';
 
+//still confused with table component, please its 1:15 am ;-;
+
 type Assessment = {
   assessmentTyp: string;
   weight: string;

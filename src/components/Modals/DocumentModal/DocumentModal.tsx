@@ -1,10 +1,9 @@
-import { Typography, Box, IconButton, Sheet, Divider } from '@mui/joy';
-import GenericModal from '@components/Modals/GenericModal';
+import { Typography, Button, Box, IconButton, Sheet, Divider } from '@mui/joy';
+import { Modal, Dropzone, FileChip } from '@agile-software/shared-components';
 import { useTranslation } from 'react-i18next';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import FileDownloadRoundedIcon from '@mui/icons-material/FileDownloadRounded';
-import FileDropzone from '@/components/FileDropzone/FileDropzone';
+import { useState } from 'react';
 
 type DocumentModalProps = {
   open: boolean;
@@ -19,8 +18,27 @@ const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
     'ThisIsAGreatFileNameExample.pdf',
   ];
 
+  const FileUploader = (file: File) => {
+    // Implement the upload logic here, e.g., send the file to a server
+    alert(`Uploading file: ` + file.name);
+  };
+  
+  const [file, setFile] = useState<File[]>([]);
+  
+  const handleFileSelect = (files: File | File[]) => {
+    if (Array.isArray(files)) {
+      setFile(files);
+    } else {
+      setFile([files]);
+    }
+  };
+  
+  const handleFileDelete = (fileToDelete: File) => {
+    setFile(prev => prev.filter(file => file !== fileToDelete));
+  };
+
   return (
-    <GenericModal
+    <Modal
       header={t('components.dokumentModal.header')}
       open={open}
       setOpen={setOpen}
@@ -52,6 +70,7 @@ const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
             sx={{
               flexGrow: 1,
               p: 2,
+              //Farbe
               border: '1px solid #C2CAD5',
               borderRadius: 'lg',
               display: 'flex',
@@ -60,38 +79,42 @@ const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
               width: '100%',
             }}
           >
-            <FileDropzone />
-            {files.map((file, index) => (
-              <Sheet
-                key={index}
-                variant="outlined"
-                sx={{
-                  borderRadius: 50,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  px: 1.5,
-                  py: 0.5,
-                }}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <IconButton size="sm" color="neutral" variant="plain">
-                    <CloseRoundedIcon />
-                  </IconButton>
-                  <Typography
-                    sx={{
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      maxWidth: '90%',
-                    }}
-                  >
-                    {file}
-                  </Typography>
+            <Dropzone
+              //Wenn was hochgeladen wird kommt hier white screen, no clue why
+              multiple
+              types={['PDF', 'PNG', 'JPG']}
+              onFileSelect={handleFileSelect}
+            />
+
+            {file.length > 0 && (
+              <Box sx={{ mt:3 }}>
+                <Typography level="h4" sx={{ mb: 2 }}>
+                  Selected Files ({file.length})
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  {file.map((file, index) => (
+                    <FileChip
+                      key={`${file.name}-${index}`}
+                      filename={file.name}
+                      onDelete={() => handleFileDelete(file)}
+                    />
+                  ))}
                 </Box>
-                <PictureAsPdfIcon color="error" />
-              </Sheet>
-            ))}
+                
+                <Button
+                  sx={{ mt: 2 }}
+                  onClick={() => {
+                    if (file.length > 0) {
+                      file.forEach(FileUploader);
+                    }
+                  }}
+                  disabled={file.length === 0}
+                >
+                  {t('components.pubUploadModal.uploadButton')}
+                </Button>
+              </Box>
+            )}
+            
           </Box>
         </Box>
         <Divider sx={{ my: 2, width: '100%', mt: 4 }} />
@@ -129,6 +152,7 @@ const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
             }}
           >
             {files.map((file, index) => (
+              //Still needs to be changed to FileChip but dont know how rn
               <Sheet
                 key={index}
                 variant="outlined"
@@ -162,7 +186,7 @@ const DocumentModal = ({ open, setOpen }: DocumentModalProps) => {
           </Box>
         </Box>
       </Box>
-    </GenericModal>
+    </Modal>
   );
 };
 

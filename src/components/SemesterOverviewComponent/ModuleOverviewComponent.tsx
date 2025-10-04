@@ -11,6 +11,8 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from 'react-i18next';
 import ModuleDetailView from './ModuleDetailView';
 
+//muss noch
+
 type Semester = {
   id: number | null;
   titleKey: string | null;

@@ -2,6 +2,8 @@ import { Divider, Modal, ModalClose, ModalDialog, Typography } from '@mui/joy';
 import type { SxProps } from '@mui/joy/styles/types';
 import type { ReactNode } from 'react';
 
+//Kann weg?
+
 const GenericModal = (props: {
   header: string;
   open: boolean;

@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Modal } from '@agile-software/shared-components'
-import { Box, Button } from '@mui/joy';
+import { Modal, Dropzone, FileChip } from '@agile-software/shared-components'
+import { Box, Button, Typography } from '@mui/joy';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
-import FileDropzone from '@/components/FileDropzone/FileDropzone';
 import { useTranslation } from 'react-i18next';
 
 type PubUploadModalProps = {
@@ -19,7 +18,19 @@ const PubUpload = ({ open, setOpen }: PubUploadModalProps) => {
     alert(`Uploading file: ` + file.name);
   };
 
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File[]>([]);
+
+  const handleFileSelect = (files: File | File[]) => {
+    if (Array.isArray(files)) {
+      setFile(files);
+    } else {
+      setFile([files]);
+    }
+  };
+
+  const handleFileDelete = (fileToDelete: File) => {
+    setFile(prev => prev.filter(file => file !== fileToDelete));
+  };
 
   return (
     <>
@@ -36,20 +47,40 @@ const PubUpload = ({ open, setOpen }: PubUploadModalProps) => {
               <FormLabel>{t('components.pubUploadModal.fileLabel')}</FormLabel>
             </FormControl>
 
-            <FileDropzone
+            <Dropzone
               types={['PDF', 'PNG', 'JPG']}
-              onFileChange={setFile}
+              onFileSelect={handleFileSelect}
             />
 
-            <Button
-              sx={{ mt: 2 }}
-              onClick={() => {
-                if (file) FileUploader(file);
-              }}
-              disabled={!file}
-            >
-              {t('components.pubUploadModal.uploadButton')}
-            </Button>
+            {file.length > 0 && (
+              <Box sx={{ mt:3 }}>
+                <Typography level="h4" sx={{ mb: 2 }}>
+                  Selected Files ({file.length})
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  {file.map((file, index) => (
+                    <FileChip
+                      key={`${file.name}-${index}`}
+                      filename={file.name}
+                      onDelete={() => handleFileDelete(file)}
+                    />
+                  ))}
+                </Box>
+                
+                <Button
+                  sx={{ mt: 2 }}
+                  onClick={() => {
+                    if (file.length > 0) {
+                      file.forEach(FileUploader);
+                    }
+                  }}
+                  disabled={file.length === 0}
+                >
+                  {t('components.pubUploadModal.uploadButton')}
+                </Button>
+              </Box>
+            )}
+            
           </Box>
         </Box>
       </Modal>
