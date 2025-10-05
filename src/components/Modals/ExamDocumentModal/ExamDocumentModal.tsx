@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from 'react';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { useTypedSelector } from '@stores/rootReducer';
 import type { ExamDocumentResponse } from '@custom-types/examDocument';
+import { isAxiosError } from '@custom-types/examDocument';
 import { UploadSection } from './UploadSection';
 import { StudentDocumentsList } from './StudentDocumentsList';
 import { LecturerFilesSection } from './LecturerFilesSection';
@@ -133,11 +134,14 @@ const ExamDocumentModal = ({
           MOCK_STUDENT_ID
         );
         if (result) uploaded.push(result);
-      } catch (error: any) {
-        const errorMsg =
-          error.response?.data?.error?.message ||
-          error.message ||
-          'Upload failed';
+      } catch (error: unknown) {
+        let errorMsg = 'Upload failed';
+        if (isAxiosError(error)) {
+          errorMsg =
+            error.response?.data?.error?.message ??
+            error.message ??
+            'Upload failed';
+        }
         errors.push(`${file.name}: ${errorMsg}`);
       }
     }
@@ -172,10 +176,15 @@ const ExamDocumentModal = ({
       await deleteExamDocument(documentId);
       // Remove from session uploaded files list as well
       setUploadedFiles((prev) => prev.filter((doc) => doc.id !== documentId));
-    } catch (error: any) {
-      setErrorMessage(
-        error.response?.data?.error?.message || error.message || 'Delete failed'
-      );
+    } catch (error: unknown) {
+      let errorMsg = 'Delete failed';
+      if (isAxiosError(error)) {
+        errorMsg =
+          error.response?.data?.error?.message ??
+          error.message ??
+          'Delete failed';
+      }
+      setErrorMessage(errorMsg);
     }
   };
 
@@ -183,12 +192,15 @@ const ExamDocumentModal = ({
     setErrorMessage(null);
     try {
       await downloadExamDocument(doc.downloadUrl, doc.fileName);
-    } catch (error: any) {
-      setErrorMessage(
-        error.response?.data?.error?.message ||
-          error.message ||
-          'Download failed'
-      );
+    } catch (error: unknown) {
+      let errorMsg = 'Download failed';
+      if (isAxiosError(error)) {
+        errorMsg =
+          error.response?.data?.error?.message ??
+          error.message ??
+          'Download failed';
+      }
+      setErrorMessage(errorMsg);
     }
   };
 

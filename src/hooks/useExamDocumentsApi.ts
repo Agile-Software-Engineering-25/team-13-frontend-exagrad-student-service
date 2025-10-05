@@ -14,11 +14,24 @@ import type {
   ExamDocumentResponse,
   ApiResponseWrapper,
 } from '@custom-types/examDocument';
+import { isAxiosError } from '@custom-types/examDocument';
 import { EXAM_DOCUMENTS_BASE_URL } from '@/config';
 
 const useExamDocumentsApi = () => {
   const axiosInstance = useAxiosInstance(EXAM_DOCUMENTS_BASE_URL);
   const dispatch = useDispatch<AppDispatch>();
+
+  const extractErrorMessage = (
+    error: unknown,
+    defaultMessage: string
+  ): string => {
+    if (isAxiosError(error)) {
+      return (
+        error.response?.data?.error?.message ?? error.message ?? defaultMessage
+      );
+    }
+    return defaultMessage;
+  };
 
   const uploadExamDocument = useCallback(
     async (file: File, examId: string, studentId: string) => {
@@ -49,20 +62,7 @@ const useExamDocumentsApi = () => {
           throw new Error(response.data.error?.message || 'Upload failed');
         }
       } catch (error: unknown) {
-        let errorMessage = 'Upload failed';
-        if (typeof error === 'object' && error !== null) {
-          if (
-            'response' in error &&
-            typeof (error as any).response?.data?.error?.message === 'string'
-          ) {
-            errorMessage = (error as any).response.data.error.message;
-          } else if (
-            'message' in error &&
-            typeof (error as any).message === 'string'
-          ) {
-            errorMessage = (error as any).message;
-          }
-        }
+        const errorMessage = extractErrorMessage(error, 'Upload failed');
         dispatch(setError(errorMessage));
         throw error;
       }
@@ -87,20 +87,10 @@ const useExamDocumentsApi = () => {
           );
         }
       } catch (error: unknown) {
-        let errorMessage = 'Failed to fetch documents';
-        if (typeof error === 'object' && error !== null) {
-          if (
-            'response' in error &&
-            typeof (error as any).response?.data?.error?.message === 'string'
-          ) {
-            errorMessage = (error as any).response.data.error.message;
-          } else if (
-            'message' in error &&
-            typeof (error as any).message === 'string'
-          ) {
-            errorMessage = (error as any).message;
-          }
-        }
+        const errorMessage = extractErrorMessage(
+          error,
+          'Failed to fetch documents'
+        );
         dispatch(setError(errorMessage));
         throw error;
       }
@@ -124,20 +114,7 @@ const useExamDocumentsApi = () => {
 
         return false;
       } catch (error: unknown) {
-        let errorMessage = 'Delete failed';
-        if (typeof error === 'object' && error !== null) {
-          if (
-            'response' in error &&
-            typeof (error as any).response?.data?.error?.message === 'string'
-          ) {
-            errorMessage = (error as any).response.data.error.message;
-          } else if (
-            'message' in error &&
-            typeof (error as any).message === 'string'
-          ) {
-            errorMessage = (error as any).message;
-          }
-        }
+        const errorMessage = extractErrorMessage(error, 'Delete failed');
         dispatch(setError(errorMessage));
         throw error;
       }
@@ -161,20 +138,7 @@ const useExamDocumentsApi = () => {
         link.remove();
         window.URL.revokeObjectURL(url);
       } catch (error: unknown) {
-        let errorMessage = 'Download failed';
-        if (typeof error === 'object' && error !== null) {
-          if (
-            'response' in error &&
-            typeof (error as any).response?.data?.error?.message === 'string'
-          ) {
-            errorMessage = (error as any).response.data.error.message;
-          } else if (
-            'message' in error &&
-            typeof (error as any).message === 'string'
-          ) {
-            errorMessage = (error as any).message;
-          }
-        }
+        const errorMessage = extractErrorMessage(error, 'Download failed');
         dispatch(setError(errorMessage));
         throw error;
       }
