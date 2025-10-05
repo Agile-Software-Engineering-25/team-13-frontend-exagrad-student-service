@@ -28,7 +28,7 @@ type ExamDocumentModalProps = {
   assessment: Assessment | null;
 };
 
-const MOCK_STUDENT_ID = 'student-123'; // Replace with actual student ID from auth/context
+const MOCK_STUDENT_ID = 'student-123'; // TODO: Replace with actual student ID from auth/context
 
 const ExamDocumentModal = ({
   open,
