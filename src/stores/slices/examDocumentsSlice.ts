@@ -18,10 +18,8 @@ const examDocumentsSlice = createSlice({
   } as SliceState<ExamDocumentsData>,
   reducers: {
     setDocuments: (state, action: PayloadAction<ExamDocumentResponse[]>) => {
-      // Merge new documents with existing ones, avoiding duplicates
-      const existingIds = new Set(state.data.documents.map((doc) => doc.id));
-      const newDocs = action.payload.filter((doc) => !existingIds.has(doc.id));
-      state.data.documents = [...state.data.documents, ...newDocs];
+      // Replace documents with fetched data (no accumulation)
+      state.data.documents = action.payload;
       state.state = 'idle';
       state.error = null;
     },

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import type { ExamDocumentResponse } from '@custom-types/examDocument';
 
 interface StudentDocumentsListProps {
-  uploadedFiles: ExamDocumentResponse[];
   examDocuments: ExamDocumentResponse[];
   loading: boolean;
   uploading: boolean;
@@ -14,7 +13,6 @@ interface StudentDocumentsListProps {
 }
 
 export const StudentDocumentsList = ({
-  uploadedFiles,
   examDocuments,
   loading,
   uploading,
@@ -42,51 +40,26 @@ export const StudentDocumentsList = ({
           mt: 2,
         }}
       >
-        {/* Uploaded files section */}
-
-        {uploadedFiles.length > 0 && (
-          <Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-              {uploadedFiles.map((doc, idx) => (
-                <FileChip
-                  key={doc.id || doc.fileName + idx}
-                  filename={
-                    doc.fileName ||
-                    t(
-                      'components.dokumentModal.unknownFile',
-                      'Unbekannte Datei'
-                    )
-                  }
-                  onDelete={canDelete ? () => onDelete(doc.id) : undefined}
-                />
-              ))}
-            </Box>
+        {/* Show loading spinner while loading */}
+        {loading && !uploading && examDocuments.length === 0 && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
+            <CircularProgress size="sm" />
           </Box>
         )}
 
-        {/* Only show loading spinner if we're loading AND not currently uploading */}
-        {loading &&
-          !uploading &&
-          examDocuments.length === 0 &&
-          uploadedFiles.length === 0 && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-              <CircularProgress size="sm" />
-            </Box>
-          )}
+        {/* Show empty state when not loading and no documents */}
+        {!loading && examDocuments.length === 0 && (
+          <Box sx={{ py: 3, textAlign: 'center' }}>
+            <Typography level="body-sm" color="neutral">
+              {t(
+                'components.dokumentModal.noDocuments',
+                'Keine Dokumente hochgeladen'
+              )}
+            </Typography>
+          </Box>
+        )}
 
-        {!loading &&
-          examDocuments.length === 0 &&
-          uploadedFiles.length === 0 && (
-            <Box sx={{ py: 3, textAlign: 'center' }}>
-              <Typography level="body-sm" color="neutral">
-                {t(
-                  'components.dokumentModal.noDocuments',
-                  'Keine Dokumente hochgeladen'
-                )}
-              </Typography>
-            </Box>
-          )}
-
+        {/* Show document list */}
         {examDocuments.length > 0 && (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             {examDocuments.map((doc) => (
