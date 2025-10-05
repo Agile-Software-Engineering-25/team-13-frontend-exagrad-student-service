@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Modal } from '@agile-software/shared-components';
-import { Box, Button, Input, Sheet, Typography } from '@mui/joy';
+import { Box, Button, Input, Typography } from '@mui/joy';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import { Dropzone, FileChip } from '@agile-software/shared-components';
@@ -10,7 +10,6 @@ import type {
   PubDocumentRequest,
   PubDocumentResponse,
 } from '@custom-types/pubDocument';
-import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 
 type PubUploadModalProps = {
   open: boolean;
@@ -281,6 +280,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
             </Box>
           </Box>
 
+
           <Box
             sx={{
               flexGrow: 1,
@@ -309,39 +309,15 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
                     new Date(a.startDate).getTime()
                 )
                 .map((doc) => (
-                  <Sheet
+                  <FileChip
                     key={doc.id}
-                    variant="outlined"
-                    sx={{
-                      borderRadius: 50,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      px: 1.5,
-                      py: 0.5,
-                    }}
-                  >
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography level="title-sm">
-                        {formatDateToGerman(doc.startDate)} -{' '}
-                        {formatDateToGerman(doc.endDate)}
-                      </Typography>
-                      <Typography
-                        sx={{
-                          whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          maxWidth: '90%',
-                        }}
-                      >
-                        {doc.fileName}
-                      </Typography>
-                    </Box>
-                    <PictureAsPdfIcon color="error" />
-                  </Sheet>
+                    filename={`${formatDateToGerman(doc.startDate)} - ${formatDateToGerman(doc.endDate)} ${doc.fileName}`}
+                      containerSX={{ width: '100%' }}
+ />
                 ))
             )}
           </Box>
+          
         </Box>
       </Modal>
 
