@@ -2,10 +2,12 @@ import { Box, Divider } from '@mui/joy';
 import { Modal } from '@agile-software/shared-components';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { useTypedSelector } from '@stores/rootReducer';
 import type { ExamDocumentResponse } from '@custom-types/examDocument';
 import { isAxiosError } from '@custom-types/errors';
+import { clearDocuments } from '@stores/slices/examDocumentsSlice';
 import { UploadSection } from '@components/UploadSection';
 import { StudentDocumentsList } from '@components/StudentDocumentsList';
 import LecturerFilesSection from '@components/LecturerFilesSection/LecturerFilesSection';
@@ -36,10 +38,8 @@ const ExamDocumentModal = ({
   assessment,
 }: ExamDocumentModalProps) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [uploadedFiles, setUploadedFiles] = useState<ExamDocumentResponse[]>(
-    []
-  );
   const [uploading, setUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dropzoneKey, setDropzoneKey] = useState(0);
@@ -61,25 +61,26 @@ const ExamDocumentModal = ({
 
   const canDelete = !isDeadlinePassed();
 
-  // Filter documents for this exam, excluding ones already in uploadedFiles
+  // Filter documents for current exam from Redux
   const examDocuments = documents.filter(
-    (doc) =>
-      doc.examId === assessment?.examId &&
-      !uploadedFiles.some((uploaded) => uploaded.id === doc.id)
+    (doc) => doc.examId === assessment?.examId
   );
 
-  // Track uploaded files in this session (not persisted)
-  useEffect(() => {
-    if (open) setUploadedFiles([]);
-  }, [open]);
-
+  // Fetch documents when modal opens
   useEffect(() => {
     if (open && assessment?.examId) {
       getExamDocuments({ examId: assessment.examId }).catch((err) => {
         console.error('Failed to fetch documents:', err);
       });
     }
-  }, [open, assessment?.examId, getExamDocuments]);
+  }, [open, assessment?.examId]);
+
+  // Clear documents when modal closes
+  useEffect(() => {
+    if (!open) {
+      dispatch(clearDocuments());
+    }
+  }, [open, dispatch]);
 
   // Accepts File or File[] from Dropzone
   const handleFileChange = (files: File | File[]) => {
@@ -122,18 +123,16 @@ const ExamDocumentModal = ({
     }
     setUploading(true);
     setErrorMessage(null);
-    const uploaded: ExamDocumentResponse[] = [];
     const errors: string[] = [];
 
     // Upload all files sequentially
     for (const file of selectedFiles) {
       try {
-        const result = await uploadExamDocument(
+        await uploadExamDocument(
           file,
           assessment.examId,
           MOCK_STUDENT_ID
         );
-        if (result) uploaded.push(result);
       } catch (error: unknown) {
         let errorMsg = 'Upload failed';
         if (isAxiosError(error)) {
@@ -146,17 +145,9 @@ const ExamDocumentModal = ({
       }
     }
 
-    // Only update state after all uploads complete
+    // Show errors if any occurred
     if (errors.length > 0) {
       setErrorMessage(errors.join('; '));
-    }
-
-    if (uploaded.length > 0) {
-      setUploadedFiles((prev) => [...prev, ...uploaded]);
-      // Refresh documents from backend to ensure consistency
-      await getExamDocuments({ examId: assessment.examId }).catch(() => {
-        // Ignore errors - we have the uploaded files already
-      });
     }
 
     // Clear all selected files after upload attempt (both successful and failed)
@@ -174,8 +165,6 @@ const ExamDocumentModal = ({
     setErrorMessage(null);
     try {
       await deleteExamDocument(documentId);
-      // Remove from session uploaded files list as well
-      setUploadedFiles((prev) => prev.filter((doc) => doc.id !== documentId));
     } catch (error: unknown) {
       let errorMsg = 'Delete failed';
       if (isAxiosError(error)) {
@@ -237,7 +226,6 @@ const ExamDocumentModal = ({
         <Divider sx={{ my: 2, width: '100%', mt: 4 }} />
 
         <StudentDocumentsList
-          uploadedFiles={uploadedFiles}
           examDocuments={examDocuments}
           loading={loadingState === 'loading'}
           uploading={uploading}
