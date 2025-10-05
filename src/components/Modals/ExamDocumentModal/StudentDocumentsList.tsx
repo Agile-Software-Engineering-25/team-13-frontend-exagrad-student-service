@@ -42,57 +42,66 @@ export const StudentDocumentsList = ({
           mt: 2,
         }}
       >
-      {/* Uploaded files section */}
-          
-      {uploadedFiles.length > 0 && (
-        <Box>
+        {/* Uploaded files section */}
+
+        {uploadedFiles.length > 0 && (
+          <Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              {uploadedFiles.map((doc, idx) => (
+                <FileChip
+                  key={doc.id || doc.fileName + idx}
+                  filename={
+                    doc.fileName ||
+                    t(
+                      'components.dokumentModal.unknownFile',
+                      'Unbekannte Datei'
+                    )
+                  }
+                  onDelete={canDelete ? () => onDelete(doc.id) : undefined}
+                />
+              ))}
+            </Box>
+          </Box>
+        )}
+
+        {/* Only show loading spinner if we're loading AND not currently uploading */}
+        {loading &&
+          !uploading &&
+          examDocuments.length === 0 &&
+          uploadedFiles.length === 0 && (
+            <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
+              <CircularProgress size="sm" />
+            </Box>
+          )}
+
+        {!loading &&
+          examDocuments.length === 0 &&
+          uploadedFiles.length === 0 && (
+            <Box sx={{ py: 3, textAlign: 'center' }}>
+              <Typography level="body-sm" color="neutral">
+                {t(
+                  'components.dokumentModal.noDocuments',
+                  'Keine Dokumente hochgeladen'
+                )}
+              </Typography>
+            </Box>
+          )}
+
+        {examDocuments.length > 0 && (
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            {uploadedFiles.map((doc, idx) => (
+            {examDocuments.map((doc) => (
               <FileChip
-                key={doc.id || doc.fileName + idx}
+                key={doc.id}
                 filename={
                   doc.fileName ||
                   t('components.dokumentModal.unknownFile', 'Unbekannte Datei')
                 }
                 onDelete={canDelete ? () => onDelete(doc.id) : undefined}
+                onClick={() => onDownload(doc)}
               />
             ))}
           </Box>
-        </Box>
-      )}
-
-      {/* Only show loading spinner if we're loading AND not currently uploading */}
-      {loading && !uploading && examDocuments.length === 0 && uploadedFiles.length === 0 && (
-        <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-          <CircularProgress size="sm" />
-        </Box>
-      )}
-
-      
-
-      {!loading && examDocuments.length === 0 && uploadedFiles.length === 0 && (
-        <Box sx={{ py: 3, textAlign: 'center' }}>
-          <Typography level="body-sm" color="neutral">
-            {t('components.dokumentModal.noDocuments', 'Keine Dokumente hochgeladen')}
-          </Typography>
-        </Box>
-      )}
-
-      {examDocuments.length > 0 && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-          {examDocuments.map((doc) => (
-            <FileChip
-              key={doc.id}
-              filename={
-                doc.fileName ||
-                t('components.dokumentModal.unknownFile', 'Unbekannte Datei')
-              }
-              onDelete={canDelete ? () => onDelete(doc.id) : undefined}
-              onClick={() => onDownload(doc)}
-            />
-          ))}
-        </Box>
-      )}
+        )}
       </Box>
     </>
   );

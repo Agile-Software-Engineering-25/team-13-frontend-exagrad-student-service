@@ -99,7 +99,10 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
                           startDecorator={<CheckCircleIcon />}
                           variant="soft"
                         >
-                          {t('components.moduleDetailView.table.uploaded', 'Hochgeladen')}
+                          {t(
+                            'components.moduleDetailView.table.uploaded',
+                            'Hochgeladen'
+                          )}
                         </Chip>
                       )}
                     </Box>

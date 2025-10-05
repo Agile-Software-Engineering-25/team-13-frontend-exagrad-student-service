@@ -36,14 +36,9 @@ export const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
   };
 
   return (
-    <Card
-      cardSX={{ variant: 'soft', mb: 3 }}
-    >
+    <Card cardSX={{ variant: 'soft', mb: 3 }}>
       <Box>
-        <Typography
-          level="title-lg"
-          sx={{ fontWeight: 'bold', mb: 2 }}
-        >
+        <Typography level="title-lg" sx={{ fontWeight: 'bold', mb: 2 }}>
           {t('components.dokumentModal.assessmentInfo.title')}
         </Typography>
 
@@ -58,27 +53,21 @@ export const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
             <Typography level="body-sm" sx={{ color: 'neutral', mb: 0.5 }}>
               {t('components.dokumentModal.assessmentInfo.type')}
             </Typography>
-            <Typography level="title-md">
-              {assessment.assessmentTyp}
-            </Typography>
+            <Typography level="title-md">{assessment.assessmentTyp}</Typography>
           </Box>
 
           <Box>
             <Typography level="body-sm" sx={{ color: 'neutral', mb: 0.5 }}>
               {t('components.dokumentModal.assessmentInfo.weight')}
             </Typography>
-            <Typography level="title-md">
-              {assessment.weight}
-            </Typography>
+            <Typography level="title-md">{assessment.weight}</Typography>
           </Box>
 
           <Box>
             <Typography level="body-sm" sx={{ color: 'neutral', mb: 0.5 }}>
               {t('components.dokumentModal.assessmentInfo.grade')}
             </Typography>
-            <Typography level="title-md">
-              {assessment.grade}
-            </Typography>
+            <Typography level="title-md">{assessment.grade}</Typography>
           </Box>
 
           <Box>
@@ -87,7 +76,9 @@ export const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Typography level="title-md">
-                {assessment.deadline ? formatDate(assessment.deadline) : t('components.dokumentModal.assessmentInfo.noDeadline')}
+                {assessment.deadline
+                  ? formatDate(assessment.deadline)
+                  : t('components.dokumentModal.assessmentInfo.noDeadline')}
               </Typography>
               {assessment.deadline && isDeadlinePassed() && (
                 <Chip size="sm" color="danger" variant="solid">

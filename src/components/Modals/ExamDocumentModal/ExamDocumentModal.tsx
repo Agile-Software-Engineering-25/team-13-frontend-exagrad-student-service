@@ -29,10 +29,16 @@ type ExamDocumentModalProps = {
 
 const MOCK_STUDENT_ID = 'student-123'; // Replace with actual student ID from auth/context
 
-const ExamDocumentModal = ({ open, setOpen, assessment }: ExamDocumentModalProps) => {
+const ExamDocumentModal = ({
+  open,
+  setOpen,
+  assessment,
+}: ExamDocumentModalProps) => {
   const { t } = useTranslation();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [uploadedFiles, setUploadedFiles] = useState<ExamDocumentResponse[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<ExamDocumentResponse[]>(
+    []
+  );
   const [uploading, setUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dropzoneKey, setDropzoneKey] = useState(0);
@@ -128,7 +134,10 @@ const ExamDocumentModal = ({ open, setOpen, assessment }: ExamDocumentModalProps
         );
         if (result) uploaded.push(result);
       } catch (error: any) {
-        const errorMsg = error.response?.data?.error?.message || error.message || 'Upload failed';
+        const errorMsg =
+          error.response?.data?.error?.message ||
+          error.message ||
+          'Upload failed';
         errors.push(`${file.name}: ${errorMsg}`);
       }
     }
@@ -203,7 +212,6 @@ const ExamDocumentModal = ({ open, setOpen, assessment }: ExamDocumentModalProps
           />
         )}
 
-
         <UploadSection
           key={dropzoneKey}
           selectedFiles={selectedFiles}
@@ -214,22 +222,22 @@ const ExamDocumentModal = ({ open, setOpen, assessment }: ExamDocumentModalProps
           onUpload={handleUpload}
         />
 
-          <Divider sx={{ my: 2, width: '100%', mt: 4 }} />
-
-          <StudentDocumentsList
-            uploadedFiles={uploadedFiles}
-            examDocuments={examDocuments}
-            loading={loadingState === 'loading'}
-            uploading={uploading}
-            canDelete={canDelete}
-            onDelete={handleDelete}
-            onDownload={handleDownload}
-          />
-        </Box>
-
         <Divider sx={{ my: 2, width: '100%', mt: 4 }} />
 
-        <LecturerFilesSection files={lecturerFiles} />
+        <StudentDocumentsList
+          uploadedFiles={uploadedFiles}
+          examDocuments={examDocuments}
+          loading={loadingState === 'loading'}
+          uploading={uploading}
+          canDelete={canDelete}
+          onDelete={handleDelete}
+          onDownload={handleDownload}
+        />
+      </Box>
+
+      <Divider sx={{ my: 2, width: '100%', mt: 4 }} />
+
+      <LecturerFilesSection files={lecturerFiles} />
     </Modal>
   );
 };

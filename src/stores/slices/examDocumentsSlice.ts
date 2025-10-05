@@ -53,8 +53,21 @@ const examDocumentsSlice = createSlice({
   },
 });
 
-const { setDocuments, addDocument, removeDocument, setLoading, setError, clearDocuments } =
-  examDocumentsSlice.actions;
+const {
+  setDocuments,
+  addDocument,
+  removeDocument,
+  setLoading,
+  setError,
+  clearDocuments,
+} = examDocumentsSlice.actions;
 
-export { setDocuments, addDocument, removeDocument, setLoading, setError, clearDocuments };
+export {
+  setDocuments,
+  addDocument,
+  removeDocument,
+  setLoading,
+  setError,
+  clearDocuments,
+};
 export default examDocumentsSlice.reducer;

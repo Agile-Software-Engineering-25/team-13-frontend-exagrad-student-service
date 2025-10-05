@@ -47,7 +47,8 @@ export const LecturerFilesSection = ({ files }: LecturerFilesSectionProps) => {
           <FileChip
             key={index}
             filename={
-              file || t('components.dokumentModal.unknownFile', 'Unbekannte Datei')
+              file ||
+              t('components.dokumentModal.unknownFile', 'Unbekannte Datei')
             }
           />
         ))}
