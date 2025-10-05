@@ -6,7 +6,7 @@ interface LecturerFilesSectionProps {
   files: string[];
 }
 
-export const LecturerFilesSection = ({ files }: LecturerFilesSectionProps) => {
+const LecturerFilesSection = ({ files }: LecturerFilesSectionProps) => {
   const { t } = useTranslation();
 
   return (
@@ -56,3 +56,5 @@ export const LecturerFilesSection = ({ files }: LecturerFilesSectionProps) => {
     </Box>
   );
 };
+
+export default LecturerFilesSection;

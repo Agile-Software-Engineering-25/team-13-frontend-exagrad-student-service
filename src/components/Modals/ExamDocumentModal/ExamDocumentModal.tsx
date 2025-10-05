@@ -8,9 +8,9 @@ import type { ExamDocumentResponse } from '@custom-types/examDocument';
 import { isAxiosError } from '@custom-types/errors';
 import { UploadSection } from '@components/UploadSection';
 import { StudentDocumentsList } from '@components/StudentDocumentsList';
-import { LecturerFilesSection } from '@components/LecturerFilesSection';
-import { ErrorBanner } from '@components/ErrorBanner';
-import { AssessmentInfoCard } from '@components/AssessmentInfoCard';
+import LecturerFilesSection from '@components/LecturerFilesSection/LecturerFilesSection';
+import ErrorBanner from '@components/ErrorBanner/ErrorBanner';
+import AssessmentInfoCard from '@components/AssessmentInfoCard/AssessmentInfoCard';
 
 type Assessment = {
   assessmentTyp: string;

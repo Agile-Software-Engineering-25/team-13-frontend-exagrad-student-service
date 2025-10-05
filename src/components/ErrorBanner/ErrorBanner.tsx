@@ -5,7 +5,7 @@ interface ErrorBannerProps {
   type?: 'error' | 'warning';
 }
 
-export const ErrorBanner = ({ message, type = 'error' }: ErrorBannerProps) => {
+const ErrorBanner = ({ message, type = 'error' }: ErrorBannerProps) => {
   const color = type === 'error' ? 'danger' : 'warning';
 
   return (
@@ -23,3 +23,5 @@ export const ErrorBanner = ({ message, type = 'error' }: ErrorBannerProps) => {
     </Box>
   );
 };
+
+export default ErrorBanner;

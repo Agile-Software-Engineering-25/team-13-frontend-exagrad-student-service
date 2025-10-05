@@ -16,7 +16,7 @@ interface AssessmentInfoCardProps {
   assessment: Assessment | null;
 }
 
-export const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
+const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
   const { t } = useTranslation();
 
   if (!assessment) return null;
@@ -92,3 +92,5 @@ export const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
     </Card>
   );
 };
+
+export default AssessmentInfoCard;
