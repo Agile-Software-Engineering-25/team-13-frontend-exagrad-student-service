@@ -42,7 +42,6 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   };
   const handleSelectedFileDelete = () => {
     setFile(null);
-
   };
 
   const isValidDate = (dateStr: string) => {
@@ -172,7 +171,6 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
     return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
   };
 
-
   return (
     <>
       <Modal
@@ -245,42 +243,40 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
               <FormLabel>{t('components.pubUploadModal.fileLabel')}</FormLabel>
             </FormControl>
             <Box
-  sx={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 1, // Abstand zwischen Dropzone und Button
-  }}
->
-  <Box sx={{ flex: 1, minWidth: 0 }}>
-    <Dropzone
-      key={dropzoneKey}
-      types={['PDF', 'PNG', 'JPG']}
-      onFileSelect={handleFileSelect}
-    />
-    {file && (
-      <Box sx={{ mt: 1 }}>
-        <FileChip
-          filename={file.name}
-          showFileExtension={true}
-          onDelete={handleSelectedFileDelete}
-        />
-      </Box>
-    )}
-  </Box>
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 1, // Abstand zwischen Dropzone und Button
+              }}
+            >
+              <Box sx={{ flex: 1, minWidth: 0 }}>
+                <Dropzone
+                  key={dropzoneKey}
+                  types={['PDF', 'PNG', 'JPG']}
+                  onFileSelect={handleFileSelect}
+                />
+                {file && (
+                  <Box sx={{ mt: 1 }}>
+                    <FileChip
+                      filename={file.name}
+                      showFileExtension={true}
+                      onDelete={handleSelectedFileDelete}
+                    />
+                  </Box>
+                )}
+              </Box>
 
-  <Button
-    onClick={handleUpload}
-    disabled={!isFormValid || loading}
-    sx={{ width: '100%' }}
-  >
-    {loading
-      ? t('components.pubUploadModal.uploading')
-      : t('components.pubUploadModal.uploadButton')}
-  </Button>
-</Box>
-
+              <Button
+                onClick={handleUpload}
+                disabled={!isFormValid || loading}
+                sx={{ width: '100%' }}
+              >
+                {loading
+                  ? t('components.pubUploadModal.uploading')
+                  : t('components.pubUploadModal.uploadButton')}
+              </Button>
+            </Box>
           </Box>
-
 
           <Box
             sx={{
@@ -313,12 +309,11 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
                   <FileChip
                     key={doc.id}
                     filename={`${formatDateToGerman(doc.startDate)} - ${formatDateToGerman(doc.endDate)} ${doc.fileName}`}
-                      containerSX={{ width: '100%' }}
- />
+                    containerSX={{ width: '100%' }}
+                  />
                 ))
             )}
           </Box>
-          
         </Box>
       </Modal>
 
