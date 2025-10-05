@@ -245,39 +245,40 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
               <FormLabel>{t('components.pubUploadModal.fileLabel')}</FormLabel>
             </FormControl>
             <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'flex-start',
-                gap: 0,
-              }}
-            >
-              <Box sx={{ flex: 1, minWidth: 0 }}>
-                <Dropzone
-                  key={dropzoneKey}
-                  types={['PDF', 'PNG', 'JPG']}
-                  onFileSelect={handleFileSelect}
-                />
-                {file && (
-                  <Box sx={{ mt: 1 }}>
-                    <FileChip
-                    filename={file.name} 
-                    showFileExtension={true}
-                    onDelete={handleSelectedFileDelete}
-                    />
-                  </Box>
-                )}
-              </Box>
-              <Button
-                onClick={handleUpload}
-                disabled={!isFormValid || loading}
-                sx={{ whiteSpace: 'nowrap' }}
-              >
-                {loading
-                  ? t('components.pubUploadModal.uploading')
-                  : t('components.pubUploadModal.uploadButton')}
-              </Button>
-            </Box>
+  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 1, // Abstand zwischen Dropzone und Button
+  }}
+>
+  <Box sx={{ flex: 1, minWidth: 0 }}>
+    <Dropzone
+      key={dropzoneKey}
+      types={['PDF', 'PNG', 'JPG']}
+      onFileSelect={handleFileSelect}
+    />
+    {file && (
+      <Box sx={{ mt: 1 }}>
+        <FileChip
+          filename={file.name}
+          showFileExtension={true}
+          onDelete={handleSelectedFileDelete}
+        />
+      </Box>
+    )}
+  </Box>
+
+  <Button
+    onClick={handleUpload}
+    disabled={!isFormValid || loading}
+    sx={{ width: '100%' }}
+  >
+    {loading
+      ? t('components.pubUploadModal.uploading')
+      : t('components.pubUploadModal.uploadButton')}
+  </Button>
+</Box>
+
           </Box>
 
 
