@@ -12,9 +12,9 @@ import {
 import type {
   ExamDocumentRequest,
   ExamDocumentResponse,
-  ApiResponseWrapper,
 } from '@custom-types/examDocument';
-import { isAxiosError } from '@custom-types/examDocument';
+import type { ApiResponseWrapper } from '@custom-types/errors';
+import { isAxiosError } from '@custom-types/errors';
 import { BACKEND_BASE_URL } from '@/config';
 
 const useExamDocumentsApi = () => {

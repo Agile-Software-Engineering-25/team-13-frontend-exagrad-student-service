@@ -5,12 +5,12 @@ import { useState, useEffect, useCallback } from 'react';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { useTypedSelector } from '@stores/rootReducer';
 import type { ExamDocumentResponse } from '@custom-types/examDocument';
-import { isAxiosError } from '@custom-types/examDocument';
-import { UploadSection } from './UploadSection';
-import { StudentDocumentsList } from './StudentDocumentsList';
-import { LecturerFilesSection } from './LecturerFilesSection';
-import { ErrorBanner } from './ErrorBanner';
-import { AssessmentInfoCard } from './AssessmentInfoCard';
+import { isAxiosError } from '@custom-types/errors';
+import { UploadSection } from '@components/UploadSection';
+import { StudentDocumentsList } from '@components/StudentDocumentsList';
+import { LecturerFilesSection } from '@components/LecturerFilesSection';
+import { ErrorBanner } from '@components/ErrorBanner';
+import { AssessmentInfoCard } from '@components/AssessmentInfoCard';
 
 type Assessment = {
   assessmentTyp: string;

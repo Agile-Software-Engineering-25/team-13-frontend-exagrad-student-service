@@ -1,0 +1,1 @@
+export { LecturerFilesSection } from './LecturerFilesSection';
