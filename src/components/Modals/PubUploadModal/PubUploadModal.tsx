@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import GenericModal from '@components/Modals/GenericModal';
+import { Modal } from '@agile-software/shared-components';
 import { Box, Button, Input, Sheet, Typography } from '@mui/joy';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
@@ -168,7 +168,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
 
   return (
     <>
-      <GenericModal
+      <Modal
         header={t('components.pubUploadModal.header')}
         open={open}
         setOpen={handleClose}
@@ -326,9 +326,9 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
             )}
           </Box>
         </Box>
-      </GenericModal>
+      </Modal>
 
-      <GenericModal
+      <Modal
         header={t('components.pubUploadModal.confirmHeader')}
         open={showConfirmModal}
         setOpen={setShowConfirmModal}
@@ -355,7 +355,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
             </Button>
           </Box>
         </Box>
-      </GenericModal>
+      </Modal>
     </>
   );
 };
