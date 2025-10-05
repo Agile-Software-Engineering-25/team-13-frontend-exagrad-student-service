@@ -50,7 +50,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
 
   const checkDatesValidity = () => {
     const errors: typeof dateErrors = {};
-    
+
     if (!isValidDate(startDate))
       errors.start = t('components.pubUploadModal.dateError');
     if (!isValidDate(endDate))
@@ -71,32 +71,32 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
 
   const validateDateField = (value: string, field: 'start' | 'end') => {
     const newErrors = { ...dateErrors };
-    
+
     // Validate format
     if (!isValidDate(value)) {
       newErrors[field] = t('components.pubUploadModal.dateError');
     } else {
       delete newErrors[field];
     }
-    
+
     // Check range if both dates are valid
     if (isValidDate(startDate) && isValidDate(endDate)) {
       const start = field === 'start' ? value : startDate;
       const end = field === 'end' ? value : endDate;
-      
+
       const [sd, sm, sy] = start.split('.').map(Number);
       const [ed, em, ey] = end.split('.').map(Number);
-      
+
       const startDateObj = new Date(sy, sm - 1, sd);
       const endDateObj = new Date(ey, em - 1, ed);
-      
+
       if (startDateObj > endDateObj) {
         newErrors.range = t('components.pubUploadModal.rangeError');
       } else {
         delete newErrors.range;
       }
     }
-    
+
     setDateErrors(newErrors);
   };
 
@@ -106,40 +106,40 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
       setDateErrors(errors);
       return;
     }
-    
+
     setShowConfirmModal(true);
   };
 
   const confirmUpload = async () => {
-  if (!file) return; // Diese Zeile hinzufügen
-  
-  setShowConfirmModal(false);
-  setLoading(true);
+    if (!file) return; // Diese Zeile hinzufügen
 
-  try {
-    const [sd, sm, sy] = startDate.split('.').map(Number);
-    const [ed, em, ey] = endDate.split('.').map(Number);
+    setShowConfirmModal(false);
+    setLoading(true);
 
-    const metadata: PubDocumentRequest = {
-      studentId,
-      startDate: `${sy}-${String(sm).padStart(2, '0')}-${String(sd).padStart(2, '0')}`,
-      endDate: `${ey}-${String(em).padStart(2, '0')}-${String(ed).padStart(2, '0')}`,
-    };
+    try {
+      const [sd, sm, sy] = startDate.split('.').map(Number);
+      const [ed, em, ey] = endDate.split('.').map(Number);
 
-    await uploadPubDocument(file, metadata);
-    setDocuments(await getPubDocuments(studentId));
-    setFile(null);
-    setStartDate('');
-    setEndDate('');
-    setDateErrors({});
-    setDropzoneKey((prev) => prev + 1);
-  } catch (err: any) {
-    console.error(err);
-    alert(t('components.pubUploadModal.uploadError') + err);
-  } finally {
-    setLoading(false);
-  }
-};
+      const metadata: PubDocumentRequest = {
+        studentId,
+        startDate: `${sy}-${String(sm).padStart(2, '0')}-${String(sd).padStart(2, '0')}`,
+        endDate: `${ey}-${String(em).padStart(2, '0')}-${String(ed).padStart(2, '0')}`,
+      };
+
+      await uploadPubDocument(file, metadata);
+      setDocuments(await getPubDocuments(studentId));
+      setFile(null);
+      setStartDate('');
+      setEndDate('');
+      setDateErrors({});
+      setDropzoneKey((prev) => prev + 1);
+    } catch (err: unknown) {
+      console.error(err);
+      alert(t('components.pubUploadModal.uploadError') + err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleClose = () => {
     setFile(null);
@@ -175,188 +175,188 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
         disableEscape={false}
         modalDialogSX={{ minWidth: '700px' }}
       >
-      <Box sx={{ mb: 2 }}>
-        <Box
-          sx={{
-            flexGrow: 1,
-            p: 2,
-            border: '1px solid #C2CAD5',
-            borderRadius: 'lg',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1.5,
-            mb: 3,
-          }}
-        >
-          <Typography level="title-sm">
-            {t('components.pubUploadModal.uploadPub')}
-          </Typography>
-
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-            <Typography level="body-md">
-              {t('components.pubUploadModal.from')}
-            </Typography>
-            <FormControl sx={{ flex: 1 }}>
-              <Input
-                placeholder={t('components.pubUploadModal.dateFormat')}
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                onBlur={() => validateDateField(startDate, 'start')}
-              />
-              {dateErrors.start && (
-                <Typography level="body-sm" color="danger">
-                  {dateErrors.start}
-                </Typography>
-              )}
-            </FormControl>
-
-            <Typography level="body-md">
-              {t('components.pubUploadModal.to')}
-            </Typography>
-            <FormControl sx={{ flex: 1 }}>
-              <Input
-                placeholder={t('components.pubUploadModal.dateFormat')}
-                value={endDate}
-                onChange={(e) => setEndDate(e.target.value)}
-                onBlur={() => validateDateField(endDate, 'end')}
-              />
-              {dateErrors.end && (
-                <Typography level="body-sm" color="danger">
-                  {dateErrors.end}
-                </Typography>
-              )}
-            </FormControl>
-          </Box>
-
-          {dateErrors.range && (
-            <Typography level="body-sm" color="danger" sx={{ mb: 2 }}>
-              {dateErrors.range}
-            </Typography>
-          )}
-
-          <FormControl>
-            <FormLabel>{t('components.pubUploadModal.fileLabel')}</FormLabel>
-          </FormControl>
+        <Box sx={{ mb: 2 }}>
           <Box
             sx={{
+              flexGrow: 1,
+              p: 2,
+              border: '1px solid #C2CAD5',
+              borderRadius: 'lg',
               display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'flex-start',
-              gap: 0,
+              flexDirection: 'column',
+              gap: 1.5,
+              mb: 3,
             }}
           >
-            <Box sx={{ flex: 1, minWidth: 0 }}>
-              <FileDropzone
-                key={dropzoneKey}
-                types={['PDF', 'PNG', 'JPG']}
-                onFileChange={setFile}
-              />
+            <Typography level="title-sm">
+              {t('components.pubUploadModal.uploadPub')}
+            </Typography>
+
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+              <Typography level="body-md">
+                {t('components.pubUploadModal.from')}
+              </Typography>
+              <FormControl sx={{ flex: 1 }}>
+                <Input
+                  placeholder={t('components.pubUploadModal.dateFormat')}
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  onBlur={() => validateDateField(startDate, 'start')}
+                />
+                {dateErrors.start && (
+                  <Typography level="body-sm" color="danger">
+                    {dateErrors.start}
+                  </Typography>
+                )}
+              </FormControl>
+
+              <Typography level="body-md">
+                {t('components.pubUploadModal.to')}
+              </Typography>
+              <FormControl sx={{ flex: 1 }}>
+                <Input
+                  placeholder={t('components.pubUploadModal.dateFormat')}
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  onBlur={() => validateDateField(endDate, 'end')}
+                />
+                {dateErrors.end && (
+                  <Typography level="body-sm" color="danger">
+                    {dateErrors.end}
+                  </Typography>
+                )}
+              </FormControl>
             </Box>
-            <Button
-              onClick={handleUpload}
-              disabled={!isFormValid || loading}
-              sx={{ whiteSpace: 'nowrap' }}
+
+            {dateErrors.range && (
+              <Typography level="body-sm" color="danger" sx={{ mb: 2 }}>
+                {dateErrors.range}
+              </Typography>
+            )}
+
+            <FormControl>
+              <FormLabel>{t('components.pubUploadModal.fileLabel')}</FormLabel>
+            </FormControl>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                gap: 0,
+              }}
             >
-              {loading
-                ? t('components.pubUploadModal.uploading')
-                : t('components.pubUploadModal.uploadButton')}
+              <Box sx={{ flex: 1, minWidth: 0 }}>
+                <FileDropzone
+                  key={dropzoneKey}
+                  types={['PDF', 'PNG', 'JPG']}
+                  onFileChange={setFile}
+                />
+              </Box>
+              <Button
+                onClick={handleUpload}
+                disabled={!isFormValid || loading}
+                sx={{ whiteSpace: 'nowrap' }}
+              >
+                {loading
+                  ? t('components.pubUploadModal.uploading')
+                  : t('components.pubUploadModal.uploadButton')}
+              </Button>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              p: 2,
+              border: '1px solid #C2CAD5',
+              borderRadius: 'lg',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1.5,
+            }}
+          >
+            <Typography level="title-sm">
+              {t('components.pubUploadModal.uploadedPubs')}
+            </Typography>
+
+            {documents.length === 0 ? (
+              <Typography level="body-sm" color="neutral">
+                {t('components.pubUploadModal.nothingUploadedYet')}
+              </Typography>
+            ) : (
+              documents
+                .slice()
+                .sort(
+                  (a, b) =>
+                    new Date(b.startDate).getTime() -
+                    new Date(a.startDate).getTime()
+                )
+                .map((doc) => (
+                  <Sheet
+                    key={doc.id}
+                    variant="outlined"
+                    sx={{
+                      borderRadius: 50,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      px: 1.5,
+                      py: 0.5,
+                    }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography level="title-sm">
+                        {formatDateToGerman(doc.startDate)} -{' '}
+                        {formatDateToGerman(doc.endDate)}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          maxWidth: '90%',
+                        }}
+                      >
+                        {doc.fileName}
+                      </Typography>
+                    </Box>
+                    <PictureAsPdfIcon color="error" />
+                  </Sheet>
+                ))
+            )}
+          </Box>
+        </Box>
+      </GenericModal>
+
+      <GenericModal
+        header={t('components.pubUploadModal.confirmHeader')}
+        open={showConfirmModal}
+        setOpen={setShowConfirmModal}
+        disableEscape={false}
+      >
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Typography level="body-md">
+            {t('components.pubUploadModal.confirmMessage')}
+          </Typography>
+          <Typography sx={{ textAlign: 'center' }}>
+            {t('components.pubUploadModal.timePeriod')}
+            {startDate} - {endDate}
+          </Typography>
+          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+            <Button
+              variant="outlined"
+              color="neutral"
+              onClick={() => setShowConfirmModal(false)}
+            >
+              {t('components.pubUploadModal.cancel')}
+            </Button>
+            <Button onClick={confirmUpload}>
+              {t('components.pubUploadModal.confirmUpload')}
             </Button>
           </Box>
         </Box>
-
-        <Box
-          sx={{
-            flexGrow: 1,
-            p: 2,
-            border: '1px solid #C2CAD5',
-            borderRadius: 'lg',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 1.5,
-          }}
-        >
-          <Typography level="title-sm">
-            {t('components.pubUploadModal.uploadedPubs')}
-          </Typography>
-
-          {documents.length === 0 ? (
-            <Typography level="body-sm" color="neutral">
-              {t('components.pubUploadModal.nothingUploadedYet')}
-            </Typography>
-          ) : (
-            documents
-              .slice()
-              .sort(
-                (a, b) =>
-                  new Date(b.startDate).getTime() -
-                  new Date(a.startDate).getTime()
-              )
-              .map((doc) => (
-                <Sheet
-                  key={doc.id}
-                  variant="outlined"
-                  sx={{
-                    borderRadius: 50,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    px: 1.5,
-                    py: 0.5,
-                  }}
-                >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Typography level="title-sm">
-                      {formatDateToGerman(doc.startDate)} -{' '}
-                      {formatDateToGerman(doc.endDate)}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        maxWidth: '90%',
-                      }}
-                    >
-                      {doc.fileName}
-                    </Typography>
-                  </Box>
-                  <PictureAsPdfIcon color="error" />
-                </Sheet>
-              ))
-          )}
-        </Box>
-      </Box>
-    </GenericModal>
-
-    <GenericModal
-      header={t('components.pubUploadModal.confirmHeader')}
-      open={showConfirmModal}
-      setOpen={setShowConfirmModal}
-      disableEscape={false}
-    >
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Typography level="body-md">
-          {t('components.pubUploadModal.confirmMessage')}
-        </Typography>
-        <Typography sx={{textAlign: 'center'}}>
-        {t('components.pubUploadModal.timePeriod')}
-        {startDate} - {endDate}
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-          <Button
-            variant="outlined"
-            color="neutral"
-            onClick={() => setShowConfirmModal(false)}
-          >
-            {t('components.pubUploadModal.cancel')}
-          </Button>
-          <Button onClick={confirmUpload}>
-            {t('components.pubUploadModal.confirmUpload')}
-          </Button>
-        </Box>
-      </Box>
-    </GenericModal>
-  </>
+      </GenericModal>
+    </>
   );
 };
 

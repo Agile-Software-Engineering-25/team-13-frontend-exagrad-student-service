@@ -22,5 +22,5 @@ export type PubDocumentsApiResponse = {
   timestamp: string;
   endpoint: string;
   data: PubDocumentResponse[];
-  error: any;
+  error: unknown;
 };
