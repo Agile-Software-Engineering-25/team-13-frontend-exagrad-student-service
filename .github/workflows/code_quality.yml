@@ -35,8 +35,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -47,9 +45,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build shared components
-        working-directory: shared-components
-        run: npm install && npm run build
 
       - name: Run tests
         run: npm run ci
