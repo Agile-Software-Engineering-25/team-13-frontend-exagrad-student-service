@@ -36,7 +36,6 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   const [documents, setDocuments] = useState<PubDocumentResponse[]>([]);
   const [dropzoneKey, setDropzoneKey] = useState(0);
 
-
   const isValidDate = (dateStr: string) => {
     if (!dateFormatRegex.test(dateStr)) return false;
     const [dd, mm, yyyy] = dateStr.split('.').map(Number);
@@ -48,17 +47,9 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
     );
   };
 
-  const validateDateField = (value: string, field: 'start' | 'end') => {
-    setDateErrors((prev) => ({
-      ...prev,
-      [field]: isValidDate(value)
-        ? undefined
-        : t('components.pubUploadModal.dateError'),
-    }));
-  };
-
-  const validateDates = () => {
+  const checkDatesValidity = () => {
     const errors: typeof dateErrors = {};
+    
     if (!isValidDate(startDate))
       errors.start = t('components.pubUploadModal.dateError');
     if (!isValidDate(endDate))
@@ -74,12 +65,25 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
       if (start > end) errors.range = t('components.pubUploadModal.rangeError');
     }
 
-    setDateErrors(errors);
-    return Object.keys(errors).length === 0;
+    return errors;
+  };
+
+  const validateDateField = (value: string, field: 'start' | 'end') => {
+    setDateErrors((prev) => ({
+      ...prev,
+      [field]: isValidDate(value)
+        ? undefined
+        : t('components.pubUploadModal.dateError'),
+    }));
   };
 
   const handleUpload = async () => {
-    if (!file || !validateDates()) return;
+    const errors = checkDatesValidity();
+    if (!file || Object.keys(errors).length > 0) {
+      setDateErrors(errors);
+      return;
+    }
+    
     setLoading(true);
 
     try {
@@ -125,7 +129,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
       });
   }, [open, studentId, getPubDocuments]);
 
-  const isFormValid = !!file && startDate.trim() && endDate.trim();
+  const isFormValid = !!file && Object.keys(checkDatesValidity()).length === 0;
 
   const formatDateToGerman = (dateString: string) => {
     const d = new Date(dateString);
@@ -178,7 +182,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
             <Typography level="body-md">
               {t('components.pubUploadModal.to')}
             </Typography>
-            <FormControl sx={{ flex: 1 }}>
+            <FormControl sx={{flex: 1}}>
               <Input
                 placeholder={t('components.pubUploadModal.dateFormat')}
                 value={endDate}
