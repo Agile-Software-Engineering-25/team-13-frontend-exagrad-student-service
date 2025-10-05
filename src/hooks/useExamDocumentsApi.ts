@@ -15,10 +15,10 @@ import type {
   ApiResponseWrapper,
 } from '@custom-types/examDocument';
 import { isAxiosError } from '@custom-types/examDocument';
-import { EXAM_DOCUMENTS_BASE_URL } from '@/config';
+import { BACKEND_BASE_URL } from '@/config';
 
 const useExamDocumentsApi = () => {
-  const axiosInstance = useAxiosInstance(EXAM_DOCUMENTS_BASE_URL);
+  const axiosInstance = useAxiosInstance(BACKEND_BASE_URL);
   const dispatch = useDispatch<AppDispatch>();
 
   const extractErrorMessage = (
