@@ -34,6 +34,8 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   }>({});
   const [loading, setLoading] = useState(false);
   const [documents, setDocuments] = useState<PubDocumentResponse[]>([]);
+  const [dropzoneKey, setDropzoneKey] = useState(0);
+
 
   const isValidDate = (dateStr: string) => {
     if (!dateFormatRegex.test(dateStr)) return false;
@@ -96,6 +98,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
       setStartDate('');
       setEndDate('');
       setDateErrors({});
+      setDropzoneKey((prev) => prev + 1);
     } catch (err: any) {
       console.error(err);
       alert(t('components.pubUploadModal.uploadError') + err);
@@ -209,6 +212,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
           >
             <Box sx={{ flex: 1, minWidth: 0 }}>
               <FileDropzone
+                key={dropzoneKey}
                 types={['PDF', 'PNG', 'JPG']}
                 onFileChange={setFile}
               />
