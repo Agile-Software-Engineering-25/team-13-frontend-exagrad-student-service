@@ -69,12 +69,32 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   };
 
   const validateDateField = (value: string, field: 'start' | 'end') => {
-    setDateErrors((prev) => ({
-      ...prev,
-      [field]: isValidDate(value)
-        ? undefined
-        : t('components.pubUploadModal.dateError'),
-    }));
+    const newErrors = { ...dateErrors };
+    
+    if (!isValidDate(value)) {
+      newErrors[field] = t('components.pubUploadModal.dateError');
+    } else {
+      delete newErrors[field];
+    }
+    
+    if (isValidDate(startDate) && isValidDate(endDate)) {
+      const start = field === 'start' ? value : startDate;
+      const end = field === 'end' ? value : endDate;
+      
+      const [sd, sm, sy] = start.split('.').map(Number);
+      const [ed, em, ey] = end.split('.').map(Number);
+      
+      const startDateObj = new Date(sy, sm - 1, sd);
+      const endDateObj = new Date(ey, em - 1, ed);
+      
+      if (startDateObj > endDateObj) {
+        newErrors.range = t('components.pubUploadModal.rangeError');
+      } else {
+        delete newErrors.range;
+      }
+    }
+    
+    setDateErrors(newErrors);
   };
 
   const handleUpload = async () => {
@@ -182,7 +202,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
             <Typography level="body-md">
               {t('components.pubUploadModal.to')}
             </Typography>
-            <FormControl sx={{flex: 1}}>
+            <FormControl sx={{ flex: 1 }}>
               <Input
                 placeholder={t('components.pubUploadModal.dateFormat')}
                 value={endDate}
