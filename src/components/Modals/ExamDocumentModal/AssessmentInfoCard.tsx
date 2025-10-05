@@ -1,5 +1,6 @@
-import { Box, Card, Typography, Chip } from '@mui/joy';
+import { Box, Typography, Chip } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
+import { Card } from '@agile-software/shared-components';
 
 type Assessment = {
   assessmentTyp: string;
@@ -36,10 +37,7 @@ export const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
 
   return (
     <Card
-      variant="soft"
-      sx={{
-        mb: 3,
-      }}
+      cardSX={{ variant: 'soft', mb: 3 }}
     >
       <Box>
         <Typography
