@@ -86,8 +86,41 @@
     },
     "dokumentModal": {
       "header": "Prüfungsdokumente",
-      "uploadFiles": "Datein Hochladen",
-      "lecturerFiles": "Durch Dozenten Hochgeladen"
+      "uploadFiles": "Deine Dateien hochladen",
+      "uploadedFiles": "Von dir hochgeladene Dateien",
+      "lecturerFiles": "Durch Dozenten hochgeladen",
+      "uploadButton": "Hochladen",
+      "noDocuments": "Noch keine Dokumente hochgeladen",
+      "unknownFile": "Unbekannte Datei",
+      "deadlineWarning": "Deadline verstrichen. Upload und Löschung sind nicht mehr möglich.",
+      "assessmentInfo": {
+        "title": "Prüfungsleistung",
+        "type": "Art",
+        "weight": "Gewichtung",
+        "grade": "Note",
+        "date": "Termin",
+        "deadline": "Abgabefrist",
+        "noDeadline": "Keine Deadline gesetzt"
+      }
+    },
+    "moduleDetailView":{
+      "moduleName": "Modulname",
+      "pubSubmission": "PUB-Abgabe",
+      "retakeRegistration": "Nachprüfungsanmeldung",
+      "moduleProperties":{
+        "moduleCode": "Modulkürzel",
+        "lecturer": "Dozent/in",
+        "creditPoints":"Credit Points",
+        "grade": "Note"
+      },
+      "table":{
+        "assessment": "Prüfungsleistung",
+        "weight": "Gewichtung",
+        "grade": "Note",
+        "date":"Termin",
+        "submit": "Dokumente",
+        "uploaded": "Hochgeladen"
+      }
     }
   }
 }
