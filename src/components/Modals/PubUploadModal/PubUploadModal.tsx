@@ -35,6 +35,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   const [loading, setLoading] = useState(false);
   const [documents, setDocuments] = useState<PubDocumentResponse[]>([]);
   const [dropzoneKey, setDropzoneKey] = useState(0);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const isValidDate = (dateStr: string) => {
     if (!dateFormatRegex.test(dateStr)) return false;
@@ -71,12 +72,14 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   const validateDateField = (value: string, field: 'start' | 'end') => {
     const newErrors = { ...dateErrors };
     
+    // Validate format
     if (!isValidDate(value)) {
       newErrors[field] = t('components.pubUploadModal.dateError');
     } else {
       delete newErrors[field];
     }
     
+    // Check range if both dates are valid
     if (isValidDate(startDate) && isValidDate(endDate)) {
       const start = field === 'start' ? value : startDate;
       const end = field === 'end' ? value : endDate;
@@ -104,32 +107,39 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
       return;
     }
     
-    setLoading(true);
-
-    try {
-      const [sd, sm, sy] = startDate.split('.').map(Number);
-      const [ed, em, ey] = endDate.split('.').map(Number);
-
-      const metadata: PubDocumentRequest = {
-        studentId,
-        startDate: `${sy}-${String(sm).padStart(2, '0')}-${String(sd).padStart(2, '0')}`,
-        endDate: `${ey}-${String(em).padStart(2, '0')}-${String(ed).padStart(2, '0')}`,
-      };
-
-      await uploadPubDocument(file, metadata);
-      setDocuments(await getPubDocuments(studentId));
-      setFile(null);
-      setStartDate('');
-      setEndDate('');
-      setDateErrors({});
-      setDropzoneKey((prev) => prev + 1);
-    } catch (err: any) {
-      console.error(err);
-      alert(t('components.pubUploadModal.uploadError') + err);
-    } finally {
-      setLoading(false);
-    }
+    setShowConfirmModal(true);
   };
+
+  const confirmUpload = async () => {
+  if (!file) return; // Diese Zeile hinzufügen
+  
+  setShowConfirmModal(false);
+  setLoading(true);
+
+  try {
+    const [sd, sm, sy] = startDate.split('.').map(Number);
+    const [ed, em, ey] = endDate.split('.').map(Number);
+
+    const metadata: PubDocumentRequest = {
+      studentId,
+      startDate: `${sy}-${String(sm).padStart(2, '0')}-${String(sd).padStart(2, '0')}`,
+      endDate: `${ey}-${String(em).padStart(2, '0')}-${String(ed).padStart(2, '0')}`,
+    };
+
+    await uploadPubDocument(file, metadata);
+    setDocuments(await getPubDocuments(studentId));
+    setFile(null);
+    setStartDate('');
+    setEndDate('');
+    setDateErrors({});
+    setDropzoneKey((prev) => prev + 1);
+  } catch (err: any) {
+    console.error(err);
+    alert(t('components.pubUploadModal.uploadError') + err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleClose = () => {
     setFile(null);
@@ -157,13 +167,14 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   };
 
   return (
-    <GenericModal
-      header={t('components.pubUploadModal.header')}
-      open={open}
-      setOpen={handleClose}
-      disableEscape={false}
-      modalDialogSX={{ minWidth: '700px' }}
-    >
+    <>
+      <GenericModal
+        header={t('components.pubUploadModal.header')}
+        open={open}
+        setOpen={handleClose}
+        disableEscape={false}
+        modalDialogSX={{ minWidth: '700px' }}
+      >
       <Box sx={{ mb: 2 }}>
         <Box
           sx={{
@@ -316,6 +327,36 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
         </Box>
       </Box>
     </GenericModal>
+
+    <GenericModal
+      header={t('components.pubUploadModal.confirmHeader')}
+      open={showConfirmModal}
+      setOpen={setShowConfirmModal}
+      disableEscape={false}
+    >
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Typography level="body-md">
+          {t('components.pubUploadModal.confirmMessage')}
+        </Typography>
+        <Typography sx={{textAlign: 'center'}}>
+        {t('components.pubUploadModal.timePeriod')}
+        {startDate} - {endDate}
+        </Typography>
+        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+          <Button
+            variant="outlined"
+            color="neutral"
+            onClick={() => setShowConfirmModal(false)}
+          >
+            {t('components.pubUploadModal.cancel')}
+          </Button>
+          <Button onClick={confirmUpload}>
+            {t('components.pubUploadModal.confirmUpload')}
+          </Button>
+        </Box>
+      </Box>
+    </GenericModal>
+  </>
   );
 };
 
