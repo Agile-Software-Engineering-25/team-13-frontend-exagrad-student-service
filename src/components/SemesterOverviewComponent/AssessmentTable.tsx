@@ -1,7 +1,7 @@
 import { Box, Table, Button } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
-import DocumentModal from '../Modals/DocumentModal/DocumentModal';
+import ExamDocumentModal from '@components/Modals/ExamDocumentModal/ExamDocumentModal';
 
 type Assessment = {
   assessmentTyp: string;
@@ -73,7 +73,7 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
           )}
         </tbody>
       </Table>
-      <DocumentModal
+      <ExamDocumentModal
         open={viewDocuments}
         setOpen={setViewDocuments}
         assessment={selectedAssessment}

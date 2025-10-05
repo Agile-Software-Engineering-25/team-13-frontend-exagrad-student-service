@@ -28,7 +28,7 @@ type Assessment = {
   deadline?: string;
 };
 
-type DocumentModalProps = {
+type ExamDocumentModalProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
   assessment: Assessment | null;
@@ -36,7 +36,7 @@ type DocumentModalProps = {
 
 const MOCK_STUDENT_ID = 'student-123'; // Replace with actual student ID from auth/context
 
-const DocumentModal = ({ open, setOpen, assessment }: DocumentModalProps) => {
+const ExamDocumentModal = ({ open, setOpen, assessment }: ExamDocumentModalProps) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -355,4 +355,4 @@ const DocumentModal = ({ open, setOpen, assessment }: DocumentModalProps) => {
   );
 };
 
-export default DocumentModal;
+export default ExamDocumentModal;
