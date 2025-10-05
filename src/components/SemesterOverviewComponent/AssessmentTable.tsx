@@ -1,7 +1,10 @@
-import { Box, Table, Button } from '@mui/joy';
+import { Box, Table, Button, Chip } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ExamDocumentModal from '@components/Modals/ExamDocumentModal/ExamDocumentModal';
+import { useTypedSelector } from '@stores/rootReducer';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 
 type Assessment = {
   assessmentTyp: string;
@@ -32,9 +35,31 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   const [selectedAssessment, setSelectedAssessment] =
     useState<Assessment | null>(null);
 
+  const { documents } = useTypedSelector((state) => state.examDocuments.data);
+  const { getExamDocuments } = useExamDocumentsApi();
+
+  // Fetch documents for all exams in this module on mount
+  useEffect(() => {
+    const examIds = props.selectedModuleData.assessments
+      .filter((a) => a.requiresSubmission && a.examId)
+      .map((a) => a.examId!);
+
+    // Fetch documents for each exam
+    examIds.forEach((examId) => {
+      getExamDocuments({ examId }).catch((err) => {
+        console.error(`Failed to fetch documents for exam ${examId}:`, err);
+      });
+    });
+  }, [props.selectedModuleData.assessments, getExamDocuments]);
+
   const handleOpenDocuments = (assessment: Assessment) => {
     setSelectedAssessment(assessment);
     setViewDocuments(true);
+  };
+
+  const hasUploadedDocuments = (examId?: string) => {
+    if (!examId) return false;
+    return documents.some((doc) => doc.examId === examId);
   };
 
   return (
@@ -59,13 +84,25 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
                 <td>{assessment.date}</td>
                 <td>
                   {assessment.requiresSubmission && (
-                    <Button
-                      size="sm"
-                      variant="soft"
-                      onClick={() => handleOpenDocuments(assessment)}
-                    >
-                      {t('components.moduleDetailView.table.submit')}
-                    </Button>
+                    <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+                      <Button
+                        size="sm"
+                        variant="soft"
+                        onClick={() => handleOpenDocuments(assessment)}
+                      >
+                        {t('components.moduleDetailView.table.submit')}
+                      </Button>
+                      {hasUploadedDocuments(assessment.examId) && (
+                        <Chip
+                          size="sm"
+                          color="success"
+                          startDecorator={<CheckCircleIcon />}
+                          variant="soft"
+                        >
+                          {t('components.moduleDetailView.table.uploaded', 'Hochgeladen')}
+                        </Chip>
+                      )}
+                    </Box>
                   )}
                 </td>
               </tr>
