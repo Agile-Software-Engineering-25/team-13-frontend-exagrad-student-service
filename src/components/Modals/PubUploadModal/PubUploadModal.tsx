@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Modal } from '@agile-software/shared-components'
+import { Modal } from '@agile-software/shared-components';
 import { Box, Button } from '@mui/joy';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
