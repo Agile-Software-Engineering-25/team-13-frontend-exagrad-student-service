@@ -18,17 +18,24 @@ const examDocumentsSlice = createSlice({
   } as SliceState<ExamDocumentsData>,
   reducers: {
     setDocuments: (state, action: PayloadAction<ExamDocumentResponse[]>) => {
-      state.data.documents = action.payload;
+      // Merge new documents with existing ones, avoiding duplicates
+      const existingIds = new Set(state.data.documents.map((doc) => doc.id));
+      const newDocs = action.payload.filter((doc) => !existingIds.has(doc.id));
+      state.data.documents = [...state.data.documents, ...newDocs];
       state.state = 'idle';
       state.error = null;
     },
     addDocument: (state, action: PayloadAction<ExamDocumentResponse>) => {
       state.data.documents.push(action.payload);
+      state.state = 'idle';
+      state.error = null;
     },
     removeDocument: (state, action: PayloadAction<string>) => {
       state.data.documents = state.data.documents.filter(
         (doc) => doc.id !== action.payload
       );
+      state.state = 'idle';
+      state.error = null;
     },
     setLoading: (state) => {
       state.state = 'loading';
@@ -38,11 +45,16 @@ const examDocumentsSlice = createSlice({
       state.state = 'failed';
       state.error = action.payload;
     },
+    clearDocuments: (state) => {
+      state.data.documents = [];
+      state.state = 'idle';
+      state.error = null;
+    },
   },
 });
 
-const { setDocuments, addDocument, removeDocument, setLoading, setError } =
+const { setDocuments, addDocument, removeDocument, setLoading, setError, clearDocuments } =
   examDocumentsSlice.actions;
 
-export { setDocuments, addDocument, removeDocument, setLoading, setError };
+export { setDocuments, addDocument, removeDocument, setLoading, setError, clearDocuments };
 export default examDocumentsSlice.reducer;
