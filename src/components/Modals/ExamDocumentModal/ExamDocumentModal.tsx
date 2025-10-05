@@ -7,7 +7,7 @@ import {
   Button,
   CircularProgress,
 } from '@mui/joy';
-import GenericModal from '@components/Modals/GenericModal';
+import { Modal } from '@agile-software/shared-components';
 import { useTranslation } from 'react-i18next';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
@@ -137,7 +137,7 @@ const ExamDocumentModal = ({ open, setOpen, assessment }: ExamDocumentModalProps
   ];
 
   return (
-    <GenericModal
+    <Modal
       header={t('components.dokumentModal.header')}
       open={open}
       setOpen={setOpen}
@@ -351,7 +351,7 @@ const ExamDocumentModal = ({ open, setOpen, assessment }: ExamDocumentModalProps
           </Box>
         </Box>
       </Box>
-    </GenericModal>
+    </Modal>
   );
 };
 
