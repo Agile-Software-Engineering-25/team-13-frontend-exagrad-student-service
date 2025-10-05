@@ -3,7 +3,7 @@ import { Modal } from '@agile-software/shared-components';
 import { Box, Button, Input, Sheet, Typography } from '@mui/joy';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
-import FileDropzone from '@/components/FileDropzone/FileDropzone';
+import { Dropzone, FileChip } from '@agile-software/shared-components';
 import { useTranslation } from 'react-i18next';
 import usePubDocuments from '@/hooks/usePubDocuments';
 import type {
@@ -36,6 +36,15 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   const [documents, setDocuments] = useState<PubDocumentResponse[]>([]);
   const [dropzoneKey, setDropzoneKey] = useState(0);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  const handleFileSelect = (files: File | File[]) => {
+    const selectedFile = Array.isArray(files) ? files[0] : files;
+    setFile(selectedFile);
+  };
+  const handleSelectedFileDelete = () => {
+    setFile(null);
+
+  };
 
   const isValidDate = (dateStr: string) => {
     if (!dateFormatRegex.test(dateStr)) return false;
@@ -72,14 +81,12 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   const validateDateField = (value: string, field: 'start' | 'end') => {
     const newErrors = { ...dateErrors };
 
-    // Validate format
     if (!isValidDate(value)) {
       newErrors[field] = t('components.pubUploadModal.dateError');
     } else {
       delete newErrors[field];
     }
 
-    // Check range if both dates are valid
     if (isValidDate(startDate) && isValidDate(endDate)) {
       const start = field === 'start' ? value : startDate;
       const end = field === 'end' ? value : endDate;
@@ -111,7 +118,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   };
 
   const confirmUpload = async () => {
-    if (!file) return; // Diese Zeile hinzufügen
+    if (!file) return;
 
     setShowConfirmModal(false);
     setLoading(true);
@@ -165,6 +172,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
     const d = new Date(dateString);
     return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
   };
+
 
   return (
     <>
@@ -246,11 +254,20 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
               }}
             >
               <Box sx={{ flex: 1, minWidth: 0 }}>
-                <FileDropzone
+                <Dropzone
                   key={dropzoneKey}
                   types={['PDF', 'PNG', 'JPG']}
-                  onFileChange={setFile}
+                  onFileSelect={handleFileSelect}
                 />
+                {file && (
+                  <Box sx={{ mt: 1 }}>
+                    <FileChip
+                    filename={file.name} 
+                    showFileExtension={true}
+                    onDelete={handleSelectedFileDelete}
+                    />
+                  </Box>
+                )}
               </Box>
               <Button
                 onClick={handleUpload}
