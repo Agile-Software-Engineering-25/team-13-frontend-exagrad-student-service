@@ -11,7 +11,7 @@ interface UploadSectionProps {
   onUpload: () => void;
 }
 
-export const UploadSection = ({
+const UploadSection = ({
   selectedFiles,
   uploading,
   isDeadlinePassed,
@@ -86,3 +86,5 @@ export const UploadSection = ({
     </Box>
   );
 };
+
+export default UploadSection;

@@ -12,7 +12,7 @@ interface StudentDocumentsListProps {
   onDownload: (doc: ExamDocumentResponse) => void;
 }
 
-export const StudentDocumentsList = ({
+const StudentDocumentsList = ({
   examDocuments,
   loading,
   uploading,
@@ -79,3 +79,5 @@ export const StudentDocumentsList = ({
     </>
   );
 };
+
+export default StudentDocumentsList;

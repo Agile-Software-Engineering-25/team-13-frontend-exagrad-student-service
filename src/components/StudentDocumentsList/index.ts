@@ -1,1 +1,0 @@
-export { StudentDocumentsList } from './StudentDocumentsList';
