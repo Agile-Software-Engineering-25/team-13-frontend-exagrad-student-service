@@ -252,7 +252,6 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
               <Box sx={{ flex: 1, minWidth: 0 }}>
                 <Dropzone
                   key={dropzoneKey}
-                  types={['PDF', 'PNG', 'JPG']}
                   onFileSelect={handleFileSelect}
                 />
                 {file && (
