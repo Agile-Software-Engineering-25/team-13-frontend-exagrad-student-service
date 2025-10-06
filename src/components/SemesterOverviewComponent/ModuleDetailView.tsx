@@ -102,6 +102,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
       />
+      {/* TODO : remove mock data */}
       <PubUploadModal
         open={viewPubSubmission}
         setOpen={setViewPubSubmission}
