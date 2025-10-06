@@ -238,10 +238,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
                 {dateErrors.range}
               </Typography>
             )}
-
-            <FormControl>
-              <FormLabel>{t('components.pubUploadModal.fileLabel')}</FormLabel>
-            </FormControl>
+            <FormLabel>{t('components.pubUploadModal.fileLabel')}</FormLabel>
             <Box
               sx={{
                 display: 'flex',
@@ -250,10 +247,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
               }}
             >
               <Box sx={{ flex: 1, minWidth: 0 }}>
-                <Dropzone
-                  key={dropzoneKey}
-                  onFileSelect={handleFileSelect}
-                />
+                <Dropzone key={dropzoneKey} onFileSelect={handleFileSelect} />
                 {file && (
                   <Box sx={{ mt: 1 }}>
                     <FileChip
