@@ -105,10 +105,34 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
     setDateErrors(newErrors);
   };
 
+  const overlappingDatesExsist = () => {
+    if (!isValidDate(startDate) || !isValidDate(endDate)) return false;
+
+    const [sd, sm, sy] = startDate.split('.').map(Number);
+    const [ed, em, ey] = endDate.split('.').map(Number);
+    const newStart = new Date(sy, sm - 1, sd);
+    const newEnd = new Date(ey, em - 1, ed);
+
+    return documents.some((doc) => {
+      const existingStart = new Date(doc.startDate);
+      const existingEnd = new Date(doc.endDate);
+
+      return newStart <= existingEnd && newEnd >= existingStart;
+    });
+  };
+
   const handleUpload = async () => {
     const errors = checkDatesValidity();
     if (!file || Object.keys(errors).length > 0) {
       setDateErrors(errors);
+      return;
+    }
+
+    if (overlappingDatesExsist()) {
+      setDateErrors({
+        ...dateErrors,
+        range: t('components.pubUploadModal.overlapError'),
+      });
       return;
     }
 
@@ -117,14 +141,11 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
 
   const confirmUpload = async () => {
     if (!file) return;
-
     setShowConfirmModal(false);
     setLoading(true);
-
     try {
       const [sd, sm, sy] = startDate.split('.').map(Number);
       const [ed, em, ey] = endDate.split('.').map(Number);
-
       const metadata: PubDocumentRequest = {
         studentId,
         startDate: `${sy}-${String(sm).padStart(2, '0')}-${String(sd).padStart(2, '0')}`,

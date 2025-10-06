@@ -57,7 +57,9 @@
       "timePeriod": "Deine Angabe: ",
       "cancel": "Abbrechen",
       "confirmUpload": "Hochladen",
-      "uploadError": "Fehler beim Hochladen: "
+      "uploadError": "Fehler beim Hochladen: ",
+      "overlapError": "Es existiert bereits eine PUB für diesen Zeitraum."
+
     },
     "semesterOverview": {
       "title": "Semesterüberblick",

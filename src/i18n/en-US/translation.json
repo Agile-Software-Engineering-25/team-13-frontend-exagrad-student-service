@@ -57,7 +57,9 @@
       "timePeriod": "Your entry: ",
       "cancel": "Cancel",
       "confirmUpload": "Upload",
-      "uploadError": "Upload error: "
+      "uploadError": "Upload error: ",
+      "overlapError": "A document already exists for this time period."
+
     },
     "semesterOverview": {
       "title": "Semester Overview",
