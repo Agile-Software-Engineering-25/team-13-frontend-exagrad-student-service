@@ -102,7 +102,12 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
       />
-      <PubUploadModal open={viewPubSubmission} setOpen={setViewPubSubmission} />
+      {/* TODO : remove mock data */}
+      <PubUploadModal
+        open={viewPubSubmission}
+        setOpen={setViewPubSubmission}
+        studentId="123"
+      />
     </Box>
   );
 };

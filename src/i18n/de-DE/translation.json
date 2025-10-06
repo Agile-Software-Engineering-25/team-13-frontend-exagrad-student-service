@@ -42,7 +42,24 @@
     "pubUploadModal": {
       "header": "Prüfungsunfähigkeitsbescheinigung hochladen",
       "fileLabel": "Datei auswählen oder hier ablegen",
-      "uploadButton": "Hochladen"
+      "uploadButton": "Hochladen",
+      "uploading": "Wird hochgeladen...",
+      "dateFormat": "TT.MM.JJJJ",
+      "from": "Von",
+      "to": "Bis",
+      "dateError": "Bitte gib ein gültiges Datum ein.",
+      "rangeError": "Das Startdatum darf nicht nach dem Enddatum liegen.",
+      "uploadedPubs": "Hochgeladene PUBs",
+      "uploadPub": "Neue PUB Hochladen",
+      "nothingUploadedYet": "Noch keine Dokumente hochgeladen.",
+      "confirmHeader": "Upload bestätigen",
+      "confirmMessage": "Bist du dir sicher, dass der angegebene Zeitraum für deine Prüfungsunfähigkeitsbescheinigung stimmt?",
+      "timePeriod": "Deine Angabe: ",
+      "cancel": "Abbrechen",
+      "confirmUpload": "Hochladen",
+      "uploadError": "Fehler beim Hochladen: ",
+      "overlapError": "Es existiert bereits eine PUB für diesen Zeitraum."
+
     },
     "semesterOverview": {
       "title": "Semesterüberblick",
@@ -66,21 +83,21 @@
       },
       "registerButton": "Anmelden"
     },
-    "moduleDetailView":{
+    "moduleDetailView": {
       "moduleName": "Modulname",
       "pubSubmission": "PUB-Abgabe",
       "retakeRegistration": "Nachprüfungsanmeldung",
-      "moduleProperties":{
+      "moduleProperties": {
         "moduleCode": "Modulkürzel",
         "lecturer": "Dozent/in",
-        "creditPoints":"Credit Points",
+        "creditPoints": "Credit Points",
         "grade": "Note"
       },
-      "table":{
+      "table": {
         "assessment": "Prüfungsleistung",
         "weight": "Gewichtung",
         "grade": "Note",
-        "date":"Termin",
+        "date": "Termin",
         "submit": "Dokumente"
       }
     },

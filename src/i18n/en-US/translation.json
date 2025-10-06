@@ -40,11 +40,28 @@
       }
     },
     "pubUploadModal": {
-      "header": "Upload Incapacity Certificate",
-      "fileLabel": "Select file or drop it here",
-      "uploadButton": "Upload"
+      "header": "Upload Medical Certificate",
+      "fileLabel": "Select or drop a file here",
+      "uploadButton": "Upload",
+      "uploading": "Uploading...",
+      "dateFormat": "DD.MM.YYYY",
+      "from": "From",
+      "to": "To",
+      "dateError": "Please enter a valid date.",
+      "rangeError": "The start date cannot be after the end date.",
+      "uploadedPubs": "Uploaded Medical Certificates",
+      "uploadPub": "Upload New Medical Certificate",
+      "nothingUploadedYet": "No documents uploaded yet.",
+      "confirmHeader": "Confirm Upload",
+      "confirmMessage": "Are you sure the specified time period for your medical certificate is correct?",
+      "timePeriod": "Your entry: ",
+      "cancel": "Cancel",
+      "confirmUpload": "Upload",
+      "uploadError": "Upload error: ",
+      "overlapError": "A document already exists for this time period."
+
     },
-    "semesterOverview":{
+    "semesterOverview": {
       "title": "Semester Overview",
       "semesters": {
         "firstSemester": "Semester 1",
@@ -66,21 +83,21 @@
       },
       "registerButton": "Register"
     },
-    "moduleDetailView":{
+    "moduleDetailView": {
       "moduleName": "Module Name",
-      "pubSubmission": "Submission of Incapacity Certificate",
+      "pubSubmission": "Medical Certificate Submission",
       "retakeRegistration": "Retake Registration",
-      "moduleProperties":{
+      "moduleProperties": {
         "moduleCode": "Module Code",
         "lecturer": "Lecturer",
-        "creditPoints":"Credit Points",
+        "creditPoints": "Credit Points",
         "grade": "Grade"
       },
-      "table":{
+      "table": {
         "assessment": "Assessment",
         "weight": "Weight",
         "grade": "Grade",
-        "date":"Date",
+        "date": "Date",
         "submit": "Documents"
       }
     },
