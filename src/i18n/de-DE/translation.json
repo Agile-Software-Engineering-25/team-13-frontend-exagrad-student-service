@@ -59,7 +59,6 @@
       "confirmUpload": "Hochladen",
       "uploadError": "Fehler beim Hochladen: ",
       "overlapError": "Es existiert bereits eine PUB für diesen Zeitraum."
-
     },
     "semesterOverview": {
       "title": "Semesterüberblick",
@@ -98,7 +97,8 @@
         "weight": "Gewichtung",
         "grade": "Note",
         "date": "Termin",
-        "submit": "Dokumente"
+        "submit": "Dokumente",
+        "uploaded": "Hochgeladen"
       }
     },
     "dokumentModal": {
@@ -119,25 +119,6 @@
         "deadline": "Abgabefrist",
         "noDeadline": "Keine Deadline gesetzt",
         "expired": "Abgelaufen"
-      }
-    },
-    "moduleDetailView":{
-      "moduleName": "Modulname",
-      "pubSubmission": "PUB-Abgabe",
-      "retakeRegistration": "Nachprüfungsanmeldung",
-      "moduleProperties":{
-        "moduleCode": "Modulkürzel",
-        "lecturer": "Dozent/in",
-        "creditPoints":"Credit Points",
-        "grade": "Note"
-      },
-      "table":{
-        "assessment": "Prüfungsleistung",
-        "weight": "Gewichtung",
-        "grade": "Note",
-        "date":"Termin",
-        "submit": "Dokumente",
-        "uploaded": "Hochgeladen"
       }
     }
   }
