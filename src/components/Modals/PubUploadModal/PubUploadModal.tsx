@@ -192,6 +192,10 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
     return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
   };
 
+  const handleDocumentDownload = (downloadUrl: string) => {
+    window.open(downloadUrl, '_blank');
+  };
+
   return (
     <>
       <Modal
@@ -324,6 +328,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
                     key={doc.id}
                     filename={`${formatDateToGerman(doc.startDate)} - ${formatDateToGerman(doc.endDate)} ${doc.fileName}`}
                     containerSX={{ width: '100%' }}
+                    onClick={() => handleDocumentDownload(doc.downloadUrl)}
                   />
                 ))
             )}
