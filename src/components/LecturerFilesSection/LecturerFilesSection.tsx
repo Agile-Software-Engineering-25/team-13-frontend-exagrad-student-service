@@ -43,8 +43,8 @@ const LecturerFilesSection = ({ files }: LecturerFilesSectionProps) => {
           width: '100%',
         }}
       >
-        // TODO: handle empty state
-        // TODO: add onClick to download file when mock data is replaced
+        // TODO: handle empty state // TODO: add onClick to download file when
+        mock data is replaced
         {files.map((file, index) => (
           <FileChip
             key={index}
