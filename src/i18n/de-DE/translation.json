@@ -117,7 +117,8 @@
         "grade": "Note",
         "date": "Termin",
         "deadline": "Abgabefrist",
-        "noDeadline": "Keine Deadline gesetzt"
+        "noDeadline": "Keine Deadline gesetzt",
+        "expired": "Abgelaufen"
       }
     },
     "moduleDetailView":{

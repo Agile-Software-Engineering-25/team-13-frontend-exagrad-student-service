@@ -82,7 +82,7 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
               </Typography>
               {assessment.deadline && isDeadlinePassed() && (
                 <Chip size="sm" color="danger" variant="solid">
-                  Expired
+                  {t('components.dokumentModal.assessmentInfo.expired')}
                 </Chip>
               )}
             </Box>

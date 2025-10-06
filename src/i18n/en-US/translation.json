@@ -117,7 +117,8 @@
         "grade": "Grade",
         "date": "Date",
         "deadline": "Deadline",
-        "noDeadline": "No deadline set"
+        "noDeadline": "No deadline set",
+        "expired": "Expired"
       }
     },
     "moduleDetailView":{
