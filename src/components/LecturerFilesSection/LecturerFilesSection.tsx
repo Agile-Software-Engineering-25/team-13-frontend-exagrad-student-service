@@ -48,10 +48,7 @@ const LecturerFilesSection = ({ files }: LecturerFilesSectionProps) => {
         {files.map((file, index) => (
           <FileChip
             key={index}
-            filename={
-              file ||
-              t('components.dokumentModal.unknownFile', 'Unbekannte Datei')
-            }
+            filename={file || t('components.dokumentModal.unknownFile')}
           />
         ))}
       </Box>
