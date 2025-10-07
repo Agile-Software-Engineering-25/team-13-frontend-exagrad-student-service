@@ -59,7 +59,6 @@
       "confirmUpload": "Hochladen",
       "uploadError": "Fehler beim Hochladen: ",
       "overlapError": "Es existiert bereits eine PUB für diesen Zeitraum."
-
     },
     "semesterOverview": {
       "title": "Semesterüberblick",
@@ -98,13 +97,29 @@
         "weight": "Gewichtung",
         "grade": "Note",
         "date": "Termin",
-        "submit": "Dokumente"
+        "submit": "Dokumente",
+        "uploaded": "Hochgeladen"
       }
     },
     "dokumentModal": {
       "header": "Prüfungsdokumente",
-      "uploadFiles": "Datein Hochladen",
-      "lecturerFiles": "Durch Dozenten Hochgeladen"
+      "uploadFiles": "Deine Dateien hochladen",
+      "uploadedFiles": "Von dir hochgeladene Dateien",
+      "lecturerFiles": "Durch Dozenten hochgeladen",
+      "uploadButton": "Hochladen",
+      "noDocuments": "Noch keine Dokumente hochgeladen",
+      "unknownFile": "Unbekannte Datei",
+      "deadlineWarning": "Deadline verstrichen. Upload und Löschung sind nicht mehr möglich.",
+      "assessmentInfo": {
+        "title": "Prüfungsleistung",
+        "type": "Art",
+        "weight": "Gewichtung",
+        "grade": "Note",
+        "date": "Termin",
+        "deadline": "Abgabefrist",
+        "noDeadline": "Keine Deadline gesetzt",
+        "expired": "Abgelaufen"
+      }
     }
   }
 }

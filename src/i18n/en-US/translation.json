@@ -59,7 +59,6 @@
       "confirmUpload": "Upload",
       "uploadError": "Upload error: ",
       "overlapError": "A document already exists for this time period."
-
     },
     "semesterOverview": {
       "title": "Semester Overview",
@@ -85,7 +84,7 @@
     },
     "moduleDetailView": {
       "moduleName": "Module Name",
-      "pubSubmission": "Medical Certificate Submission",
+      "pubSubmission": "Submission of Incapacity Certificate",
       "retakeRegistration": "Retake Registration",
       "moduleProperties": {
         "moduleCode": "Module Code",
@@ -98,13 +97,29 @@
         "weight": "Weight",
         "grade": "Grade",
         "date": "Date",
-        "submit": "Documents"
+        "submit": "Documents",
+        "uploaded": "Uploaded"
       }
     },
     "dokumentModal": {
       "header": "Exam Documents",
-      "uploadFiles": "Upload Files",
-      "lecturerFiles": "Files from Lecturer"
+      "uploadFiles": "Upload Your Files",
+      "uploadedFiles": "Your Uploaded Files",
+      "lecturerFiles": "Files from Lecturer",
+      "uploadButton": "Upload",
+      "noDocuments": "No documents uploaded yet",
+      "unknownFile": "Unknown File",
+      "deadlineWarning": "Deadline has passed. Upload and deletion are no longer available.",
+      "assessmentInfo": {
+        "title": "Assessment Information",
+        "type": "Type",
+        "weight": "Weight",
+        "grade": "Grade",
+        "date": "Date",
+        "deadline": "Deadline",
+        "noDeadline": "No deadline set",
+        "expired": "Expired"
+      }
     }
   }
 }

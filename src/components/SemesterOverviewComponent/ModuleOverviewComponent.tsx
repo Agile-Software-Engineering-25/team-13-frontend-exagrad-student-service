@@ -22,6 +22,8 @@ type Assessment = {
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
+  examId?: string;
+  deadline?: string;
 };
 
 type ModuleInfo = {
@@ -228,6 +230,8 @@ const ModuleOverviewComponent = (props: {
             grade: 'N/A',
             date: '07.10.2025 23:59 Uhr',
             requiresSubmission: true,
+            examId: 'exam-ase-wab-2025',
+            deadline: '2025-10-07T23:59:00',
           },
           {
             assessmentTyp: 'Präsentation',
@@ -235,6 +239,8 @@ const ModuleOverviewComponent = (props: {
             grade: 'N/A',
             date: '17.11.2025 15:00 Uhr',
             requiresSubmission: true,
+            examId: 'exam-ase-presentation-2025',
+            deadline: '2025-11-17T15:00:00',
           },
         ],
       },
@@ -273,13 +279,17 @@ const ModuleOverviewComponent = (props: {
             grade: '1.0',
             date: '15.10.2025 11:15 Uhr',
             requiresSubmission: true,
+            examId: 'exam-ikht-presentation-2025',
+            deadline: '2025-10-15T11:15:00',
           },
           {
             assessmentTyp: 'Gruppenbericht',
             weight: '50%',
             grade: '1.0',
-            date: '07.10.2025 23:59 Uhr',
+            date: '07.09.2025 23:59 Uhr',
             requiresSubmission: true,
+            examId: 'exam-ikht-report-2025',
+            deadline: '2025-09-07T23:59:00',
           },
         ],
       },
