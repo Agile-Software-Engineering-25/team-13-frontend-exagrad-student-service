@@ -1,13 +1,16 @@
-import { Box, Table, Button, Chip } from '@mui/joy';
+import { Box, Button, Chip } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import ExamDocumentModal from '@components/Modals/ExamDocumentModal/ExamDocumentModal';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
+import { Table, createTableBuilder } from "@agile-software/shared-components";
 
-//still confused with table component, please its 1:15 am ;-;
+//when trying check semester 4 first module first
+// if something is checked in the front of the table everything gets checked for some reason
 
 type Assessment = {
+  id: string; // needed for DataItem for table component -> muss noch was geadded werden?
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';
@@ -92,54 +95,48 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
     return (documentCounts[examId] || 0) > 0;
   };
 
+  // Table configuration using shared Table component
+  const tableConfig = createTableBuilder<Assessment>()
+    .addColumn(
+      "assessmentTyp",
+      t("components.moduleDetailView.table.assessment")
+    )
+    .addColumn("weight", t("components.moduleDetailView.table.weight"))
+    .addColumn("grade", t("components.moduleDetailView.table.grade"))
+    .addColumn("date", t("components.moduleDetailView.table.date"))
+    .addColumn("actions", "", {
+      renderCell: (assessment: Assessment) =>
+        assessment.requiresSubmission ? (
+          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+            <Button
+              size="sm"
+              variant="soft"
+              onClick={() => handleOpenDocuments(assessment)}
+            >
+              {t("components.moduleDetailView.table.submit")}
+            </Button>
+            {hasUploadedDocuments(assessment.examId) && (
+              <Chip
+                size="sm"
+                color="success"
+                startDecorator={<CheckCircleIcon />}
+                variant="soft"
+              >
+                {t("components.moduleDetailView.table.uploaded")}
+              </Chip>
+            )}
+          </Box>
+        ) : null,
+    })
+    .build();
+
   return (
     <Box>
-      <Table>
-        <thead>
-          <tr>
-            <th>{t('components.moduleDetailView.table.assessment')}</th>
-            <th>{t('components.moduleDetailView.table.weight')}</th>
-            <th>{t('components.moduleDetailView.table.grade')}</th>
-            <th>{t('components.moduleDetailView.table.date')}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.selectedModuleData.assessments.map(
-            (assessment: Assessment, idx: number) => (
-              <tr key={idx}>
-                <td>{assessment.assessmentTyp}</td>
-                <td>{assessment.weight}</td>
-                <td>{assessment.grade}</td>
-                <td>{assessment.date}</td>
-                <td>
-                  {assessment.requiresSubmission && (
-                    <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-                      <Button
-                        size="sm"
-                        variant="soft"
-                        onClick={() => handleOpenDocuments(assessment)}
-                      >
-                        {t('components.moduleDetailView.table.submit')}
-                      </Button>
-                      {hasUploadedDocuments(assessment.examId) && (
-                        <Chip
-                          size="sm"
-                          color="success"
-                          startDecorator={<CheckCircleIcon />}
-                          variant="soft"
-                        >
-                          {t('components.moduleDetailView.table.uploaded')}
-                        </Chip>
-                      )}
-                    </Box>
-                  )}
-                </td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </Table>
+      <Table
+        data={props.selectedModuleData.assessments}
+        config={tableConfig}
+      />
+
       <ExamDocumentModal
         open={viewDocuments}
         setOpen={setViewDocuments}
