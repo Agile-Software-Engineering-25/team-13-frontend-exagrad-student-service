@@ -1,8 +1,6 @@
 import Home from '@pages/Home/Home';
 import { Route, Routes } from 'react-router';
 
-
-
 const RoutingComponent = () => {
   return (
     <Routes>

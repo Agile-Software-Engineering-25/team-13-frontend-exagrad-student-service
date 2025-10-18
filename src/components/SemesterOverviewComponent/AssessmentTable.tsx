@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import ExamDocumentModal from '@components/Modals/ExamDocumentModal/ExamDocumentModal';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
-import { Table, createTableBuilder } from "@agile-software/shared-components";
+import { Table, createTableBuilder } from '@agile-software/shared-components';
 
 //when trying check semester 4 first module first
 // if something is checked in the front of the table everything gets checked for some reason
@@ -98,22 +98,22 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   // Table configuration using shared Table component
   const tableConfig = createTableBuilder<Assessment>()
     .addColumn(
-      "assessmentTyp",
-      t("components.moduleDetailView.table.assessment")
+      'assessmentTyp',
+      t('components.moduleDetailView.table.assessment')
     )
-    .addColumn("weight", t("components.moduleDetailView.table.weight"))
-    .addColumn("grade", t("components.moduleDetailView.table.grade"))
-    .addColumn("date", t("components.moduleDetailView.table.date"))
-    .addColumn("actions", "", {
+    .addColumn('weight', t('components.moduleDetailView.table.weight'))
+    .addColumn('grade', t('components.moduleDetailView.table.grade'))
+    .addColumn('date', t('components.moduleDetailView.table.date'))
+    .addColumn('actions', '', {
       renderCell: (assessment: Assessment) =>
         assessment.requiresSubmission ? (
-          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <Button
               size="sm"
               variant="soft"
               onClick={() => handleOpenDocuments(assessment)}
             >
-              {t("components.moduleDetailView.table.submit")}
+              {t('components.moduleDetailView.table.submit')}
             </Button>
             {hasUploadedDocuments(assessment.examId) && (
               <Chip
@@ -122,7 +122,7 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
                 startDecorator={<CheckCircleIcon />}
                 variant="soft"
               >
-                {t("components.moduleDetailView.table.uploaded")}
+                {t('components.moduleDetailView.table.uploaded')}
               </Chip>
             )}
           </Box>
@@ -132,10 +132,7 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
 
   return (
     <Box>
-      <Table
-        data={props.selectedModuleData.assessments}
-        config={tableConfig}
-      />
+      <Table data={props.selectedModuleData.assessments} config={tableConfig} />
 
       <ExamDocumentModal
         open={viewDocuments}
