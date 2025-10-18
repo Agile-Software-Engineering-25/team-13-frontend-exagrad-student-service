@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
-import { Typography, Select, Option, Box } from '@mui/joy';
+import { useState } from 'react';
+import { Typography, Select, Option, Table, Box } from '@mui/joy';
 import { Modal } from '@agile-software/shared-components';
-import { Table, createTableBuilder, type DataItem } from '@agile-software/shared-components';
 import { useTranslation } from 'react-i18next';
 
-interface Exams extends DataItem {
-  code: string;
-  lecturer: string;
-  room: string;
-  date: string;
-};
+//table from components needs to be switched in
 
 type Exam = {
   code: string;
@@ -23,7 +17,6 @@ type SemesterData = {
   retakes: Exam[];
 };
 
-//Reformat so interface Exams is used for it to work and delete Exam type then
 const mockData: Record<string, SemesterData> = {
   '1': {
     exams: [
@@ -88,24 +81,6 @@ const mockData: Record<string, SemesterData> = {
   // Add semesters 3–6 as needed
 };
 
-const MyTable: React.FC = () => {
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
-
-  const config = createTableBuilder<Exams>()
-    .addColumn("name", "Name", { sortable: true })
-    .addColumn("email", "Email", { sortable: true })
-    .addColumn("role", "Role")
-    .enableSelection("multiple", {
-      selectedIds,
-      onSelectionChange: setSelectedIds,
-    })
-    .enableSorting()
-    .enablePagination()
-    .build();
-
-  return <Table data={mockData} config={config} />;
-};
-
 type ExamDatesModalProps = {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -146,9 +121,7 @@ const ExamDatesModal = ({ open, setOpen }: ExamDatesModalProps) => {
       <Typography level="title-md" color="primary">
         {t('components.examDatesModal.exams')}
       </Typography>
-      
       <Table>
-        {/*Pure Verwirrung mit der Table Component, send help*/}
         <thead>
           <tr>
             <th>{t('components.examDatesModal.table.code')}</th>

@@ -1,6 +1,5 @@
 import { Box, Divider, Typography, Button, Grid } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
-import RetakeRegistrationModal from '../Modals/RetakeRegistrationModal/RetakeRegistrationModal';
 import { useState } from 'react';
 import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
 import AssessmentTable from './AssessmentTable';
@@ -28,7 +27,6 @@ interface ModuleData {
 
 const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
-  const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
   const [viewPubSubmission, setViewPubSubmission] = useState(false);
 
   const moduleProperties = ['moduleCode', 'lecturer', 'creditPoints', 'grade'];
@@ -88,7 +86,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
               color="primary"
               fullWidth
               sx={{ p: 1.5 }}
-              onClick={() => setViewRetakeRegistration(true)}
+              //onClick={() => setViewRetakeRegistration(true)} --> set Link
             >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
@@ -98,10 +96,8 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
 
       <AssessmentTable selectedModuleData={props.selectedModuleData} />
 
-      <RetakeRegistrationModal
-        open={viewRetakeRegistration}
-        setOpen={setViewRetakeRegistration}
-      />
+      {/* TODO : Link that leads to Retake registration when clicking correct button */}
+
       {/* TODO : remove mock data */}
       <PubUploadModal
         open={viewPubSubmission}
