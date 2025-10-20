@@ -7,7 +7,6 @@ import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader'
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
-import TmpThemeSelectorComponent from '@/components/TmpThemeSelectorComponent/TmpThemeSelectorComponent';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -53,7 +52,6 @@ const Home = () => {
           />
         )}
       </Box>
-      <TmpThemeSelectorComponent />
       <LanguageSelectorComponent />
     </Box>
   );
