@@ -35,7 +35,7 @@ const Home = () => {
           {t('pages.home.buttons.viewExamDates')}
         </Button>
 
-        <Button variant="solid" onClick={() => navigate('/weather')}>
+        <Button variant="solid" onClick={() => navigate('/')}>
           {t('pages.home.buttons.downloadPerformanceOverview')}
         </Button>
       </Box>
