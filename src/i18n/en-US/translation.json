@@ -5,13 +5,6 @@
         "downloadPerformanceOverview": "Download Performance Overview",
         "viewExamDates": "View Exam Dates"
       }
-    },
-    "weather": {
-      "title": "Weather",
-      "description": "This shows the weather of the Telekom office at Winterfeldtstraße 21, 10781 Berlin.",
-      "getWeatherButton": "GET WEATHER",
-      "weatherHeader": "Current Weather",
-      "temperature": "Temperature"
     }
   },
   "components": {
