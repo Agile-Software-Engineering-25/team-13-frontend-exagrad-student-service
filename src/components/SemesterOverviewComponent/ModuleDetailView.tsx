@@ -4,6 +4,7 @@ import RetakeRegistrationModal from '../Modals/RetakeRegistrationModal/RetakeReg
 import { useState } from 'react';
 import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
 import AssessmentTable from './AssessmentTable';
+import { useNavigate } from 'react-router';
 
 type Assessment = {
   assessmentTyp: string;
@@ -38,6 +39,12 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
     lecturer: 4,
     creditPoints: 2,
     grade: 2,
+  };
+
+  const navigate = useNavigate();
+
+  const handleRegister = () => {
+    navigate('/antrag/?accordion=nachklausur/' + props.selectedModuleData.moduleInfo.moduleCode);
   };
 
   return (
@@ -88,7 +95,8 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
               color="primary"
               fullWidth
               sx={{ p: 1.5 }}
-              onClick={() => setViewRetakeRegistration(true)}
+              // onClick={() => setViewRetakeRegistration(true)}
+              onClick={handleRegister}
             >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
@@ -98,10 +106,10 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
 
       <AssessmentTable selectedModuleData={props.selectedModuleData} />
 
-      <RetakeRegistrationModal
+      {/* <RetakeRegistrationModal
         open={viewRetakeRegistration}
         setOpen={setViewRetakeRegistration}
-      />
+      /> */}
       {/* TODO : remove mock data */}
       <PubUploadModal
         open={viewPubSubmission}
