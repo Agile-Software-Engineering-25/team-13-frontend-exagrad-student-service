@@ -408,9 +408,9 @@ const ModuleOverviewComponent = (props: {
   return (
     <Box
       sx={{
-        pl: 4,
-        pr: 4,
-        pb: 4,
+        pl: { xs: 2, sm: 2, md: 3, xl: 4 },
+        pr: { xs: 2, sm: 2, md: 3, xl: 4 },
+        pb: { xs: 2, sm: 2, md: 3, xl: 4 },
         background: '#F3F8FF',
         borderRadius: 30,
         display: 'flex',
