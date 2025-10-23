@@ -214,7 +214,7 @@ const ModuleOverviewComponent = (props: {
         },
         assessments: [
           {
-              id: 'ase-written-2025',
+            id: 'ase-written-2025',
             assessmentTyp: 'schriftliche Prüfung',
             weight: '40%',
             grade: 'N/A',
@@ -222,7 +222,7 @@ const ModuleOverviewComponent = (props: {
             requiresSubmission: false,
           },
           {
-              id: 'exam-ase-wab-2025',
+            id: 'exam-ase-wab-2025',
             assessmentTyp: 'WAB',
             weight: '50%',
             grade: 'N/A',
@@ -232,7 +232,7 @@ const ModuleOverviewComponent = (props: {
             deadline: '2025-10-07T23:59:00',
           },
           {
-              id: 'exam-ase-presentation-2025',
+            id: 'exam-ase-presentation-2025',
             assessmentTyp: 'Präsentation',
             weight: '10%',
             grade: 'N/A',
@@ -457,7 +457,11 @@ const ModuleOverviewComponent = (props: {
           }))}
           multiple={false}
           defaultExpanded={[]}
-          accordionGroupSX={{ background: '#FFFFFF', borderRadius: '14px', flexGrow: 1 }}
+          accordionGroupSX={{
+            background: '#FFFFFF',
+            borderRadius: '14px',
+            flexGrow: 1,
+          }}
           headerSX={{ color: '#00122B' }}
         />
       )}
