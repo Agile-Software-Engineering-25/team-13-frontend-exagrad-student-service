@@ -5,11 +5,14 @@ import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
 import AssessmentTable from './AssessmentTable';
 
 type Assessment = {
+  id: string;
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
+  examId?: string;
+  deadline?: string;
 };
 
 type ModuleInfo = {
@@ -94,7 +97,9 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
         </Grid>
       </Grid>
 
-      <AssessmentTable selectedModuleData={props.selectedModuleData} />
+      <Box sx={{ mt: 3 }}>
+        <AssessmentTable selectedModuleData={props.selectedModuleData} />
+      </Box>
 
       {/* TODO : Link that leads to Retake registration when clicking correct button */}
 
