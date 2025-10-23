@@ -1,12 +1,5 @@
-import {
-  Box,
-  Typography,
-  AccordionGroup,
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  IconButton,
-} from '@mui/joy';
+import { Box, Typography, IconButton } from '@mui/joy';
+import { Accordion } from '@agile-software/shared-components';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from 'react-i18next';
 import ModuleDetailView from './ModuleDetailView';
@@ -19,6 +12,7 @@ type Semester = {
 };
 
 type Assessment = {
+  id: string;
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';
@@ -220,6 +214,7 @@ const ModuleOverviewComponent = (props: {
         },
         assessments: [
           {
+              id: 'ase-written-2025',
             assessmentTyp: 'schriftliche Prüfung',
             weight: '40%',
             grade: 'N/A',
@@ -227,6 +222,7 @@ const ModuleOverviewComponent = (props: {
             requiresSubmission: false,
           },
           {
+              id: 'exam-ase-wab-2025',
             assessmentTyp: 'WAB',
             weight: '50%',
             grade: 'N/A',
@@ -236,6 +232,7 @@ const ModuleOverviewComponent = (props: {
             deadline: '2025-10-07T23:59:00',
           },
           {
+              id: 'exam-ase-presentation-2025',
             assessmentTyp: 'Präsentation',
             weight: '10%',
             grade: 'N/A',
@@ -276,6 +273,7 @@ const ModuleOverviewComponent = (props: {
         },
         assessments: [
           {
+            id: 'exam-ikht-presentation-2025',
             assessmentTyp: 'Präsentation',
             weight: '50%',
             grade: '1.0',
@@ -285,6 +283,7 @@ const ModuleOverviewComponent = (props: {
             deadline: '2025-10-15T11:15:00',
           },
           {
+            id: 'exam-ikht-report-2025',
             assessmentTyp: 'Gruppenbericht',
             weight: '50%',
             grade: '1.0',
@@ -448,28 +447,20 @@ const ModuleOverviewComponent = (props: {
             : ''}
         </Typography>
       </Box>
-      {/*maybe use accordion here? didnt really function tho*/}
-      <AccordionGroup
-        sx={{
-          background: '#FFFFFF',
-          borderRadius: '14px',
-          flexGrow: 1,
-        }}
-      >
-        {currentSemester &&
-          Object.values(currentSemester).map((moduleData, i) => (
-            <Accordion key={i}>
-              <AccordionSummary>
-                <Typography level="h4" sx={{ color: '#00122B' }}>
-                  {moduleData.moduleInfo.moduleName}
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <ModuleDetailView selectedModuleData={moduleData} />
-              </AccordionDetails>
-            </Accordion>
-          ))}
-      </AccordionGroup>{' '}
+      {/* Use shared Accordion component */}
+      {currentSemester && (
+        <Accordion
+          items={Object.values(currentSemester).map((moduleData, i) => ({
+            id: `${i}`,
+            header: moduleData.moduleInfo.moduleName,
+            children: <ModuleDetailView selectedModuleData={moduleData} />,
+          }))}
+          multiple={false}
+          defaultExpanded={[]}
+          accordionGroupSX={{ background: '#FFFFFF', borderRadius: '14px', flexGrow: 1 }}
+          headerSX={{ color: '#00122B' }}
+        />
+      )}
     </Box>
   );
 };
