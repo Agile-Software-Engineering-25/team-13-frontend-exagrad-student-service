@@ -43,46 +43,50 @@ const UploadSection = ({
           {t('components.dokumentModal.uploadFiles')}
         </Typography>
       </Box>
-      <Box
-        sx={{
-          flexGrow: 1,
-          p: 2,
-          border: '1px solid #C2CAD5',
-          borderRadius: 'lg',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 1.5,
-          width: '100%',
-        }}
-      >
-        <Dropzone multiple onFileSelect={onFileChange} />
-
-        {/* Show FileChips for selected files */}
-        {selectedFiles.length > 0 && (
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1 }}>
-            {selectedFiles.map((file, idx) => (
-              <FileChip
-                key={`${file.name}-${idx}`}
-                filename={file.name}
-                onDelete={() => onRemoveFile(file)}
-              />
-            ))}
-          </Box>
-        )}
-
-        <Button
-          onClick={onUpload}
-          disabled={selectedFiles.length === 0 || uploading || isDeadlinePassed}
-          loading={uploading}
-          variant="solid"
-          color="primary"
-          fullWidth
-          sx={{ mt: 1 }}
+      {!isDeadlinePassed && (
+        <Box
+          sx={{
+            flexGrow: 1,
+            p: 2,
+            border: '1px solid #C2CAD5',
+            borderRadius: 'lg',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 1.5,
+            width: '100%',
+          }}
         >
-          {t('components.dokumentModal.uploadButton', 'Upload')}{' '}
-          {selectedFiles.length > 0 ? `(${selectedFiles.length})` : ''}
-        </Button>
-      </Box>
+          <Dropzone multiple onFileSelect={onFileChange} />
+
+          {/* Show FileChips for selected files */}
+          {selectedFiles.length > 0 && (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1 }}>
+              {selectedFiles.map((file, idx) => (
+                <FileChip
+                  key={`${file.name}-${idx}`}
+                  filename={file.name}
+                  onDelete={() => onRemoveFile(file)}
+                />
+              ))}
+            </Box>
+          )}
+
+          <Button
+            onClick={onUpload}
+            disabled={
+              selectedFiles.length === 0 || uploading || isDeadlinePassed
+            }
+            loading={uploading}
+            variant="solid"
+            color="primary"
+            fullWidth
+            sx={{ mt: 1 }}
+          >
+            {t('components.dokumentModal.uploadButton', 'Upload')}{' '}
+            {selectedFiles.length > 0 ? `(${selectedFiles.length})` : ''}
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };
