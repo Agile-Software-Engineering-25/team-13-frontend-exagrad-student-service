@@ -21,7 +21,6 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
 
     // Click on a "Dokumente" button for an assessment with a future deadline
     // The exact selector will depend on the UI implementation
-    //cy.get('button').contains('Dokumente').eq(1).click({ force: true });
     cy.get('button').eq(7).click({ force: true });
 
     cy.wait(500);
