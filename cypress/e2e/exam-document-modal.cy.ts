@@ -15,7 +15,7 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
     // Wait for module details to load
     cy.wait(500);
 
-    cy.contains('Agile Software Engineering und Softwaretechnik').click( { force: true });
+    cy.contains('Agile Software Engineering und Softwaretechnik').click({ force: true });
 
     cy.wait(500);
 
@@ -40,11 +40,6 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
     // This test uses mock data to simulate a past deadline
     // We'll intercept the assessment data or use a test that modifies the deadline
 
-    // For this test, we need to modify the mock data or use cy.clock() to simulate time
-    // Let's use cy.clock() to move time forward past the deadline
-    //const futureDate = new Date('2025-01-01').getTime();
-    //cy.clock(futureDate);
-
     // Click on a semester
     cy.contains('Semester 4').click({ force: true });
     cy.wait(500);
@@ -68,8 +63,6 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
 
   it('should verify upload button is disabled when deadline has passed', () => {
     // Set time to future to simulate past deadline
-    //const futureDate = new Date('2026-01-01').getTime();
-    //cy.clock(futureDate);
 
     cy.contains('Semester 4').click({ force: true });
     cy.wait(500);
