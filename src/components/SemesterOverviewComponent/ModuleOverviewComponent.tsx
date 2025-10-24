@@ -11,8 +11,6 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from 'react-i18next';
 import ModuleDetailView from './ModuleDetailView';
 
-//needs accordion component, couldnt make it work with the header as of now
-
 type Semester = {
   id: number | null;
   titleKey: string | null;

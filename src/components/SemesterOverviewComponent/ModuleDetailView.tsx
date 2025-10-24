@@ -86,7 +86,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
               color="primary"
               fullWidth
               sx={{ p: 1.5 }}
-              //onClick={() => setViewRetakeRegistration(true)} --> set Link
+              // TODO: set onClick to navigate to the retake registration page for the current module
             >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
@@ -95,8 +95,6 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
       </Grid>
 
       <AssessmentTable selectedModuleData={props.selectedModuleData} />
-
-      {/* TODO : Link that leads to Retake registration when clicking correct button */}
 
       {/* TODO : remove mock data */}
       <PubUploadModal

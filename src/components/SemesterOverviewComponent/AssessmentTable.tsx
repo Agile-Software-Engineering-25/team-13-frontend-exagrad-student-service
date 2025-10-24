@@ -6,11 +6,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { Table, createTableBuilder } from '@agile-software/shared-components';
 
-//when trying check semester 4 first module first
-// if something is checked in the front of the table everything gets checked for some reason
-
 type Assessment = {
-  id: string; // needed for DataItem for table component -> muss noch was geadded werden?
+  id: string;
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';

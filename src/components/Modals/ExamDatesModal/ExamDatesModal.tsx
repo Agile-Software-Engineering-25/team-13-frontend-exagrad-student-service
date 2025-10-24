@@ -3,8 +3,7 @@ import { Typography, Select, Option, Table, Box } from '@mui/joy';
 import { Modal } from '@agile-software/shared-components';
 import { useTranslation } from 'react-i18next';
 
-//table from components needs to be switched in
-
+// TODO: use Table from agile-software in ASE-800
 type Exam = {
   code: string;
   lecturer: string;
