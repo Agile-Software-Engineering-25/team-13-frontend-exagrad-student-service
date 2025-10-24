@@ -102,7 +102,7 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
     .addColumn('grade', t('components.moduleDetailView.table.grade'))
     .addColumn('date', t('components.moduleDetailView.table.date'))
     .addColumn('actions', '', {
-      renderCell: (assessment: Assessment) =>
+      render: (_value: unknown, assessment: Assessment) =>
         assessment.requiresSubmission ? (
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <Button
