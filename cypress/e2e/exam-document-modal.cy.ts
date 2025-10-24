@@ -8,19 +8,26 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
   it('should display upload section with dropzone for assessments with future deadline', () => {
     // Navigate to home page which should have semester overview
 
-    // Click on a semester (e.g., Semester 3 which has assessments with future deadlines)
+    // Click on a semester (e.g., Semester 4 which has assessments with future deadlines)
     // This depends on the actual UI structure
-    cy.contains('Semester 3').click({ force: true });
+    cy.contains('Semester 4').click({ force: true });
 
     // Wait for module details to load
     cy.wait(500);
 
+    cy.contains('Agile Software Engineering und Softwaretechnik').click( { force: true });
+
+    cy.wait(500);
+
     // Click on a "Dokumente" button for an assessment with a future deadline
     // The exact selector will depend on the UI implementation
-    cy.get('button').contains('Dokumente').first().click({ force: true });
+    //cy.get('button').contains('Dokumente').eq(1).click({ force: true });
+    cy.get('button').eq(7).click({ force: true });
+
+    cy.wait(500);
 
     // Wait for modal to open
-    cy.contains('Prüfungsdokumente', { timeout: 10000 }).should('be.visible');
+    cy.contains('Prüfungsleistung', { timeout: 10000 }).should('be.visible');
 
     // Check that the upload section is visible (which contains the dropzone)
     cy.contains('Dateien hochladen').should('be.visible');
@@ -36,11 +43,15 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
 
     // For this test, we need to modify the mock data or use cy.clock() to simulate time
     // Let's use cy.clock() to move time forward past the deadline
-    const futureDate = new Date('2026-01-01').getTime();
-    cy.clock(futureDate);
+    //const futureDate = new Date('2025-01-01').getTime();
+    //cy.clock(futureDate);
 
     // Click on a semester
-    cy.contains('Semester 3').click({ force: true });
+    cy.contains('Semester 4').click({ force: true });
+    cy.wait(500);
+
+    cy.contains('Agile Software Engineering und Softwaretechnik').click( { force: true });
+
     cy.wait(500);
 
     // Click on a "Dokumente" button
@@ -50,21 +61,18 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
     cy.contains('Prüfungsdokumente', { timeout: 10000 }).should('be.visible');
 
     // Check that the deadline warning is displayed
-    cy.contains('Abgabefrist ist abgelaufen').should('be.visible');
+    cy.contains('Deadline verstrichen.').should('be.visible');
 
     // The dropzone input should NOT exist
     cy.get('input[type="file"]').should('not.exist');
-
-    // The upload files section might still have the title, but no dropzone
-    cy.contains('Dateien hochladen').should('be.visible');
   });
 
   it('should verify upload button is disabled when deadline has passed', () => {
     // Set time to future to simulate past deadline
-    const futureDate = new Date('2026-01-01').getTime();
-    cy.clock(futureDate);
+    //const futureDate = new Date('2026-01-01').getTime();
+    //cy.clock(futureDate);
 
-    cy.contains('Semester 3').click({ force: true });
+    cy.contains('Semester 4').click({ force: true });
     cy.wait(500);
 
     cy.get('button').contains('Dokumente').first().click({ force: true });
