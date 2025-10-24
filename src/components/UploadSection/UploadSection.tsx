@@ -30,21 +30,22 @@ const UploadSection = ({
         flexDirection: 'column',
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
-        }}
-      >
-        <Typography level="title-md">
-          {t('components.dokumentModal.uploadFiles')}
-        </Typography>
-      </Box>
       {!isDeadlinePassed && (
-        <Box
+        <>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
+            <Typography level="title-md">
+              {t('components.dokumentModal.uploadFiles')}
+            </Typography>
+          </Box>
+          <Box
           sx={{
             flexGrow: 1,
             p: 2,
@@ -84,6 +85,7 @@ const UploadSection = ({
             {selectedFiles.length > 0 ? `(${selectedFiles.length})` : ''}
           </Button>
         </Box>
+        </>
       )}
     </Box>
   );
