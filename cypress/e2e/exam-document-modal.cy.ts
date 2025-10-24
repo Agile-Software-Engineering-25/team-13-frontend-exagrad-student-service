@@ -7,7 +7,6 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
 
   it('should display upload section with dropzone for assessments with future deadline', () => {
     // Navigate to home page which should have semester overview
-    cy.visit('/');
 
     // Click on a semester (e.g., Semester 3 which has assessments with future deadlines)
     // This depends on the actual UI structure
@@ -35,8 +34,6 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
     // This test uses mock data to simulate a past deadline
     // We'll intercept the assessment data or use a test that modifies the deadline
 
-    cy.visit('/');
-
     // For this test, we need to modify the mock data or use cy.clock() to simulate time
     // Let's use cy.clock() to move time forward past the deadline
     const futureDate = new Date('2026-01-01').getTime();
@@ -63,8 +60,6 @@ describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
   });
 
   it('should verify upload button is disabled when deadline has passed', () => {
-    cy.visit('/');
-
     // Set time to future to simulate past deadline
     const futureDate = new Date('2026-01-01').getTime();
     cy.clock(futureDate);

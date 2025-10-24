@@ -73,9 +73,7 @@ const UploadSection = ({
 
           <Button
             onClick={onUpload}
-            disabled={
-              selectedFiles.length === 0 || uploading || isDeadlinePassed
-            }
+            disabled={selectedFiles.length === 0 || uploading}
             loading={uploading}
             variant="solid"
             color="primary"
