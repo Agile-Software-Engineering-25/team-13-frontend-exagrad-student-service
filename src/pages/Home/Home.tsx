@@ -8,6 +8,7 @@ import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/Se
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
 import TmpThemeSelectorComponent from '@/components/TmpThemeSelectorComponent/TmpThemeSelectorComponent';
+import UserDebugDisplay from '@/components/UserDebugDisplay/UserDebugDisplay'; // TODO: REMOVE - Debug component
 
 const Home = () => {
   const { t } = useTranslation();
@@ -55,6 +56,7 @@ const Home = () => {
       </Box>
       <TmpThemeSelectorComponent />
       <LanguageSelectorComponent />
+      <UserDebugDisplay /> {/* TODO: REMOVE - Debug component */}
     </Box>
   );
 };
