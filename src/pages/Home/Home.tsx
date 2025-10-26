@@ -23,7 +23,6 @@ const Home = () => {
   return (
     <Box sx={{ paddingInline: 20, paddingBlock: 2, mx: 'auto' }}>
       <StudentInfoHeader />
-
       <Box
         sx={{
           display: 'flex',
@@ -40,7 +39,6 @@ const Home = () => {
           {t('pages.home.buttons.downloadPerformanceOverview')}
         </Button>
       </Box>
-
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
       <Box sx={{ mt: 4 }}>
         {selectedSemester.id === null ? (
