@@ -220,7 +220,9 @@ const ExamDocumentModal = ({
           onUpload={handleUpload}
         />
 
-        <Divider sx={{ my: 2, width: '100%', mt: isDeadlinePassed() ? 2 : 4 }} />
+        <Divider
+          sx={{ my: 2, width: '100%', mt: isDeadlinePassed() ? 2 : 4 }}
+        />
 
         <StudentDocumentsList
           examDocuments={examDocuments}
