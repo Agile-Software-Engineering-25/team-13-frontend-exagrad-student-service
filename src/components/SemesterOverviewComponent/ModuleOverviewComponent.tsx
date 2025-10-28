@@ -10,6 +10,8 @@ import {
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from 'react-i18next';
 import ModuleDetailView from './ModuleDetailView';
+import { useLecturerFeedback } from '../../hooks/useLecturerFeedbackAPI';
+import { useUser } from '../../hooks/useUser';
 
 type Semester = {
   id: number | null;
@@ -403,7 +405,22 @@ const ModuleOverviewComponent = (props: {
     },
   };
 
+  const { user } = useUser();
+  const { data: feedbackData, loading, error } = useLecturerFeedback(user?.studentUuid || '');
+
   const currentSemester = semesterMockData[props.selectedSemester.id ?? 0];
+
+  // Map feedback grades into module data
+  if (feedbackData && currentSemester) {
+    Object.values(currentSemester).forEach((moduleData) => {
+      const feedback = feedbackData.find(
+        (f) => f.examUuid === moduleData.moduleInfo.moduleCode
+      );
+      if (feedback) {
+        moduleData.moduleInfo.grade = feedback.grade.toString();
+      }
+    });
+  }
 
   return (
     <Box

@@ -2,15 +2,23 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export interface LecturerFeedback {
-  id: string;                       // UUID für dieses Feedback
-  exam_id: string;                  // ID der Klausur
-  exam_submissions_id: string;      // ID der abgegebenen Lösung
-  lecturer_id: string;              // ID des Dozenten
-  feedback: {
-    grade: string;                  // Note
-    total_points: string;           // vergebene Punkte
-    comment: string;                // Kommentar des Dozenten
-  };
+    uuid: string;
+    gradedAt: Date;
+    examUuid: string;
+    lecturerUuid: string;
+    studentUuid: string;
+    submissionUuid: string;
+    comment: string;
+    fileReference: [
+      {
+        fileUuid: string;
+        filename: string;
+        downloadLink: string;
+      }
+      ];
+    points: number;
+    grade: number;
+    publishStatus: string;
 }
 
 export type LecturerFeedbackFormData = Omit<LecturerFeedback, 'id' | 'lecturer_id'>;
@@ -24,7 +32,7 @@ interface UseLecturerFeedbackResult {
 }
 
 
-export function useLecturerFeedback(lecturerId: string): UseLecturerFeedbackResult {
+export function useLecturerFeedback(studentId: string): UseLecturerFeedbackResult {
   const [data, setData] = useState<LecturerFeedback[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -33,7 +41,7 @@ export function useLecturerFeedback(lecturerId: string): UseLecturerFeedbackResu
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get<LecturerFeedback[]>(`/api/lecturer-feedback/${lecturerId}`);
+      const response = await axios.get<LecturerFeedback[]>(`/api/lecturer-feedback/${studentId}`);
       setData(response.data);
     } catch (err: any) {
       console.error('❌ Fehler beim Laden der Feedbacks:', err);
@@ -59,8 +67,8 @@ export function useLecturerFeedback(lecturerId: string): UseLecturerFeedbackResu
   };
 
   useEffect(() => {
-    if (lecturerId) fetchFeedback();
-  }, [lecturerId]);
+    if (studentId) fetchFeedback();
+  }, [studentId]);
 
   return { data, loading, error, createFeedback, refetch: fetchFeedback };
 }
