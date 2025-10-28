@@ -196,6 +196,7 @@ const ExamDocumentModal = ({
       header={t('components.dokumentModal.header')}
       open={open}
       setOpen={setOpen}
+      modalDialogSX={{ width: '600px', maxWidth: '90vw' }}
     >
       <Box>
         <AssessmentInfoCard assessment={assessment} />
@@ -219,7 +220,9 @@ const ExamDocumentModal = ({
           onUpload={handleUpload}
         />
 
-        <Divider sx={{ my: 2, width: '100%', mt: 4 }} />
+        <Divider
+          sx={{ my: 2, width: '100%', mt: isDeadlinePassed() ? 2 : 4 }}
+        />
 
         <StudentDocumentsList
           examDocuments={examDocuments}

@@ -70,9 +70,20 @@ const StudentInfoHeader = () => {
         {t('components.studentInfoHeader.title')}
       </Typography>
 
-      <Grid container columns={{ xs: 3, sm: 8, md: 10 }} columnSpacing={{ xs: 2, sm: 2, md: 3, xl: 4 }} rowSpacing={2} sx={{ flexGrow: 1, justifyContent: 'flex-start' }}>
+      <Grid
+        container
+        columns={{ xs: 3, sm: 8, md: 10 }}
+        columnSpacing={{ xs: 2, sm: 2, md: 3, xl: 4 }}
+        rowSpacing={2}
+        sx={{ flexGrow: 1, justifyContent: 'flex-start' }}
+      >
         {headerProperties.map((key, index) => (
-          <Grid xs={index === 0 ? 2 : 1} sm={index === 0 ? 4 : 2} md={index === 0 ? 4 : 2} key={index}>
+          <Grid
+            xs={index === 0 ? 2 : 1}
+            sm={index === 0 ? 4 : 2}
+            md={index === 0 ? 4 : 2}
+            key={index}
+          >
             <Box
               sx={{
                 p: 1,
