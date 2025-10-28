@@ -28,3 +28,4 @@ dist-ssr
 /cypress/videos/*
 
 shared-components/*
+.gemini/settings.json

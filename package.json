@@ -15,7 +15,7 @@
     "ci": "start-server-and-test dev http://localhost:5173 cy:run"
   },
   "dependencies": {
-    "@agile-software/shared-components": "^2.2.0",
+    "@agile-software/shared-components": "^2.3.2",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.2",
@@ -26,6 +26,8 @@
     "i18next": "^25.3.2",
     "jspdf": "^3.0.3",
     "jspdf-autotable": "^5.0.2",
+    "jwt-decode": "^4.0.0",
+    "oidc-client-ts": "^3.3.0",
     "react": "^18 || ^19",
     "react-dom": "^18 || ^19",
     "react-drag-drop-files": "^3.1.0",
