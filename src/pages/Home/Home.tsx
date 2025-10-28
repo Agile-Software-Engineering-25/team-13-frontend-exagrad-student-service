@@ -7,6 +7,7 @@ import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader'
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
+import UserDebugDisplay from '@/components/UserDebugDisplay/UserDebugDisplay';
 
 const Home = () => {
   const { t } = useTranslation();
