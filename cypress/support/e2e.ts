@@ -1,23 +1,8 @@
-// ***********************************************************
-// This example support/e2e.ts is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
+// This file is the Cypress support entrypoint expected by the test runner.
+// It loads custom commands and global configuration for Cypress tests.
+import './commands';
 
-// Import commands.js using ES2015 syntax:
-import "./commands";
+// You can add global before/after hooks here if needed, e.g.:
+// before(() => { ... })
 
-beforeEach(() => {
-  cy.intercept("GET", "https://api.brightsky.dev/current_weather*", {
-    fixture: "brightSkyApiGetCurrentWeather.json",
-  }).as("getCurrentWeather");
-});
+export {};
