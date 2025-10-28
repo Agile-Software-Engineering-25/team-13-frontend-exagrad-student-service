@@ -7,8 +7,6 @@ import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader'
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
-import TmpThemeSelectorComponent from '@/components/TmpThemeSelectorComponent/TmpThemeSelectorComponent';
-import UserDebugDisplay from '@/components/UserDebugDisplay/UserDebugDisplay'; // TODO: REMOVE - Debug component
 
 const Home = () => {
   const { t } = useTranslation();
@@ -35,7 +33,7 @@ const Home = () => {
           {t('pages.home.buttons.viewExamDates')}
         </Button>
 
-        <Button variant="solid" onClick={() => navigate('/weather')}>
+        <Button variant="solid" onClick={() => navigate('/')}>
           {t('pages.home.buttons.downloadPerformanceOverview')}
         </Button>
       </Box>
@@ -52,7 +50,6 @@ const Home = () => {
           />
         )}
       </Box>
-      <TmpThemeSelectorComponent />
       <LanguageSelectorComponent />
       <UserDebugDisplay /> {/* TODO: REMOVE - Debug component */}
     </Box>
