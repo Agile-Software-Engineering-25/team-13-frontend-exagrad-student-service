@@ -45,7 +45,10 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   const navigate = useNavigate();
 
   const handleRegister = () => {
-    navigate('/antrag/?accordion=nachklausur/' + props.selectedModuleData.moduleInfo.moduleCode);
+    navigate(
+      '/document-management/requests?accordion=nachklausur/' +
+        props.selectedModuleData.moduleInfo.moduleCode
+    );
   };
 
   return (
