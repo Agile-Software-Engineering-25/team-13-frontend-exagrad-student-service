@@ -5,13 +5,6 @@
         "downloadPerformanceOverview": "Leistungsübersicht herunterladen",
         "viewExamDates": "Prüfungstermine einsehen"
       }
-    },
-    "weather": {
-      "title": "Wetter",
-      "description": "Hier wird das Wetter des Telekom Büros in der Winterfeldtstraße 21, 10781 Berlin angezeigt.",
-      "getWeatherButton": "WETTER ABRUFEN",
-      "weatherHeader": "Aktuelles Wetter",
-      "temperature": "Temperatur"
     }
   },
   "components": {

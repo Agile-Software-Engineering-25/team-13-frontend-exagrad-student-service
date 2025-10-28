@@ -1,16 +1,18 @@
 import { Box, Divider, Typography, Button, Grid } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
-import RetakeRegistrationModal from '../Modals/RetakeRegistrationModal/RetakeRegistrationModal';
 import { useState } from 'react';
 import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
 import AssessmentTable from './AssessmentTable';
 
 type Assessment = {
+  id: string;
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
+  examId?: string;
+  deadline?: string;
 };
 
 type ModuleInfo = {
@@ -28,7 +30,6 @@ interface ModuleData {
 
 const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
-  const [viewRetakeRegistration, setViewRetakeRegistration] = useState(false);
   const [viewPubSubmission, setViewPubSubmission] = useState(false);
 
   const moduleProperties = ['moduleCode', 'lecturer', 'creditPoints', 'grade'];
@@ -88,7 +89,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
               color="primary"
               fullWidth
               sx={{ p: 1.5 }}
-              onClick={() => setViewRetakeRegistration(true)}
+              // TODO: set onClick to navigate to the retake registration page for the current module
             >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
@@ -96,12 +97,10 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
         </Grid>
       </Grid>
 
-      <AssessmentTable selectedModuleData={props.selectedModuleData} />
+      <Box sx={{ mt: 3 }}>
+        <AssessmentTable selectedModuleData={props.selectedModuleData} />
+      </Box>
 
-      <RetakeRegistrationModal
-        open={viewRetakeRegistration}
-        setOpen={setViewRetakeRegistration}
-      />
       {/* TODO : remove mock data */}
       <PubUploadModal
         open={viewPubSubmission}
