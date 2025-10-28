@@ -47,7 +47,7 @@ export function useLecturerFeedback(lecturerId: string): UseLecturerFeedbackResu
     try {
       setLoading(true);
       setError(null);
-      await axios.post(`/api/lecturer-feedback`, feedback, {
+      await axios.post(`/lecturer-feedback`, feedback, {
         headers: { 'Content-Type': 'application/json' },
       });
     } catch (err: any) {
