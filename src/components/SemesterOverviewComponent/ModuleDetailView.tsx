@@ -91,7 +91,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
               color="primary"
               fullWidth
               sx={{
-                p: { sx: 0.5, sm: 1, md: 1.5 },
+                p: { xs: 0.5, sm: 1, md: 1.5 },
                 overflowWrap: 'anywhere',
                 minWidth: 150,
                 maxHeight: 60,
@@ -106,7 +106,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
               color="primary"
               fullWidth
               sx={{
-                p: { sx: 0.5, sm: 1, md: 1.5 },
+                p: { xs: 0.5, sm: 1, md: 1.5 },
                 overflowWrap: 'anywhere',
                 minWidth: 150,
                 maxHeight: 60,
