@@ -7,6 +7,7 @@ import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader'
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
+import UserDebugDisplay from '@/components/UserDebugDisplay/UserDebugDisplay';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -27,7 +28,6 @@ const Home = () => {
       }}
     >
       <StudentInfoHeader />
-
       <Box
         sx={{
           display: 'flex',
@@ -44,7 +44,6 @@ const Home = () => {
           {t('pages.home.buttons.downloadPerformanceOverview')}
         </Button>
       </Box>
-
       <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
       <Box sx={{ mt: 4 }}>
         {selectedSemester.id === null ? (
@@ -59,6 +58,7 @@ const Home = () => {
         )}
       </Box>
       <LanguageSelectorComponent />
+      <UserDebugDisplay /> {/* TODO: REMOVE - Debug component */}
     </Box>
   );
 };
