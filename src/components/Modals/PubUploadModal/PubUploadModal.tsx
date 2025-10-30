@@ -6,6 +6,9 @@ import FormLabel from '@mui/joy/FormLabel';
 import { Dropzone, FileChip } from '@agile-software/shared-components';
 import { useTranslation } from 'react-i18next';
 import usePubDocuments from '@/hooks/usePubDocuments';
+import useNotification from '@/hooks/useNotification';
+import { useUser } from '@hooks/useUser';
+import { isAxiosError } from '@custom-types/errors';
 import type {
   PubDocumentRequest,
   PubDocumentResponse,
@@ -21,8 +24,10 @@ const dateFormatRegex = /^\d{2}\.\d{2}\.\d{4}$/;
 
 const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
   const { t } = useTranslation();
+  const { sendEmail } = useNotification();
   const { uploadPubDocument, getPubDocuments } = usePubDocuments();
-
+  const { getEmail } = useUser();
+  const [ setErrorMessage ] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -143,6 +148,8 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
     if (!file) return;
     setShowConfirmModal(false);
     setLoading(true);
+    const errors: string[] = [];
+
     try {
       const [sd, sm, sy] = startDate.split('.').map(Number);
       const [ed, em, ey] = endDate.split('.').map(Number);
@@ -164,6 +171,29 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
       alert(t('components.pubUploadModal.uploadError') + err);
     } finally {
       setLoading(false);
+    }
+    try {
+      await sendEmail({
+        to: [getEmail()],
+        subject: 'Neues Dokument hochgeladen',
+        text: `Das Dokument ${file.name} zur Bescheinigung der Prüfungsunfähigkeit wurde erfolgreich hochgeladen.`,
+        replyTo: 'noreply@example.com',
+      });
+    }
+    catch (error: unknown) {
+      let errorMsg = "Confirmation Email sending failed";
+      if (isAxiosError(error)) {
+        errorMsg =
+          error.response?.data?.error?.message ??
+          error.message ??
+          'Send failed';
+      }
+      errors.push(`${file.name}: ${errorMsg}`);
+    }
+
+    // Show errors if any occurred
+    if (errors.length > 0) {
+      setErrorMessage(errors.join('; '));
     }
   };
 

@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
+import useNotification from '@/hooks/useNotification';
+import { useUser } from '@hooks/useUser';
 import { useTypedSelector } from '@stores/rootReducer';
 import type { ExamDocumentResponse } from '@custom-types/examDocument';
 import { isAxiosError } from '@custom-types/errors';
@@ -38,6 +40,8 @@ const ExamDocumentModal = ({
   assessment,
 }: ExamDocumentModalProps) => {
   const { t } = useTranslation();
+  const { getEmail } = useUser();
+  const { sendEmail } = useNotification();
   const dispatch = useDispatch();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
@@ -136,6 +140,24 @@ const ExamDocumentModal = ({
             error.response?.data?.error?.message ??
             error.message ??
             'Upload failed';
+        }
+        errors.push(`${file.name}: ${errorMsg}`);
+      }
+      try {
+        await sendEmail({
+          to: [getEmail()],
+          subject: 'Neues Dokument hochgeladen',
+          text: `Das Dokument ${file.name} wurde erfolgreich hochgeladen.`,
+          replyTo: 'noreply@example.com',
+        });
+      }
+      catch (error: unknown) {
+        let errorMsg = "Confirmation Email sending failed";
+        if (isAxiosError(error)) {
+          errorMsg =
+            error.response?.data?.error?.message ??
+            error.message ??
+            'Send failed';
         }
         errors.push(`${file.name}: ${errorMsg}`);
       }
