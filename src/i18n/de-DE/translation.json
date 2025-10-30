@@ -4,6 +4,9 @@
       "buttons": {
         "downloadPerformanceOverview": "Leistungsübersicht herunterladen",
         "viewExamDates": "Prüfungstermine einsehen"
+      },
+      "errors": {
+        "noFeedbackData": "Keine Feedback-Daten verfügbar. Bitte versuchen Sie es später erneut oder kontaktieren Sie den Support."
       }
     }
   },

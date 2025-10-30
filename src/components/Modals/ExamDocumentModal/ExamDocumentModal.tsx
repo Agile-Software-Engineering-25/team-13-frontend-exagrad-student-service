@@ -73,7 +73,8 @@ const ExamDocumentModal = ({
         console.error('Failed to fetch documents:', err);
       });
     }
-  }, [open, assessment?.examId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, assessment?.examId]); // getExamDocuments intentionally excluded to prevent infinite loop
 
   // Clear documents when modal closes
   useEffect(() => {

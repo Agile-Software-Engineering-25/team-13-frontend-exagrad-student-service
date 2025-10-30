@@ -64,7 +64,8 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
     };
 
     fetchDocumentCounts();
-  }, [props.selectedModuleData.assessments]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.selectedModuleData.assessments]); // getExamDocuments intentionally excluded to prevent infinite loop
 
   // Refetch document counts when modal closes
   useEffect(() => {
@@ -80,7 +81,8 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
           // Ignore errors
         });
     }
-  }, [viewDocuments, selectedAssessment]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewDocuments, selectedAssessment]); // getExamDocuments intentionally excluded to prevent infinite loop
 
   const handleOpenDocuments = (assessment: Assessment) => {
     setSelectedAssessment(assessment);

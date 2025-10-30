@@ -1,58 +1,96 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { student, performances } from './mockData';
+import type { LecturerFeedback } from '@custom-types/lecturerFeedback';
 
-const generatePerformanceOverview = () => {
+interface StudentInfo {
+  firstName: string;
+  lastName: string;
+  userId: string;
+}
+
+const generatePerformanceOverview = (
+  feedbacks: LecturerFeedback[],
+  studentInfo: StudentInfo
+) => {
   const doc = new jsPDF();
 
+  const fullName = `${studentInfo.firstName} ${studentInfo.lastName}`;
+
+  // Add logo
+  const logo = new Image();
+  logo.src = '/provadis_logo.png';
+  doc.addImage(logo, 'PNG', 14, 10, 40, 20);
+
   // Header
-  doc.text('Hochschule für Angewandte Wissenschaften', 14, 20);
-  doc.text(`Student: ${student.name}` , 14, 30);
-  doc.text(`Matriculation Number: ${student.matriculationNumber}`, 14, 40);
-  doc.text(`Course: ${student.course}`, 14, 50);
-  doc.text(`Semester: ${student.semester}`, 14, 60);
+  doc.text('Provadis Hochschule', 60, 20);
+  doc.text(`Student: ${fullName}`, 14, 40);
+  doc.text(`Student ID: ${studentInfo.userId}`, 14, 50);
+  doc.text(`Course: Unknown`, 14, 60);
   doc.text(`Date: ${new Date().toLocaleDateString('de-DE')}`, 14, 70);
+
+  // Disclaimer
+  doc.setFontSize(10);
+  doc.setTextColor(255, 0, 0);
+  doc.text('HINWEIS: Dies ist kein offizielles Dokument der Provadis Hochschule.', 14, 80);
+  doc.text('NOTE: This is not an official document from Provadis Hochschule.', 14, 86);
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(12);
 
   // Table
   autoTable(doc, {
-    startY: 80,
-    head: [['Module/Course', 'Exam', 'Attempt', 'Date', 'Points', 'Grade', 'Status', 'ECTS']],
-    body: performances.map(p => [p.module, p.exam, p.attempt, p.date, p.points, p.grade, p.status, p.ects]),
-    didDrawPage: (data) => {
-      // Footer
-      doc.text('This is not an official document.', 14, data.cursor.y + 10);
-    }
+    startY: 95,
+    head: [['Course',, 'Points', 'Grade', 'Comment']],
+    body: feedbacks.map((f) => [
+      'Unknown',
+      f.points,
+      f.grade,
+    ]),
   });
 
   return doc.output('datauristring');
 };
 
-export const downloadPdf = () => {
+export const downloadPdf = (
+  feedbacks: LecturerFeedback[],
+  studentInfo: StudentInfo
+) => {
   const doc = new jsPDF();
 
+  const fullName = `${studentInfo.firstName} ${studentInfo.lastName}`;
+
+  // Add logo
+  const logo = new Image();
+  logo.src = '/provadis_logo.png';
+  doc.addImage(logo, 'PNG', 14, 10, 80, 40);
+
   // Header
-  doc.text('Hochschule für Angewandte Wissenschaften', 14, 20);
-  doc.text(`Student: ${student.name}` , 14, 30);
-  doc.text(`Matriculation Number: ${student.matriculationNumber}`, 14, 40);
-  doc.text(`Course: ${student.course}`, 14, 50);
-  doc.text(`Semester: ${student.semester}`, 14, 60);
-  doc.text(`Date: ${new Date().toLocaleDateString('de-DE')}`, 14, 70);
+  doc.text('Leistungsuebersicht', 80, 20);
+  doc.text(`Student:in: ${fullName}`, 14, 40);
+  doc.text(`Studiengang: Unknown`, 14, 50);
+  doc.text(`Datum: ${new Date().toLocaleDateString('de-DE')}`, 14, 60);
+
+  // Disclaimer
+  doc.setFontSize(10);
+  doc.setTextColor(255, 0, 0);
+  doc.text('HINWEIS: Dies ist kein offizielles Dokument der Provadis Hochschule.', 14, 80);
+  doc.text('NOTE: This is not an official document from Provadis Hochschule.', 14, 86);
+  doc.setTextColor(0, 0, 0);
+  doc.setFontSize(12);
 
   // Table
   autoTable(doc, {
-    startY: 80,
-    head: [['Module/Course', 'Exam', 'Attempt', 'Date', 'Points', 'Grade', 'Status', 'ECTS']],
-    body: performances.map(p => [p.module, p.exam, p.attempt, p.date, p.points, p.grade, p.status, p.ects]),
-    didDrawPage: (data) => {
-      // Footer
-      doc.text('This is not an official document.', 14, data.cursor.y + 10);
-    }
+    startY: 95,
+    head: [['Course', 'Credit Points', 'Grade']],
+    body: feedbacks.map((f) => [
+      'Unknown', // TODO get course name from courseAPI team-09
+      '5', // TODO get etcs from courseAPI team-09
+      f.grade,
+    ]),
   });
 
-  const lastName = student.name.split(' ').pop() || 'Mustermann';
   const date = new Date().toISOString().slice(0, 10);
-  doc.save(`Leistungsuebersicht_${lastName}_${date}.pdf`);
-}
+  doc.save(`Leistungsuebersicht_${studentInfo.lastName}_${date}.pdf`);
+};
 
 export const downloadPdfFromDataUri = (dataUri: string, filename: string) => {
   const link = document.createElement('a');
@@ -64,3 +102,4 @@ export const downloadPdfFromDataUri = (dataUri: string, filename: string) => {
 };
 
 export default generatePerformanceOverview;
+

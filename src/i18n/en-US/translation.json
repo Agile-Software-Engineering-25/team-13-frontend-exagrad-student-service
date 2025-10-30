@@ -4,6 +4,9 @@
       "buttons": {
         "downloadPerformanceOverview": "Download Performance Overview",
         "viewExamDates": "View Exam Dates"
+      },
+      "errors": {
+        "noFeedbackData": "No feedback data available. Please try again later or contact support."
       }
     }
   },
