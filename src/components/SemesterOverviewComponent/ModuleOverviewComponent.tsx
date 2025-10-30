@@ -361,25 +361,27 @@ const ModuleOverviewComponent = (props: {
     useState<Record<number, SemesterData>>(semesterMockData);
 
   const formatExamType = (type: string) => {
-  const formatted = type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
+    const formatted =
+      type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
 
-  const newFormatted = formatted
-    .replace(/ae/g, 'ä')
-    .replace(/oe/g, 'ö')
-    .replace(/ue/g, 'ü');
+    const newFormatted = formatted
+      .replace(/ae/g, 'ä')
+      .replace(/oe/g, 'ö')
+      .replace(/ue/g, 'ü');
 
-  return newFormatted;};
+    return newFormatted;
+  };
 
-const formatDateTime = (isoDate: string) => {
-  const date = new Date(isoDate);
-  return date.toLocaleString('de-DE', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-};
+  const formatDateTime = (isoDate: string) => {
+    const date = new Date(isoDate);
+    return date.toLocaleString('de-DE', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
 
   useEffect(() => {
     const fetchExams = async () => {

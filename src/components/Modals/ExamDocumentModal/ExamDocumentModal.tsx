@@ -16,7 +16,7 @@ import AssessmentInfoCard from '@components/AssessmentInfoCard/AssessmentInfoCar
 
 type Assessment = {
   id: string;
-  moduleCode: String;
+  moduleCode: string;
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';
@@ -62,9 +62,7 @@ const ExamDocumentModal = ({
   const canDelete = !isDeadlinePassed();
 
   // Filter documents for current exam from Redux
-  const examDocuments = documents.filter(
-    (doc) => doc.id === assessment?.id
-  );
+  const examDocuments = documents.filter((doc) => doc.id === assessment?.id);
 
   // Fetch documents when modal opens
   useEffect(() => {
