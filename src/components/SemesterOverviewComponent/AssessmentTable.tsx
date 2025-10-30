@@ -14,7 +14,6 @@ type Assessment = {
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
-  deadline?: string;
 };
 
 type ModuleInfo = {

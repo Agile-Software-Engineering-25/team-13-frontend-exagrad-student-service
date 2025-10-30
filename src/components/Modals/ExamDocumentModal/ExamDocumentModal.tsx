@@ -15,13 +15,13 @@ import ErrorBanner from '@components/ErrorBanner/ErrorBanner';
 import AssessmentInfoCard from '@components/AssessmentInfoCard/AssessmentInfoCard';
 
 type Assessment = {
+  id: string;
+  moduleCode: String;
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
-  examId?: string;
-  deadline?: string;
 };
 
 type ExamDocumentModalProps = {
@@ -55,25 +55,25 @@ const ExamDocumentModal = ({
   const loadingState = useTypedSelector((state) => state.examDocuments.state);
 
   const isDeadlinePassed = useCallback(() => {
-    if (!assessment?.deadline) return false;
-    return new Date() > new Date(assessment.deadline);
+    if (!assessment?.date) return false;
+    return new Date() > new Date(assessment.date);
   }, [assessment]);
 
   const canDelete = !isDeadlinePassed();
 
   // Filter documents for current exam from Redux
   const examDocuments = documents.filter(
-    (doc) => doc.examId === assessment?.examId
+    (doc) => doc.id === assessment?.id
   );
 
   // Fetch documents when modal opens
   useEffect(() => {
-    if (open && assessment?.examId) {
-      getExamDocuments({ examId: assessment.examId }).catch((err) => {
+    if (open && assessment?.id) {
+      getExamDocuments({ examId: assessment.id }).catch((err) => {
         console.error('Failed to fetch documents:', err);
       });
     }
-  }, [open, assessment?.examId]);
+  }, [open, assessment?.id]);
 
   // Clear documents when modal closes
   useEffect(() => {
@@ -116,7 +116,7 @@ const ExamDocumentModal = ({
   };
 
   const handleUpload = async () => {
-    if (selectedFiles.length === 0 || !assessment?.examId) return;
+    if (selectedFiles.length === 0 || !assessment?.id) return;
     if (isDeadlinePassed()) {
       setErrorMessage('Deadline has passed. Upload is no longer allowed.');
       return;
@@ -128,7 +128,7 @@ const ExamDocumentModal = ({
     // Upload all files sequentially
     for (const file of selectedFiles) {
       try {
-        await uploadExamDocument(file, assessment.examId, MOCK_STUDENT_ID);
+        await uploadExamDocument(file, assessment.id, MOCK_STUDENT_ID);
       } catch (error: unknown) {
         let errorMsg = 'Upload failed';
         if (isAxiosError(error)) {
@@ -196,7 +196,7 @@ const ExamDocumentModal = ({
       header={t('components.dokumentModal.header')}
       open={open}
       setOpen={setOpen}
-      modalDialogSX={{ width: '600px', maxWidth: '90vw' }}
+      modalDialogSX={{ width: '700px', maxWidth: '90vw' }}
     >
       <Box>
         <AssessmentInfoCard assessment={assessment} />

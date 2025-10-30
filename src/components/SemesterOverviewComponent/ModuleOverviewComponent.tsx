@@ -20,7 +20,6 @@ type Assessment = {
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
-  deadline?: string;
 };
 
 type ModuleInfo = {
@@ -400,7 +399,6 @@ const formatDateTime = (isoDate: string) => {
           grade: 'N/A',
           date: formatDateTime(exam.examDate),
           requiresSubmission: exam.fileUploadRequired,
-          deadline: 'N/A',
         }));
 
         const updatedMockData = { ...semesterMockData };

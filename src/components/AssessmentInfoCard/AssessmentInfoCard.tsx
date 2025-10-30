@@ -9,7 +9,6 @@ type Assessment = {
   date: string;
   requiresSubmission: boolean;
   examId?: string;
-  deadline?: string;
 };
 
 interface AssessmentInfoCardProps {
@@ -21,18 +20,9 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
 
   if (!assessment) return null;
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('de-DE', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-  };
-
   const isDeadlinePassed = () => {
-    if (!assessment.deadline) return false;
-    return new Date() > new Date(assessment.deadline);
+    if (!assessment.date) return false;
+    return new Date() > new Date(assessment.date);
   };
 
   return (
@@ -76,11 +66,11 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Typography level="title-md">
-                {assessment.deadline
-                  ? formatDate(assessment.deadline)
+                {assessment.date
+                  ? assessment.date
                   : t('components.dokumentModal.assessmentInfo.noDeadline')}
               </Typography>
-              {assessment.deadline && isDeadlinePassed() && (
+              {assessment.date && isDeadlinePassed() && (
                 <Chip size="sm" color="danger" variant="solid">
                   {t('components.dokumentModal.assessmentInfo.expired')}
                 </Chip>
