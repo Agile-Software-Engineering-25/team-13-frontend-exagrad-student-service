@@ -41,9 +41,9 @@ const SemesterOverviewComponent = (props: {
   return (
     <Box
       sx={{
-        pl: 4,
-        pr: 4,
-        pb: 4,
+        pl: { xs: 2, sm: 2, md: 3, xl: 4 },
+        pr: { xs: 2, sm: 2, md: 3, xl: 4 },
+        pb: { xs: 2, sm: 2, md: 3, xl: 4 },
         background: '#F3F8FF',
         borderRadius: 30,
         display: 'flex',
@@ -57,7 +57,7 @@ const SemesterOverviewComponent = (props: {
 
       <Grid container columnSpacing={4} rowSpacing={2} sx={{ flexGrow: 1 }}>
         {semesterBoxes.map((box, i) => (
-          <Grid xs={4} key={i}>
+          <Grid md={4} sm={6} xs={12} key={i}>
             <Box
               sx={{
                 p: 2,
