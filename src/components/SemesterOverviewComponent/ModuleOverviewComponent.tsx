@@ -3,6 +3,9 @@ import { Accordion } from '@agile-software/shared-components';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from 'react-i18next';
 import ModuleDetailView from './ModuleDetailView';
+import { useEffect, useState } from 'react';
+import type { ExamDataResponse } from '@/@custom-types/examData';
+import useExamDataApi from '@/hooks/useExamDataApi';
 
 type Semester = {
   id: number | null;
@@ -40,6 +43,11 @@ const ModuleOverviewComponent = (props: {
   setSelectedSemester: React.Dispatch<React.SetStateAction<Semester>>;
 }) => {
   const { t } = useTranslation();
+
+  const { getAllExams } = useExamDataApi ();
+  const [assessmentData, setAssesmentData] = useState<Assessment[]>([]);
+
+
 
   const semesterMockData: Record<number, SemesterData> = {
     1: {
@@ -401,6 +409,43 @@ const ModuleOverviewComponent = (props: {
       },
     },
   };
+
+  useEffect(() => {
+  const fetchExams = async () => {
+    try {
+      const allExams: ExamDataResponse[] = (await getAllExams()) || [];
+
+      if (!Array.isArray(allExams)) {
+        console.error('getAllExams returned not an array:', allExams);
+        return;
+      }
+
+      const mappedAssessments: Assessment[] = allExams.map((exam) => ({
+        id: exam.id,
+        assessmentTyp: exam.examType,
+        weight: 'N/A',
+        grade: 'N/A',
+        date: exam.examDate,
+        requiresSubmission: exam.fileUploadRequired,
+        examId: exam.id,
+        deadline: 'N/A',
+      }));
+
+      setAssesmentData(mappedAssessments);
+
+    } catch (err) {
+      console.error('Error fetching exams:', err);
+    }
+  };
+
+  fetchExams();
+}, []);
+
+
+  useEffect(() => {
+  console.log('Fetched assessments:', assessmentData);
+}, [assessmentData]);
+
 
   const currentSemester = semesterMockData[props.selectedSemester.id ?? 0];
 
