@@ -8,12 +8,12 @@ import { Table, createTableBuilder } from '@agile-software/shared-components';
 
 type Assessment = {
   id: string;
+  moduleCode: string;
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
-  examId?: string;
   deadline?: string;
 };
 
@@ -44,19 +44,19 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   // Fetch document counts for all exams in this module
   useEffect(() => {
     const fetchDocumentCounts = async () => {
-      const examIds = props.selectedModuleData.assessments
-        .filter((a) => a.requiresSubmission && a.examId)
-        .map((a) => a.examId!);
+      const ids = props.selectedModuleData.assessments
+        .filter((a) => a.requiresSubmission && a.id)
+        .map((a) => a.id!);
 
       const counts: Record<string, number> = {};
 
-      for (const examId of examIds) {
+      for (const id of ids) {
         try {
-          const docs = await getExamDocuments({ examId });
-          counts[examId] = docs?.length || 0;
+          const docs = await getExamDocuments({ examId: id });
+          counts[id] = docs?.length || 0;
         } catch (err) {
-          console.error(`Failed to fetch documents for exam ${examId}:`, err);
-          counts[examId] = 0;
+          console.error(`Failed to fetch documents for exam ${id}:`, err);
+          counts[id] = 0;
         }
       }
 
@@ -68,12 +68,12 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
 
   // Refetch document counts when modal closes
   useEffect(() => {
-    if (!viewDocuments && selectedAssessment?.examId) {
-      getExamDocuments({ examId: selectedAssessment.examId })
+    if (!viewDocuments && selectedAssessment?.id) {
+      getExamDocuments({ examId: selectedAssessment.id })
         .then((docs) => {
           setDocumentCounts((prev) => ({
             ...prev,
-            [selectedAssessment.examId!]: docs?.length || 0,
+            [selectedAssessment.id!]: docs?.length || 0,
           }));
         })
         .catch(() => {
@@ -87,9 +87,9 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
     setViewDocuments(true);
   };
 
-  const hasUploadedDocuments = (examId?: string) => {
-    if (!examId) return false;
-    return (documentCounts[examId] || 0) > 0;
+  const hasUploadedDocuments = (id?: string) => {
+    if (!id) return false;
+    return (documentCounts[id] || 0) > 0;
   };
 
   // Table configuration using shared Table component
@@ -112,7 +112,7 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
             >
               {t('components.moduleDetailView.table.submit')}
             </Button>
-            {hasUploadedDocuments(assessment.examId) && (
+            {hasUploadedDocuments(assessment.id) && (
               <Chip
                 size="sm"
                 color="success"

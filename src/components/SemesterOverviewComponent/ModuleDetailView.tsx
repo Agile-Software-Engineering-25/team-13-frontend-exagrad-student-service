@@ -6,12 +6,12 @@ import AssessmentTable from './AssessmentTable';
 
 type Assessment = {
   id: string;
+  moduleCode: string;
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
-  examId?: string;
   deadline?: string;
 };
 

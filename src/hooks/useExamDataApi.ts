@@ -19,13 +19,10 @@ const useExamDataApi = () => {
   );
 
   // GET Data of all Exams
-  const getAllExams = useCallback(
-    async (): Promise<ExamDataResponse[]> => {
-      const response = await axiosInstance.get('/data/exams', {});
-      return response.data as ExamDataResponse[];
-    },
-    [axiosInstance]
-  );
+  const getAllExams = useCallback(async (): Promise<ExamDataResponse[]> => {
+    const response = await axiosInstance.get('/data/exams', {});
+    return response.data as ExamDataResponse[];
+  }, [axiosInstance]);
 
   return { getOneExam, getAllExams };
 };

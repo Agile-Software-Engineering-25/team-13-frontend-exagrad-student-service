@@ -1,4 +1,3 @@
-
 export interface ExamDataResponse {
   id: string;
   title: string;

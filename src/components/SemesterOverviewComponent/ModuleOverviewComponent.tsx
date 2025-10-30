@@ -14,12 +14,12 @@ type Semester = {
 
 type Assessment = {
   id: string;
+  moduleCode: string;
   assessmentTyp: string;
   weight: string;
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
-  examId?: string;
   deadline?: string;
 };
 
@@ -44,10 +44,8 @@ const ModuleOverviewComponent = (props: {
 }) => {
   const { t } = useTranslation();
 
-  const { getAllExams } = useExamDataApi ();
-  const [assessmentData, setAssesmentData] = useState<Assessment[]>([]);
-
-
+  const { getAllExams } = useExamDataApi();
+  //const [assessmentData, setAssesmentData] = useState<Assessment[]>([]);
 
   const semesterMockData: Record<number, SemesterData> = {
     1: {
@@ -218,36 +216,7 @@ const ModuleOverviewComponent = (props: {
           creditPoints: 10,
           grade: 'N/A',
         },
-        assessments: [
-          {
-            id: 'ase-written-2025',
-            assessmentTyp: 'schriftliche Prüfung',
-            weight: '40%',
-            grade: 'N/A',
-            date: '15.10.2025 11:15 Uhr',
-            requiresSubmission: false,
-          },
-          {
-            id: 'exam-ase-wab-2025',
-            assessmentTyp: 'WAB',
-            weight: '50%',
-            grade: 'N/A',
-            date: '07.10.2025 23:59 Uhr',
-            requiresSubmission: true,
-            examId: 'exam-ase-wab-2025',
-            deadline: '2025-10-07T23:59:00',
-          },
-          {
-            id: 'exam-ase-presentation-2025',
-            assessmentTyp: 'Präsentation',
-            weight: '10%',
-            grade: 'N/A',
-            date: '17.11.2025 15:00 Uhr',
-            requiresSubmission: true,
-            examId: 'exam-ase-presentation-2025',
-            deadline: '2025-11-17T15:00:00',
-          },
-        ],
+        assessments: [],
       },
       '2': {
         moduleInfo: {
@@ -277,28 +246,7 @@ const ModuleOverviewComponent = (props: {
           creditPoints: 5,
           grade: '1.0',
         },
-        assessments: [
-          {
-            id: 'exam-ikht-presentation-2025',
-            assessmentTyp: 'Präsentation',
-            weight: '50%',
-            grade: '1.0',
-            date: '15.10.2025 11:15 Uhr',
-            requiresSubmission: true,
-            examId: 'exam-ikht-presentation-2025',
-            deadline: '2025-10-15T11:15:00',
-          },
-          {
-            id: 'exam-ikht-report-2025',
-            assessmentTyp: 'Gruppenbericht',
-            weight: '50%',
-            grade: '1.0',
-            date: '07.09.2025 23:59 Uhr',
-            requiresSubmission: true,
-            examId: 'exam-ikht-report-2025',
-            deadline: '2025-09-07T23:59:00',
-          },
-        ],
+        assessments: [],
       },
       '5': {
         moduleInfo: {
@@ -410,44 +358,60 @@ const ModuleOverviewComponent = (props: {
     },
   };
 
-  useEffect(() => {
-  const fetchExams = async () => {
-    try {
-      const allExams: ExamDataResponse[] = (await getAllExams()) || [];
+  const [semesterData, setSemesterData] =
+    useState<Record<number, SemesterData>>(semesterMockData);
 
-      if (!Array.isArray(allExams)) {
-        console.error('getAllExams returned not an array:', allExams);
-        return;
+  useEffect(() => {
+    const fetchExams = async () => {
+      try {
+        const allExams: ExamDataResponse[] = (await getAllExams()) || [];
+
+        if (!Array.isArray(allExams)) {
+          console.error('getAllExams returned not an array:', allExams);
+          return;
+        }
+
+        const mappedAssessments: Assessment[] = allExams.map((exam) => ({
+          id: exam.id,
+          moduleCode: exam.moduleCode,
+          assessmentTyp: exam.examType,
+          weight: 'N/A',
+          grade: 'N/A',
+          date: exam.examDate,
+          requiresSubmission: exam.fileUploadRequired,
+          deadline: 'N/A',
+        }));
+
+        const updatedMockData = { ...semesterMockData };
+
+        Object.values(updatedMockData).forEach((modules) => {
+          Object.values(modules).forEach((moduleData) => {
+            moduleData.assessments = [];
+            const relatedAssessments = mappedAssessments.filter(
+              (a) => a.moduleCode === moduleData.moduleInfo.moduleCode
+            );
+            if (relatedAssessments.length > 0) {
+              moduleData.assessments = [
+                ...moduleData.assessments,
+                ...relatedAssessments,
+              ];
+            }
+          });
+        });
+
+        //setAssesmentData(mappedAssessments);
+        console.log('Merged mock data with assessments:', updatedMockData);
+
+        setSemesterData(updatedMockData);
+      } catch (err) {
+        console.error('Error fetching exams:', err);
       }
+    };
 
-      const mappedAssessments: Assessment[] = allExams.map((exam) => ({
-        id: exam.id,
-        assessmentTyp: exam.examType,
-        weight: 'N/A',
-        grade: 'N/A',
-        date: exam.examDate,
-        requiresSubmission: exam.fileUploadRequired,
-        examId: exam.id,
-        deadline: 'N/A',
-      }));
+    fetchExams();
+  }, []);
 
-      setAssesmentData(mappedAssessments);
-
-    } catch (err) {
-      console.error('Error fetching exams:', err);
-    }
-  };
-
-  fetchExams();
-}, []);
-
-
-  useEffect(() => {
-  console.log('Fetched assessments:', assessmentData);
-}, [assessmentData]);
-
-
-  const currentSemester = semesterMockData[props.selectedSemester.id ?? 0];
+  const currentSemester = semesterData[props.selectedSemester.id ?? 0];
 
   return (
     <Box
