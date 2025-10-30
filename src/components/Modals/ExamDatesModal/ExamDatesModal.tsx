@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Typography, Select, Option, Table, Box } from '@mui/joy';
-import GenericModal from '@components/Modals/GenericModal';
+import { Modal } from '@agile-software/shared-components';
 import { useTranslation } from 'react-i18next';
 
+// TODO: use Table from agile-software in ASE-800
 type Exam = {
   code: string;
   lecturer: string;
@@ -91,7 +92,7 @@ const ExamDatesModal = ({ open, setOpen }: ExamDatesModalProps) => {
   const data: SemesterData = mockData[semester] ?? { exams: [], retakes: [] };
 
   return (
-    <GenericModal
+    <Modal
       header={t('components.examDatesModal.header')}
       open={open}
       setOpen={setOpen}
@@ -164,7 +165,7 @@ const ExamDatesModal = ({ open, setOpen }: ExamDatesModalProps) => {
           ))}
         </tbody>
       </Table>
-    </GenericModal>
+    </Modal>
   );
 };
 
