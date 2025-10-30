@@ -18,7 +18,9 @@
       "year": "Jahrgang",
       "group": "Gruppe",
       "average": "Durchschnitt",
-      "end": "Ende"
+      "end": "Ende",
+      "loading": "Lädt",
+      "noDataAvailable": "Es sind keine Daten vorhanden"
     },
     "examDatesModal": {
       "header": "Übersicht Prüfungstermine",

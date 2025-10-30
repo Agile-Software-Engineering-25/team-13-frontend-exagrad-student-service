@@ -18,7 +18,9 @@
       "year": "Year",
       "group": "Group",
       "average": "Average",
-      "end": "End"
+      "end": "End",
+      "loading": "Loading",
+      "noDataAvailable": "There is no data available"
     },
     "examDatesModal": {
       "header": "Exam Dates Overview",
