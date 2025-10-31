@@ -2,6 +2,7 @@ import { Box, Button, Chip } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import ExamDocumentModal from '@components/Modals/ExamDocumentModal/ExamDocumentModal';
+import ExamDetailsModal from '@components/Modals/ExamDetailsModal/ExamDetailsModal';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { Table, createTableBuilder } from '@agile-software/shared-components';
@@ -10,6 +11,7 @@ import type { Assessment, ModuleData } from './ModuleOverviewComponent';
 const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
   const [viewDocuments, setViewDocuments] = useState(false);
+  const [viewExamDetails, setViewExamDetails] = useState(false);
   const [selectedAssessment, setSelectedAssessment] =
     useState<Assessment | null>(null);
   const [documentCounts, setDocumentCounts] = useState<Record<string, number>>(
@@ -64,6 +66,11 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
     setViewDocuments(true);
   };
 
+  const handleRowClick = (assessment: Assessment) => {
+    setSelectedAssessment(assessment);
+    setViewExamDetails(true);
+  };
+
   const hasUploadedDocuments = (id?: string) => {
     if (!id) return false;
     return (documentCounts[id] || 0) > 0;
@@ -85,7 +92,10 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
             <Button
               size="sm"
               variant="soft"
-              onClick={() => handleOpenDocuments(assessment)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpenDocuments(assessment);
+              }}
             >
               {t('components.moduleDetailView.table.submit')}
             </Button>
@@ -102,6 +112,7 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
           </Box>
         ) : null,
     })
+    .onRowClick(handleRowClick)
     .build();
 
   return (
@@ -112,6 +123,12 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
         open={viewDocuments}
         setOpen={setViewDocuments}
         assessment={selectedAssessment}
+      />
+
+      <ExamDetailsModal
+        open={viewExamDetails}
+        onClose={() => setViewExamDetails(false)}
+        exam={selectedAssessment}
       />
     </Box>
   );
