@@ -41,6 +41,12 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
     grade: 2,
   };
 
+  const handleRegister = () => {
+    window.location.assign(
+      'https://sau-portal.de/document-management/requests?accordion=nachklausur'
+    );
+  };
+
   return (
     <Box
       sx={{
@@ -111,7 +117,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
                 minWidth: 150,
                 maxHeight: 60,
               }}
-              // TODO: set onClick to navigate to the retake registration page for the current module
+              onClick={handleRegister}
             >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
@@ -122,7 +128,6 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
       <Box sx={{ mt: 3 }}>
         <AssessmentTable selectedModuleData={props.selectedModuleData} />
       </Box>
-
       {/* TODO : remove mock data */}
       <PubUploadModal
         open={viewPubSubmission}
