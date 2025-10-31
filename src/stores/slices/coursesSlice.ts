@@ -46,4 +46,3 @@ const { setCourses, setLoading, setError, clearCourses } = coursesSlice.actions;
 
 export { setCourses, setLoading, setError, clearCourses };
 export default coursesSlice.reducer;
-
