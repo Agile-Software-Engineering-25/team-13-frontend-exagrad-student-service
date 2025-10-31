@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
 import AssessmentTable from './AssessmentTable';
-import { useNavigate } from 'react-router';
 
 type Assessment = {
   id: string;
@@ -42,12 +41,9 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
     grade: 2,
   };
 
-  const navigate = useNavigate();
-
   const handleRegister = () => {
-    navigate(
-      '/document-management/requests?accordion=nachklausur/' +
-        props.selectedModuleData.moduleInfo.moduleCode
+    window.location.assign(
+      'https://sau-portal.de/document-management/requests?accordion=nachklausur'
     );
   };
 
@@ -132,11 +128,6 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
       <Box sx={{ mt: 3 }}>
         <AssessmentTable selectedModuleData={props.selectedModuleData} />
       </Box>
-
-      {/* <RetakeRegistrationModal
-        open={viewRetakeRegistration}
-        setOpen={setViewRetakeRegistration}
-      /> */}
       {/* TODO : remove mock data */}
       <PubUploadModal
         open={viewPubSubmission}
