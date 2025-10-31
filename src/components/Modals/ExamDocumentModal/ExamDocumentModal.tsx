@@ -13,6 +13,7 @@ import StudentDocumentsList from '@components/StudentDocumentsList/StudentDocume
 import LecturerFilesSection from '@components/LecturerFilesSection/LecturerFilesSection';
 import ErrorBanner from '@components/ErrorBanner/ErrorBanner';
 import AssessmentInfoCard from '@components/AssessmentInfoCard/AssessmentInfoCard';
+import { useUser } from '@hooks/useUser';
 
 type Assessment = {
   id: string;
@@ -30,8 +31,6 @@ type ExamDocumentModalProps = {
   assessment: Assessment | null;
 };
 
-const MOCK_STUDENT_ID = 'student-123'; // TODO: Replace with actual student ID from auth/context
-
 const ExamDocumentModal = ({
   open,
   setOpen,
@@ -39,6 +38,7 @@ const ExamDocumentModal = ({
 }: ExamDocumentModalProps) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const { getUserId } = useUser();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -62,7 +62,9 @@ const ExamDocumentModal = ({
   const canDelete = !isDeadlinePassed();
 
   // Filter documents for current exam from Redux
-  const examDocuments = documents.filter((doc) => doc.id === assessment?.id);
+  const examDocuments = documents.filter(
+    (doc) => doc.examId === assessment?.id
+  );
 
   // Fetch documents when modal opens
   useEffect(() => {
@@ -119,6 +121,13 @@ const ExamDocumentModal = ({
       setErrorMessage('Deadline has passed. Upload is no longer allowed.');
       return;
     }
+
+    const studentId = getUserId();
+    if (!studentId) {
+      setErrorMessage('Student ID not available. Please try again.');
+      return;
+    }
+
     setUploading(true);
     setErrorMessage(null);
     const errors: string[] = [];
@@ -126,7 +135,7 @@ const ExamDocumentModal = ({
     // Upload all files sequentially
     for (const file of selectedFiles) {
       try {
-        await uploadExamDocument(file, assessment.id, MOCK_STUDENT_ID);
+        await uploadExamDocument(file, assessment.id, studentId);
       } catch (error: unknown) {
         let errorMsg = 'Upload failed';
         if (isAxiosError(error)) {
