@@ -28,6 +28,10 @@ export type Assessment = {
   grade: string | 'N/A';
   date: string;
   requiresSubmission: boolean;
+  room?: string;
+  maxPoints?: number;
+  duration?: number;
+  tools?: string[];
 };
 
 export type ModuleInfo = {
@@ -129,6 +133,10 @@ const ModuleOverviewComponent = (props: {
         grade: 'N/A',
         date: formatDateTime(exam.examDate),
         requiresSubmission: exam.fileUploadRequired,
+        room: exam.room,
+        maxPoints: exam.maxPoints,
+        duration: exam.duration,
+        tools: exam.tools,
       }));
 
       groupedBySemester[course.semester][course.courseCode] = {
