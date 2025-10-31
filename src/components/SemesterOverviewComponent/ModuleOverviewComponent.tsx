@@ -4,15 +4,23 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useTranslation } from 'react-i18next';
 import ModuleDetailView from './ModuleDetailView';
 import { useEffect, useState } from 'react';
-import type { ExamDataResponse } from '@/@custom-types/examData';
+import { useDispatch } from 'react-redux';
+import type { CourseResponse } from '@/@custom-types/examData';
 import useExamDataApi from '@/hooks/useExamDataApi';
+import { useUser } from '@/hooks/useUser';
+import { useTypedSelector } from '@stores/rootReducer';
+import {
+  setCourses,
+  setLoading as setCoursesLoading,
+  setError,
+} from '@stores/slices/coursesSlice';
 
 type Semester = {
   id: number | null;
   titleKey: string | null;
 };
 
-type Assessment = {
+export type Assessment = {
   id: string;
   moduleCode: string;
   assessmentTyp: string;
@@ -22,7 +30,7 @@ type Assessment = {
   requiresSubmission: boolean;
 };
 
-type ModuleInfo = {
+export type ModuleInfo = {
   moduleName: string;
   moduleCode: string;
   lecturer: string;
@@ -30,7 +38,7 @@ type ModuleInfo = {
   grade: string | 'N/A';
 };
 
-interface ModuleData {
+export interface ModuleData {
   moduleInfo: ModuleInfo;
   assessments: Assessment[];
 }
@@ -42,335 +50,18 @@ const ModuleOverviewComponent = (props: {
   setSelectedSemester: React.Dispatch<React.SetStateAction<Semester>>;
 }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
-  const { getAllExams } = useExamDataApi();
-  //const [assessmentData, setAssesmentData] = useState<Assessment[]>([]);
+  const { getAllCourses } = useExamDataApi();
+  const { getUserId } = useUser();
 
-  const semesterMockData: Record<number, SemesterData> = {
-    1: {
-      '1': {
-        moduleInfo: {
-          moduleName: 'Mathematik 1',
-          moduleCode: 'MATH1',
-          lecturer: 'Prof. Müller',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '2': {
-        moduleInfo: {
-          moduleName: 'Sprachkompetenz Englisch',
-          moduleCode: 'ENG1',
-          lecturer: 'Dr. Schmidt',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '3': {
-        moduleInfo: {
-          moduleName: 'Grundlagen der Informatik',
-          moduleCode: 'INFO1',
-          lecturer: 'Prof. Weber',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '4': {
-        moduleInfo: {
-          moduleName: 'Lerntechniken und wissenschaftliches Arbeiten',
-          moduleCode: 'LWA',
-          lecturer: 'Dr. Hoffmann',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '5': {
-        moduleInfo: {
-          moduleName: 'Programmierung',
-          moduleCode: 'PROG1',
-          lecturer: 'Prof. Fischer',
-          creditPoints: 10,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-    },
+  const coursesState = useTypedSelector((state) => state.courses);
+  const { courses, lastFetched } = coursesState.data;
+  const loading = coursesState.state === 'loading';
 
-    2: {
-      '1': {
-        moduleInfo: {
-          moduleName: 'Algorithmen und Datenstrukturen',
-          moduleCode: 'ADS',
-          lecturer: 'Prof. Keller',
-          creditPoints: 10,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '2': {
-        moduleInfo: {
-          moduleName: 'Fortgeschrittene Programmierung',
-          moduleCode: 'PROG2',
-          lecturer: 'Dr. Lange',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '3': {
-        moduleInfo: {
-          moduleName: 'Kommunikationskompetenz',
-          moduleCode: 'KOMM',
-          lecturer: 'Dr. Lehmann',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '4': {
-        moduleInfo: {
-          moduleName: 'Mathematik 2',
-          moduleCode: 'MATH2',
-          lecturer: 'Prof. Schneider',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '5': {
-        moduleInfo: {
-          moduleName: 'Theoretische Informatik',
-          moduleCode: 'TI',
-          lecturer: 'Prof. Braun',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-    },
-
-    3: {
-      '1': {
-        moduleInfo: {
-          moduleName: 'Betriebssysteme',
-          moduleCode: 'OS',
-          lecturer: 'Prof. Schulz',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '2': {
-        moduleInfo: {
-          moduleName: 'Datenmodellierung und Datenbanken',
-          moduleCode: 'DB',
-          lecturer: 'Dr. Zimmermann',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '3': {
-        moduleInfo: {
-          moduleName: 'Informationssicherheit',
-          moduleCode: 'SEC',
-          lecturer: 'Prof. Richter',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '4': {
-        moduleInfo: {
-          moduleName: 'Netze und verteilte Systeme',
-          moduleCode: 'NET',
-          lecturer: 'Dr. Wolf',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '5': {
-        moduleInfo: {
-          moduleName: 'Projektmanagement',
-          moduleCode: 'PM',
-          lecturer: 'Dr. Becker',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-    },
-
-    4: {
-      '1': {
-        moduleInfo: {
-          moduleName: 'Agile Software Engineering und Softwaretechnik',
-          moduleCode: 'ASE',
-          lecturer: 'Herr Philipp Ceh',
-          creditPoints: 10,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '2': {
-        moduleInfo: {
-          moduleName: 'Data Analytics & Big Data',
-          moduleCode: 'DABD',
-          lecturer: 'Dr. Wagner',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '3': {
-        moduleInfo: {
-          moduleName: 'Human-Computer-Interaction',
-          moduleCode: 'HCI',
-          lecturer: 'Dr. Franke',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '4': {
-        moduleInfo: {
-          moduleName: 'Interkulturelle Kommunikation und heterogene Teams',
-          moduleCode: 'IKHT',
-          lecturer: 'Frau Prof. Dr. Rieke Engelhardt',
-          creditPoints: 5,
-          grade: '1.0',
-        },
-        assessments: [],
-      },
-      '5': {
-        moduleInfo: {
-          moduleName: 'Technische Informatik und Rechnerarchitekturen und XAAS',
-          moduleCode: 'TIRA',
-          lecturer: 'Prof. Krüger',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-    },
-
-    5: {
-      '1': {
-        moduleInfo: {
-          moduleName: 'Betriebswirtschaftslehre und IT-Service-Management',
-          moduleCode: 'BWLIT',
-          lecturer: 'Dr. Peters',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '2': {
-        moduleInfo: {
-          moduleName: 'Künstliche Intelligenz und Maschinelles Lernen',
-          moduleCode: 'KIML',
-          lecturer: 'Prof. Neumann',
-          creditPoints: 10,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '3': {
-        moduleInfo: {
-          moduleName: 'Software Anwendungsarchitekturen und Microservice APIs',
-          moduleCode: 'SAAM',
-          lecturer: 'Dr. Groß',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '4': {
-        moduleInfo: {
-          moduleName: 'Projektpraktikum',
-          moduleCode: 'PRAK',
-          lecturer: 'Prof. Sommer',
-          creditPoints: 10,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '5': {
-        moduleInfo: {
-          moduleName: 'Wahlpflichtmodul: Mobile Anwendungen',
-          moduleCode: 'MOBAPP',
-          lecturer: 'Dr. Klein',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-    },
-
-    6: {
-      '1': {
-        moduleInfo: {
-          moduleName: 'Bachelor-Thesis',
-          moduleCode: 'BA',
-          lecturer: 'Betreuer: nach Wahl',
-          creditPoints: 15,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '2': {
-        moduleInfo: {
-          moduleName: 'Präsentation zur Bachelor-Thesis',
-          moduleCode: 'BA-PRES',
-          lecturer: 'Betreuer: nach Wahl',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '3': {
-        moduleInfo: {
-          moduleName:
-            'New Trends in IT und Management der Digitalen Transformation',
-          moduleCode: 'NTIT',
-          lecturer: 'Dr. Vogel',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-      '4': {
-        moduleInfo: {
-          moduleName: 'Recht und Datenschutz',
-          moduleCode: 'LAW',
-          lecturer: 'Prof. Schwarz',
-          creditPoints: 5,
-          grade: 'N/A',
-        },
-        assessments: [],
-      },
-    },
-  };
-
-  const [semesterData, setSemesterData] =
-    useState<Record<number, SemesterData>>(semesterMockData);
-
-  const formatExamType = (type: string) => {
-    const formatted =
-      type.charAt(0).toUpperCase() + type.slice(1).toLowerCase();
-
-    const newFormatted = formatted
-      .replace(/ae/g, 'ä')
-      .replace(/oe/g, 'ö')
-      .replace(/ue/g, 'ü');
-
-    return newFormatted;
-  };
+  const [semesterData, setSemesterData] = useState<
+    Record<number, SemesterData>
+  >({});
 
   const formatDateTime = (isoDate: string) => {
     const date = new Date(isoDate);
@@ -384,55 +75,159 @@ const ModuleOverviewComponent = (props: {
   };
 
   useEffect(() => {
-    const fetchExams = async () => {
-      try {
-        const allExams: ExamDataResponse[] = (await getAllExams()) || [];
+    const studentId = getUserId();
+    if (!studentId) {
+      console.log('Student ID not yet available, skipping course fetch');
+      return;
+    }
 
-        if (!Array.isArray(allExams)) {
-          console.error('getAllExams returned not an array:', allExams);
+    // Check if we already have courses in Redux
+    if (courses.length > 0 && lastFetched) {
+      console.log('Using cached course data from Redux');
+      processCourses(courses);
+      return;
+    }
+
+    const fetchCourses = async () => {
+      try {
+        dispatch(setCoursesLoading());
+        const allCourses: CourseResponse[] = (await getAllCourses()) || [];
+
+        if (!Array.isArray(allCourses)) {
+          console.error('getAllCourses returned not an array:', allCourses);
+          dispatch(setError('Invalid response format'));
           return;
         }
 
-        const mappedAssessments: Assessment[] = allExams.map((exam) => ({
-          id: exam.id,
-          moduleCode: exam.moduleCode,
-          assessmentTyp: formatExamType(exam.examType),
-          weight: 'N/A',
-          grade: 'N/A',
-          date: formatDateTime(exam.examDate),
-          requiresSubmission: exam.fileUploadRequired,
-        }));
-
-        const updatedMockData = { ...semesterMockData };
-
-        Object.values(updatedMockData).forEach((modules) => {
-          Object.values(modules).forEach((moduleData) => {
-            moduleData.assessments = [];
-            const relatedAssessments = mappedAssessments.filter(
-              (a) => a.moduleCode === moduleData.moduleInfo.moduleCode
-            );
-            if (relatedAssessments.length > 0) {
-              moduleData.assessments = [
-                ...moduleData.assessments,
-                ...relatedAssessments,
-              ];
-            }
-          });
-        });
-
-        //setAssesmentData(mappedAssessments);
-        console.log('Merged mock data with assessments:', updatedMockData);
-
-        setSemesterData(updatedMockData);
+        dispatch(setCourses(allCourses));
+        processCourses(allCourses);
       } catch (err) {
-        console.error('Error fetching exams:', err);
+        console.error('Error fetching courses:', err);
+        dispatch(
+          setError(err instanceof Error ? err.message : 'Unknown error')
+        );
       }
     };
 
-    fetchExams();
-  }, []);
+    fetchCourses();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getUserId(), courses.length]);
+
+  const processCourses = (allCourses: CourseResponse[]) => {
+    const groupedBySemester: Record<number, SemesterData> = {};
+
+    allCourses.forEach((course) => {
+      if (!groupedBySemester[course.semester]) {
+        groupedBySemester[course.semester] = {};
+      }
+
+      const assessments: Assessment[] = course.exams.map((exam) => ({
+        id: exam.id,
+        moduleCode: exam.moduleCode,
+        assessmentTyp: exam.examType,
+        weight: `${exam.weightPerCent}%`,
+        grade: 'N/A',
+        date: formatDateTime(exam.examDate),
+        requiresSubmission: exam.fileUploadRequired,
+      }));
+
+      groupedBySemester[course.semester][course.courseCode] = {
+        moduleInfo: {
+          moduleName: course.courseName,
+          moduleCode: course.courseCode,
+          lecturer: course.lecturer,
+          creditPoints: course.creditPoints,
+          grade: 'N/A',
+        },
+        assessments,
+      };
+    });
+
+    setSemesterData(groupedBySemester);
+  };
 
   const currentSemester = semesterData[props.selectedSemester.id ?? 0];
+
+  // Show loading only if we're actually fetching and have no cached data
+  if (loading && courses.length === 0) {
+    return (
+      <Box sx={{ p: 3, textAlign: 'center' }}>
+        <Typography level="body-md">
+          {t('common.loading') || 'Loading...'}
+        </Typography>
+      </Box>
+    );
+  }
+
+  // Don't show anything if we have courses but haven't processed them yet
+  if (courses.length > 0 && Object.keys(semesterData).length === 0) {
+    return (
+      <Box
+        sx={{
+          pl: { xs: 2, sm: 2, md: 3, xl: 4 },
+          pr: { xs: 2, sm: 2, md: 3, xl: 4 },
+          pb: { xs: 2, sm: 2, md: 3, xl: 4 },
+          background: '#F3F8FF',
+          borderRadius: 30,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-start',
+            pt: '8px',
+            alignItems: 'center',
+          }}
+        >
+          <IconButton
+            size="md"
+            onClick={() =>
+              props.setSelectedSemester({ id: null, titleKey: null })
+            }
+            variant="solid"
+            color="primary"
+            sx={{
+              width: 40,
+              height: 40,
+            }}
+          >
+            <ArrowBackIosNewIcon fontSize="small" />
+          </IconButton>
+          <Typography level="h3" padding={2}>
+            {props.selectedSemester.titleKey
+              ? t(props.selectedSemester.titleKey)
+              : ''}
+          </Typography>
+        </Box>
+        {/* Minimal loading placeholder */}
+        <Box sx={{ mt: 2, opacity: 0.5 }}>
+          <Typography level="body-sm" textAlign="center">
+            {t('common.loading') || 'Loading...'}
+          </Typography>
+        </Box>
+      </Box>
+    );
+  }
+
+  // Only show "no courses" if we have data loaded but nothing for this semester
+  if (
+    !loading &&
+    courses.length > 0 &&
+    Object.keys(semesterData).length > 0 &&
+    (!currentSemester || Object.keys(currentSemester).length === 0)
+  ) {
+    return (
+      <Box sx={{ p: 3, textAlign: 'center' }}>
+        <Typography level="body-md">
+          {t('components.moduleOverview.noCourses') ||
+            'No courses available for this semester'}
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box

@@ -5,29 +5,7 @@ import ExamDocumentModal from '@components/Modals/ExamDocumentModal/ExamDocument
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { Table, createTableBuilder } from '@agile-software/shared-components';
-
-type Assessment = {
-  id: string;
-  moduleCode: string;
-  assessmentTyp: string;
-  weight: string;
-  grade: string | 'N/A';
-  date: string;
-  requiresSubmission: boolean;
-};
-
-type ModuleInfo = {
-  moduleName: string;
-  moduleCode: string;
-  lecturer: string;
-  creditPoints: number;
-  grade: string | 'N/A';
-};
-
-interface ModuleData {
-  moduleInfo: ModuleInfo;
-  assessments: Assessment[];
-}
+import type { Assessment, ModuleData } from './ModuleOverviewComponent';
 
 const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
