@@ -21,11 +21,7 @@ type ExamDetailsModalProps = {
   } | null;
 };
 
-const ExamDetailsModal = ({
-  open,
-  setOpen,
-  exam,
-}: ExamDetailsModalProps) => {
+const ExamDetailsModal = ({ open, setOpen, exam }: ExamDetailsModalProps) => {
   const { t } = useTranslation();
 
   if (!exam) return null;
@@ -123,7 +119,9 @@ const ExamDetailsModal = ({
           <>
             <Divider sx={{ my: 1 }} />
             <Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+              <Box
+                sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}
+              >
                 <BuildOutlinedIcon color="primary" />
                 <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
                   {t('components.examDetailsModal.tools')}
@@ -145,4 +143,3 @@ const ExamDetailsModal = ({
 };
 
 export default ExamDetailsModal;
-
