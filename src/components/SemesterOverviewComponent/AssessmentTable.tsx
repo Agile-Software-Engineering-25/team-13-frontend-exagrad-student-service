@@ -127,7 +127,7 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
 
       <ExamDetailsModal
         open={viewExamDetails}
-        onClose={() => setViewExamDetails(false)}
+        setOpen={setViewExamDetails}
         exam={selectedAssessment}
       />
     </Box>
