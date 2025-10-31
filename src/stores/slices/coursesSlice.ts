@@ -42,8 +42,8 @@ const coursesSlice = createSlice({
   },
 });
 
-const { setCourses, setLoading, setError, clearCourses } =
-  coursesSlice.actions;
+const { setCourses, setLoading, setError, clearCourses } = coursesSlice.actions;
 
 export { setCourses, setLoading, setError, clearCourses };
 export default coursesSlice.reducer;
+
