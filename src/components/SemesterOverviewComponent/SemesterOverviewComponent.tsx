@@ -58,13 +58,11 @@ const SemesterOverviewComponent = (props: {
   useEffect(() => {
     const studentId = getUserId();
     if (!studentId) {
-      console.log('Student ID not yet available, skipping semester fetch');
       return;
     }
 
     // Check if we already have courses in Redux
     if (courses.length > 0 && lastFetched) {
-      console.log('Using cached course data from Redux');
       const semesterIds = new Set<number>();
       courses.forEach((course) => {
         semesterIds.add(course.semester);
