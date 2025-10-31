@@ -54,15 +54,19 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   return (
     <Box
       sx={{
-        p: 3,
+        p: { xs: 1, sm: 2, md: 2, xl: 3 },
       }}
     >
-      <Grid container columnSpacing={4} rowSpacing={5}>
+      <Grid
+        container
+        columnSpacing={{ xs: 2, sm: 2, md: 3, xl: 4 }}
+        rowSpacing={{ xs: 3, sm: 3, md: 4, xl: 5 }}
+      >
         {moduleProperties.map((key, index) => (
-          <Grid xs={columnWidths[key]} key={index}>
+          <Grid md={columnWidths[key]} key={index}>
             <Box
               sx={{
-                p: 1,
+                p: { xs: 0.5, sm: 1, md: 1.5 },
                 borderColor: 'neutral.outlinedBorder',
                 borderRadius: 'lg',
                 textAlign: 'left',
@@ -82,13 +86,26 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
           </Grid>
         ))}
 
-        <Grid xs={2.5}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+        <Grid container md={2.5} xs={2.5}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { sm: 'column', xs: 'row' },
+              gap: 1.5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <Button
               variant="solid"
               color="primary"
               fullWidth
-              sx={{ p: 1.5 }}
+              sx={{
+                p: { xs: 0.5, sm: 1, md: 1.5 },
+                overflowWrap: 'anywhere',
+                minWidth: 150,
+                maxHeight: 60,
+              }}
               onClick={() => setViewPubSubmission(true)}
             >
               {t('components.moduleDetailView.pubSubmission')}
@@ -98,10 +115,13 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
               variant="solid"
               color="primary"
               fullWidth
-              sx={{ p: 1.5 }}
-              // onClick={() => setViewRetakeRegistration(true)}
+              sx={{
+                p: { xs: 0.5, sm: 1, md: 1.5 },
+                overflowWrap: 'anywhere',
+                minWidth: 150,
+                maxHeight: 60,
+              }}
               onClick={handleRegister}
-              // TODO: set onClick to navigate to the retake registration page for the current module
             >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
