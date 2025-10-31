@@ -3,33 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
 import AssessmentTable from './AssessmentTable';
-
-type Assessment = {
-  id: string;
-  assessmentTyp: string;
-  weight: string;
-  grade: string | 'N/A';
-  date: string;
-  requiresSubmission: boolean;
-  examId?: string;
-  deadline?: string;
-};
-
-type ModuleInfo = {
-  moduleName: string;
-  moduleCode: string;
-  lecturer: string;
-  creditPoints: number;
-  grade: string | 'N/A';
-};
-
-interface ModuleData {
-  moduleInfo: ModuleInfo;
-  assessments: Assessment[];
-}
+import type { ModuleData, ModuleInfo } from './ModuleOverviewComponent';
+import { useUser } from '@hooks/useUser';
 
 const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
+  const { getUserId } = useUser();
   const [viewPubSubmission, setViewPubSubmission] = useState(false);
 
   const moduleProperties = ['moduleCode', 'lecturer', 'creditPoints', 'grade'];
@@ -128,11 +107,10 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
       <Box sx={{ mt: 3 }}>
         <AssessmentTable selectedModuleData={props.selectedModuleData} />
       </Box>
-      {/* TODO : remove mock data */}
       <PubUploadModal
         open={viewPubSubmission}
         setOpen={setViewPubSubmission}
-        studentId="123"
+        studentId={getUserId()}
       />
     </Box>
   );
