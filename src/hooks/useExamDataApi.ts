@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import useAxiosInstance from '@hooks/useAxiosInstance';
 import { BACKEND_BASE_URL } from '@/config';
-import type { CourseResponse } from '@/@custom-types/examData';
+import type { CourseResponse } from '@custom-types/examData';
 import { useUser } from '@hooks/useUser';
 
 const useExamDataApi = () => {

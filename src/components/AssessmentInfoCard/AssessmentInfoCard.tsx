@@ -1,15 +1,7 @@
 import { Box, Typography, Chip } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { Card } from '@agile-software/shared-components';
-
-type Assessment = {
-  assessmentTyp: string;
-  weight: string;
-  grade: string | 'N/A';
-  date: string;
-  requiresSubmission: boolean;
-  examId?: string;
-};
+import type { Assessment } from '@custom-types/assessment';
 
 interface AssessmentInfoCardProps {
   assessment: Assessment | null;

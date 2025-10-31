@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import ModuleDetailView from './ModuleDetailView';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import type { CourseResponse } from '@/@custom-types/examData';
+import type { CourseResponse } from '@custom-types/examData';
+import type { Assessment } from '@custom-types/assessment';
 import useExamDataApi from '@/hooks/useExamDataApi';
 import { useUser } from '@/hooks/useUser';
 import { useTypedSelector } from '@stores/rootReducer';
@@ -18,20 +19,6 @@ import {
 type Semester = {
   id: number | null;
   titleKey: string | null;
-};
-
-export type Assessment = {
-  id: string;
-  moduleCode: string;
-  assessmentTyp: string;
-  weight: string;
-  grade: string | 'N/A';
-  date: string;
-  requiresSubmission: boolean;
-  room?: string;
-  maxPoints?: number;
-  duration?: number;
-  tools?: string[];
 };
 
 export type ModuleInfo = {
@@ -299,4 +286,3 @@ const ModuleOverviewComponent = (props: {
 };
 
 export default ModuleOverviewComponent;
-

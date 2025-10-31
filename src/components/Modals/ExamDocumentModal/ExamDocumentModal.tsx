@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { useTypedSelector } from '@stores/rootReducer';
 import type { ExamDocumentResponse } from '@custom-types/examDocument';
+import type { Assessment } from '@custom-types/assessment';
 import { isAxiosError } from '@custom-types/errors';
 import { clearDocuments } from '@stores/slices/examDocumentsSlice';
 import UploadSection from '@components/UploadSection/UploadSection';
@@ -14,16 +15,6 @@ import LecturerFilesSection from '@components/LecturerFilesSection/LecturerFiles
 import ErrorBanner from '@components/ErrorBanner/ErrorBanner';
 import AssessmentInfoCard from '@components/AssessmentInfoCard/AssessmentInfoCard';
 import { useUser } from '@hooks/useUser';
-
-type Assessment = {
-  id: string;
-  moduleCode: string;
-  assessmentTyp: string;
-  weight: string;
-  grade: string | 'N/A';
-  date: string;
-  requiresSubmission: boolean;
-};
 
 type ExamDocumentModalProps = {
   open: boolean;

@@ -6,7 +6,8 @@ import ExamDetailsModal from '@components/Modals/ExamDetailsModal/ExamDetailsMod
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { Table, createTableBuilder } from '@agile-software/shared-components';
-import type { Assessment, ModuleData } from './ModuleOverviewComponent';
+import type { ModuleData } from './ModuleOverviewComponent';
+import type { Assessment } from '@custom-types/assessment';
 
 const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
