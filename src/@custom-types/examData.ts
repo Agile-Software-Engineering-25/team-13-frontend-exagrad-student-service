@@ -1,16 +1,21 @@
-export interface ExamDataResponse {
+export interface ExamResponse {
   id: string;
-  title: string;
   moduleCode: string;
   examDate: string;
   room: string;
   examType: string;
-  semester: string;
-  ects: number;
   maxPoints: number;
   duration: number;
-  attemptNumber: number;
   fileUploadRequired: boolean;
   tools: string[];
-  submissions: number;
+  weightPerCent: number;
+}
+
+export interface CourseResponse {
+  courseName: string;
+  courseCode: string;
+  lecturer: string;
+  semester: number;
+  creditPoints: number;
+  exams: ExamResponse[];
 }
