@@ -48,7 +48,7 @@ const ExamDetailsModal = ({ open, setOpen, exam }: ExamDetailsModalProps) => {
             {t('components.examDetailsModal.type')}
           </Typography>
           <Typography level="body-md" fontWeight="lg">
-            {exam.assessmentTyp}
+            {t(`examTypes.${exam.assessmentTyp}`)}
           </Typography>
         </Box>
 

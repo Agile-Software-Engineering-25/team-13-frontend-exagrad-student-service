@@ -81,13 +81,11 @@ const ModuleOverviewComponent = (props: {
   useEffect(() => {
     const studentId = getUserId();
     if (!studentId) {
-      console.log('Student ID not yet available, skipping course fetch');
       return;
     }
 
     // Check if we already have courses in Redux
     if (courses.length > 0 && lastFetched) {
-      console.log('Using cached course data from Redux');
       processCourses(courses);
       return;
     }
@@ -301,3 +299,4 @@ const ModuleOverviewComponent = (props: {
 };
 
 export default ModuleOverviewComponent;
+

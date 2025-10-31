@@ -43,7 +43,9 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
             <Typography level="body-sm" sx={{ color: 'neutral', mb: 0.5 }}>
               {t('components.dokumentModal.assessmentInfo.type')}
             </Typography>
-            <Typography level="title-md">{assessment.assessmentTyp}</Typography>
+            <Typography level="title-md">
+              {t(`examTypes.${assessment.assessmentTyp}`)}
+            </Typography>
           </Box>
 
           <Box>

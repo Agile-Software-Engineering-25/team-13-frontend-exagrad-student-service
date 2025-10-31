@@ -126,5 +126,13 @@
       "minutes": "Minuten",
       "tools": "Erlaubte Hilfsmittel"
     }
+  },
+  "examTypes": {
+    "KLAUSUR": "Klausur",
+    "MUENDLICH": "Mündliche Prüfung",
+    "PROJEKT": "Projekt",
+    "PRAESENTATION": "Präsentation",
+    "ANDERES": "Sonstiges"
   }
 }
+

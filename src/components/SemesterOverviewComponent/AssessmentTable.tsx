@@ -80,7 +80,10 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   const tableConfig = createTableBuilder<Assessment>()
     .addColumn(
       'assessmentTyp',
-      t('components.moduleDetailView.table.assessment')
+      t('components.moduleDetailView.table.assessment'),
+      {
+        render: (value: unknown) => t(`examTypes.${value as string}`),
+      }
     )
     .addColumn('weight', t('components.moduleDetailView.table.weight'))
     .addColumn('grade', t('components.moduleDetailView.table.grade'))

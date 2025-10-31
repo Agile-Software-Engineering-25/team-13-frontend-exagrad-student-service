@@ -126,5 +126,13 @@
       "minutes": "minutes",
       "tools": "Allowed Tools"
     }
+  },
+  "examTypes": {
+    "KLAUSUR": "Written Exam",
+    "MUENDLICH": "Oral Exam",
+    "PROJEKT": "Project",
+    "PRAESENTATION": "Presentation",
+    "ANDERES": "Other"
   }
 }
+
