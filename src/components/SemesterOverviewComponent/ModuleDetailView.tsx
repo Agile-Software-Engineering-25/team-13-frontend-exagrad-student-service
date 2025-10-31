@@ -3,33 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
 import AssessmentTable from './AssessmentTable';
-
-type Assessment = {
-  id: string;
-  assessmentTyp: string;
-  weight: string;
-  grade: string | 'N/A';
-  date: string;
-  requiresSubmission: boolean;
-  examId?: string;
-  deadline?: string;
-};
-
-type ModuleInfo = {
-  moduleName: string;
-  moduleCode: string;
-  lecturer: string;
-  creditPoints: number;
-  grade: string | 'N/A';
-};
-
-interface ModuleData {
-  moduleInfo: ModuleInfo;
-  assessments: Assessment[];
-}
+import type { ModuleData, ModuleInfo } from './ModuleOverviewComponent';
+import { useUser } from '@hooks/useUser';
 
 const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
+  const { getUserId } = useUser();
   const [viewPubSubmission, setViewPubSubmission] = useState(false);
 
   const moduleProperties = ['moduleCode', 'lecturer', 'creditPoints', 'grade'];
@@ -41,18 +20,28 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
     grade: 2,
   };
 
+  const handleRegister = () => {
+    window.location.assign(
+      'https://sau-portal.de/document-management/requests?accordion=nachklausur'
+    );
+  };
+
   return (
     <Box
       sx={{
-        p: 3,
+        p: { xs: 1, sm: 2, md: 2, xl: 3 },
       }}
     >
-      <Grid container columnSpacing={4} rowSpacing={5}>
+      <Grid
+        container
+        columnSpacing={{ xs: 2, sm: 2, md: 3, xl: 4 }}
+        rowSpacing={{ xs: 3, sm: 3, md: 4, xl: 5 }}
+      >
         {moduleProperties.map((key, index) => (
-          <Grid xs={columnWidths[key]} key={index}>
+          <Grid md={columnWidths[key]} key={index}>
             <Box
               sx={{
-                p: 1,
+                p: { xs: 0.5, sm: 1, md: 1.5 },
                 borderColor: 'neutral.outlinedBorder',
                 borderRadius: 'lg',
                 textAlign: 'left',
@@ -72,13 +61,26 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
           </Grid>
         ))}
 
-        <Grid xs={2.5}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+        <Grid container md={2.5} xs={2.5}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { sm: 'column', xs: 'row' },
+              gap: 1.5,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <Button
               variant="solid"
               color="primary"
               fullWidth
-              sx={{ p: 1.5 }}
+              sx={{
+                p: { xs: 0.5, sm: 1, md: 1.5 },
+                overflowWrap: 'anywhere',
+                minWidth: 150,
+                maxHeight: 60,
+              }}
               onClick={() => setViewPubSubmission(true)}
             >
               {t('components.moduleDetailView.pubSubmission')}
@@ -88,8 +90,13 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
               variant="solid"
               color="primary"
               fullWidth
-              sx={{ p: 1.5 }}
-              // TODO: set onClick to navigate to the retake registration page for the current module
+              sx={{
+                p: { xs: 0.5, sm: 1, md: 1.5 },
+                overflowWrap: 'anywhere',
+                minWidth: 150,
+                maxHeight: 60,
+              }}
+              onClick={handleRegister}
             >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
@@ -100,12 +107,10 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
       <Box sx={{ mt: 3 }}>
         <AssessmentTable selectedModuleData={props.selectedModuleData} />
       </Box>
-
-      {/* TODO : remove mock data */}
       <PubUploadModal
         open={viewPubSubmission}
         setOpen={setViewPubSubmission}
-        studentId="123"
+        studentId={getUserId()}
       />
     </Box>
   );

@@ -116,6 +116,26 @@
         "noDeadline": "Keine Deadline gesetzt",
         "expired": "Abgelaufen"
       }
+    },
+    "examDetailsModal": {
+      "title": "Prüfungsdetails",
+      "moduleCode": "Modulcode",
+      "type": "Prüfungstyp",
+      "date": "Datum & Uhrzeit",
+      "weight": "Gewichtung",
+      "room": "Raum",
+      "maxPoints": "Maximale Punktzahl",
+      "duration": "Dauer",
+      "minutes": "Minuten",
+      "tools": "Erlaubte Hilfsmittel"
     }
+  },
+  "examTypes": {
+    "KLAUSUR": "Klausur",
+    "MUENDLICH": "Mündliche Prüfung",
+    "PROJEKT": "Projekt",
+    "PRAESENTATION": "Präsentation",
+    "ANDERES": "Sonstiges"
   }
 }
+

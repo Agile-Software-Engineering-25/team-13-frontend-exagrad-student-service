@@ -50,12 +50,18 @@ const Home = () => {
   };
 
   return (
-    <Box sx={{ paddingInline: 20, paddingBlock: 2, mx: 'auto' }}>
+    <Box
+      sx={{
+        paddingInline: { xl: 15, md: 5, sm: 3, xs: 1.5 },
+        paddingBlock: 2,
+        mx: 'auto',
+      }}
+    >
       <StudentInfoHeader />
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'flex-end',
+          justifyContent: { sm: 'flex-end', xs: 'center' },
           mt: 3,
           gap: 2,
         }}

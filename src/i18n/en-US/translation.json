@@ -116,6 +116,26 @@
         "noDeadline": "No deadline set",
         "expired": "Expired"
       }
+    },
+    "examDetailsModal": {
+      "title": "Exam Details",
+      "moduleCode": "Module Code",
+      "type": "Assessment Type",
+      "date": "Date & Time",
+      "weight": "Weight",
+      "room": "Room",
+      "maxPoints": "Maximum Points",
+      "duration": "Duration",
+      "minutes": "minutes",
+      "tools": "Allowed Tools"
     }
+  },
+  "examTypes": {
+    "KLAUSUR": "Written Exam",
+    "MUENDLICH": "Oral Exam",
+    "PROJEKT": "Project",
+    "PRAESENTATION": "Presentation",
+    "ANDERES": "Other"
   }
 }
+

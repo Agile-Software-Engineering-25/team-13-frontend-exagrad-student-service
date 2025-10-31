@@ -2,37 +2,17 @@ import { Box, Button, Chip } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { useState, useEffect } from 'react';
 import ExamDocumentModal from '@components/Modals/ExamDocumentModal/ExamDocumentModal';
+import ExamDetailsModal from '@components/Modals/ExamDetailsModal/ExamDetailsModal';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { Table, createTableBuilder } from '@agile-software/shared-components';
-
-type Assessment = {
-  id: string;
-  assessmentTyp: string;
-  weight: string;
-  grade: string | 'N/A';
-  date: string;
-  requiresSubmission: boolean;
-  examId?: string;
-  deadline?: string;
-};
-
-type ModuleInfo = {
-  moduleName: string;
-  moduleCode: string;
-  lecturer: string;
-  creditPoints: number;
-  grade: string | 'N/A';
-};
-
-interface ModuleData {
-  moduleInfo: ModuleInfo;
-  assessments: Assessment[];
-}
+import type { ModuleData } from './ModuleOverviewComponent';
+import type { Assessment } from '@custom-types/assessment';
 
 const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
   const [viewDocuments, setViewDocuments] = useState(false);
+  const [viewExamDetails, setViewExamDetails] = useState(false);
   const [selectedAssessment, setSelectedAssessment] =
     useState<Assessment | null>(null);
   const [documentCounts, setDocumentCounts] = useState<Record<string, number>>(
@@ -44,19 +24,19 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
   // Fetch document counts for all exams in this module
   useEffect(() => {
     const fetchDocumentCounts = async () => {
-      const examIds = props.selectedModuleData.assessments
-        .filter((a) => a.requiresSubmission && a.examId)
-        .map((a) => a.examId!);
+      const ids = props.selectedModuleData.assessments
+        .filter((a) => a.requiresSubmission && a.id)
+        .map((a) => a.id!);
 
       const counts: Record<string, number> = {};
 
-      for (const examId of examIds) {
+      for (const id of ids) {
         try {
-          const docs = await getExamDocuments({ examId });
-          counts[examId] = docs?.length || 0;
+          const docs = await getExamDocuments({ examId: id });
+          counts[id] = docs?.length || 0;
         } catch (err) {
-          console.error(`Failed to fetch documents for exam ${examId}:`, err);
-          counts[examId] = 0;
+          console.error(`Failed to fetch documents for exam ${id}:`, err);
+          counts[id] = 0;
         }
       }
 
@@ -69,12 +49,12 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
 
   // Refetch document counts when modal closes
   useEffect(() => {
-    if (!viewDocuments && selectedAssessment?.examId) {
-      getExamDocuments({ examId: selectedAssessment.examId })
+    if (!viewDocuments && selectedAssessment?.id) {
+      getExamDocuments({ examId: selectedAssessment.id })
         .then((docs) => {
           setDocumentCounts((prev) => ({
             ...prev,
-            [selectedAssessment.examId!]: docs?.length || 0,
+            [selectedAssessment.id!]: docs?.length || 0,
           }));
         })
         .catch(() => {
@@ -89,16 +69,24 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
     setViewDocuments(true);
   };
 
-  const hasUploadedDocuments = (examId?: string) => {
-    if (!examId) return false;
-    return (documentCounts[examId] || 0) > 0;
+  const handleRowClick = (assessment: Assessment) => {
+    setSelectedAssessment(assessment);
+    setViewExamDetails(true);
+  };
+
+  const hasUploadedDocuments = (id?: string) => {
+    if (!id) return false;
+    return (documentCounts[id] || 0) > 0;
   };
 
   // Table configuration using shared Table component
   const tableConfig = createTableBuilder<Assessment>()
     .addColumn(
       'assessmentTyp',
-      t('components.moduleDetailView.table.assessment')
+      t('components.moduleDetailView.table.assessment'),
+      {
+        render: (value: unknown) => t(`examTypes.${value as string}`),
+      }
     )
     .addColumn('weight', t('components.moduleDetailView.table.weight'))
     .addColumn('grade', t('components.moduleDetailView.table.grade'))
@@ -110,11 +98,14 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
             <Button
               size="sm"
               variant="soft"
-              onClick={() => handleOpenDocuments(assessment)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpenDocuments(assessment);
+              }}
             >
               {t('components.moduleDetailView.table.submit')}
             </Button>
-            {hasUploadedDocuments(assessment.examId) && (
+            {hasUploadedDocuments(assessment.id) && (
               <Chip
                 size="sm"
                 color="success"
@@ -127,6 +118,7 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
           </Box>
         ) : null,
     })
+    .onRowClick(handleRowClick)
     .build();
 
   return (
@@ -137,6 +129,12 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
         open={viewDocuments}
         setOpen={setViewDocuments}
         assessment={selectedAssessment}
+      />
+
+      <ExamDetailsModal
+        open={viewExamDetails}
+        setOpen={setViewExamDetails}
+        exam={selectedAssessment}
       />
     </Box>
   );
