@@ -8,7 +8,6 @@ import { useDispatch } from 'react-redux';
 import type { CourseResponse } from '@custom-types/examData';
 import type { Assessment } from '@custom-types/assessment';
 import useExamDataApi from '@/hooks/useExamDataApi';
-import { useLecturerFeedback } from '../../hooks/useLecturerFeedbackAPI';
 import { useUser } from '@/hooks/useUser';
 import { useTypedSelector } from '@stores/rootReducer';
 import {
@@ -140,8 +139,6 @@ const ModuleOverviewComponent = (props: {
     setSemesterData(groupedBySemester);
   };
 
-  const { user } = useUser();
-  const { data: feedbackData, loading, error } = useLecturerFeedback(user?.studentUuid || '');
   const currentSemester = semesterData[props.selectedSemester.id ?? 0];
 
   // Show loading only if we're actually fetching and have no cached data
@@ -225,17 +222,6 @@ const ModuleOverviewComponent = (props: {
     );
   }
 
-  // Map feedback grades into module data
-  if (feedbackData && currentSemester) {
-    Object.values(currentSemester).forEach((moduleData) => {
-      const feedback = feedbackData.find(
-        (f) => f.examUuid === moduleData.moduleInfo.moduleCode
-      );
-      if (feedback) {
-        moduleData.moduleInfo.grade = feedback.grade.toString();
-      }
-    });
-  }
 
   return (
     <Box

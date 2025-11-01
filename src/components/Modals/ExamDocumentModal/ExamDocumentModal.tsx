@@ -16,7 +16,6 @@ import StudentDocumentsList from '@components/StudentDocumentsList/StudentDocume
 import LecturerFilesSection from '@components/LecturerFilesSection/LecturerFilesSection';
 import ErrorBanner from '@components/ErrorBanner/ErrorBanner';
 import AssessmentInfoCard from '@components/AssessmentInfoCard/AssessmentInfoCard';
-import { useUser } from '@hooks/useUser';
 
 type ExamDocumentModalProps = {
   open: boolean;
