@@ -3,33 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import PubUploadModal from '../Modals/PubUploadModal/PubUploadModal';
 import AssessmentTable from './AssessmentTable';
-
-type Assessment = {
-  id: string;
-  assessmentTyp: string;
-  weight: string;
-  grade: string | 'N/A';
-  date: string;
-  requiresSubmission: boolean;
-  examId?: string;
-  deadline?: string;
-};
-
-type ModuleInfo = {
-  moduleName: string;
-  moduleCode: string;
-  lecturer: string;
-  creditPoints: number;
-  grade: string | 'N/A';
-};
-
-interface ModuleData {
-  moduleInfo: ModuleInfo;
-  assessments: Assessment[];
-}
+import type { ModuleData, ModuleInfo } from './ModuleOverviewComponent';
+import { useUser } from '@hooks/useUser';
 
 const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
   const { t } = useTranslation();
+  const { getUserId } = useUser();
   const [viewPubSubmission, setViewPubSubmission] = useState(false);
 
   const moduleProperties = ['moduleCode', 'lecturer', 'creditPoints', 'grade'];
@@ -39,6 +18,12 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
     lecturer: 4,
     creditPoints: 2,
     grade: 2,
+  };
+
+  const handleRegister = () => {
+    window.location.assign(
+      'https://sau-portal.de/document-management/requests?accordion=nachklausur'
+    );
   };
 
   return (
@@ -111,7 +96,7 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
                 minWidth: 150,
                 maxHeight: 60,
               }}
-              // TODO: set onClick to navigate to the retake registration page for the current module
+              onClick={handleRegister}
             >
               {t('components.moduleDetailView.retakeRegistration')}
             </Button>
@@ -122,12 +107,10 @@ const ModuleDetailView = (props: { selectedModuleData: ModuleData }) => {
       <Box sx={{ mt: 3 }}>
         <AssessmentTable selectedModuleData={props.selectedModuleData} />
       </Box>
-
-      {/* TODO : remove mock data */}
       <PubUploadModal
         open={viewPubSubmission}
         setOpen={setViewPubSubmission}
-        studentId="123"
+        studentId={getUserId()}
       />
     </Box>
   );

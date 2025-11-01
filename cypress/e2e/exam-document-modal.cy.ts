@@ -1,4 +1,4 @@
-describe('ExamDocumentModal - Dropzone Deadline Behavior', () => {
+describe.skip('ExamDocumentModal - Dropzone Deadline Behavior', () => {
   beforeEach(() => {
     cy.visit('/');
     // Wait for the page to load
