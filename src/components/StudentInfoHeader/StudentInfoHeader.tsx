@@ -15,9 +15,9 @@ const StudentInfoHeader = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getStudent(); // <- kommt aus deinem Hook
+        const data = await getStudent();
         if (data && data.length > 0) {
-          setStudent(data[0]); // Beispiel: ersten Studenten nehmen
+          setStudent(data[0]);
         }
       } catch (error) {
         console.error('Error fetching student data:', error);

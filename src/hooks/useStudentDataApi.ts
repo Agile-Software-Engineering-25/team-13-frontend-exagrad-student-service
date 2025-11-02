@@ -9,7 +9,7 @@ const useStudentDataApi = () => {
   // GET Data of Student
   const getStudent = useCallback(async (): Promise<StudentDataResponse[]> => {
     const response = await axiosInstance.get('/student', {});
-    return response.data as StudentDataResponse[];
+    return response.data.data as StudentDataResponse[];
   }, [axiosInstance]);
 
   return { getStudent };

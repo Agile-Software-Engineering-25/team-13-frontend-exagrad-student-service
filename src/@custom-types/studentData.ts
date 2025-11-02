@@ -1,6 +1,6 @@
 export interface StudentDataResponse {
   id: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   address: string;
   phoneNumber: string;
   username: string;
