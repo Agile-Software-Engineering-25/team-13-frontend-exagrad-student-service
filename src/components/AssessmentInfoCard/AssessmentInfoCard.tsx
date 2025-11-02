@@ -1,16 +1,7 @@
 import { Box, Typography, Chip } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { Card } from '@agile-software/shared-components';
-
-type Assessment = {
-  assessmentTyp: string;
-  weight: string;
-  grade: string | 'N/A';
-  date: string;
-  requiresSubmission: boolean;
-  examId?: string;
-  deadline?: string;
-};
+import type { Assessment } from '@custom-types/assessment';
 
 interface AssessmentInfoCardProps {
   assessment: Assessment | null;
@@ -21,18 +12,9 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
 
   if (!assessment) return null;
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('de-DE', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-    });
-  };
-
   const isDeadlinePassed = () => {
-    if (!assessment.deadline) return false;
-    return new Date() > new Date(assessment.deadline);
+    if (!assessment.date) return false;
+    return new Date() > new Date(assessment.date);
   };
 
   return (
@@ -53,7 +35,9 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
             <Typography level="body-sm" sx={{ color: 'neutral', mb: 0.5 }}>
               {t('components.dokumentModal.assessmentInfo.type')}
             </Typography>
-            <Typography level="title-md">{assessment.assessmentTyp}</Typography>
+            <Typography level="title-md">
+              {t(`examTypes.${assessment.assessmentTyp}`)}
+            </Typography>
           </Box>
 
           <Box>
@@ -76,11 +60,11 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
             </Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Typography level="title-md">
-                {assessment.deadline
-                  ? formatDate(assessment.deadline)
+                {assessment.date
+                  ? assessment.date
                   : t('components.dokumentModal.assessmentInfo.noDeadline')}
               </Typography>
-              {assessment.deadline && isDeadlinePassed() && (
+              {assessment.date && isDeadlinePassed() && (
                 <Chip size="sm" color="danger" variant="solid">
                   {t('components.dokumentModal.assessmentInfo.expired')}
                 </Chip>
