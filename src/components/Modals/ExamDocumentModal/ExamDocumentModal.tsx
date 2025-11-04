@@ -53,7 +53,7 @@ const ExamDocumentModal = ({
     );
     if (!match) return false;
 
-    const [_, day, month, year, hours, minutes] = match.map(Number);
+    const [, day, month, year, hours, minutes] = match.map(Number);
     const deadline = new Date(year, month - 1, day, hours, minutes, 0, 0);
 
     return new Date() > deadline;
