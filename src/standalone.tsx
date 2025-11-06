@@ -8,7 +8,7 @@ const container = document.getElementById('root');
 if (import.meta.env.DEV) {
   import('./utils/testUserSetup').then(({ setupTestUser }) => {
     setupTestUser();
-    
+
     // Render app after test user is setup
     createRoot(container!).render(
       <StrictMode>
