@@ -16,7 +16,7 @@ const useExamDataApi = () => {
     const response = await axiosInstance.get(
       `/data/students/${studentId}/courses`
     );
-    return response.data as CourseResponse[];
+    return response.data.data as CourseResponse[];
   }, [axiosInstance, getUserId]);
 
   return { getAllCourses };
