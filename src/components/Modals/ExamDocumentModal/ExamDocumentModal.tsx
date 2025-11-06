@@ -47,8 +47,17 @@ const ExamDocumentModal = ({
 
   const isDeadlinePassed = useCallback(() => {
     if (!assessment?.date) return false;
-    return new Date() > new Date(assessment.date);
-  }, [assessment]);
+
+    const match = assessment.date.match(
+      /(\d{2})\.(\d{2})\.(\d{4}),\s*(\d{2}):(\d{2})/
+    );
+    if (!match) return false;
+
+    const [, day, month, year, hours, minutes] = match.map(Number);
+    const deadline = new Date(year, month - 1, day, hours, minutes, 0, 0);
+
+    return new Date() > deadline;
+  }, [assessment?.date]);
 
   const canDelete = !isDeadlinePassed();
 
