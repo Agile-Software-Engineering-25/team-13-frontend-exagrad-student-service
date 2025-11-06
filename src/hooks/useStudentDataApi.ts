@@ -6,11 +6,14 @@ import type { StudentDataResponse } from '@/@custom-types/studentData';
 const useStudentDataApi = () => {
   const axiosInstance = useAxiosInstance(BACKEND_BASE_URL);
 
-  // GET Data of Student
-  const getStudent = useCallback(async (): Promise<StudentDataResponse[]> => {
-    const response = await axiosInstance.get('/student', {});
+  // GET Data of Student 
+  const getStudent = useCallback(
+    async (studentId: string): Promise<StudentDataResponse[]> => {
+      const response = await axiosInstance.get(`/students/${studentId}`);
     return response.data.data as StudentDataResponse[];
-  }, [axiosInstance]);
+    },
+    [axiosInstance]
+  );
 
   return { getStudent };
 };

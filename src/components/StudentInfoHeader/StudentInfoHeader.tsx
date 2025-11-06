@@ -4,10 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import type { StudentDataResponse } from '@/@custom-types/studentData';
 import useStudentDataApi from '@/hooks/useStudentDataApi';
+import useUser from '@/hooks/useUser';
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
   const { getStudent } = useStudentDataApi();
+  const { getUserId } = useUser();
 
   const [student, setStudent] = useState<StudentDataResponse | null>(null);
   const [loading, setLoading] = useState(true);
@@ -15,7 +17,7 @@ const StudentInfoHeader = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getStudent();
+        const data = await getStudent(getUserId());
         if (data && data.length > 0) {
           setStudent(data[0]);
         }
