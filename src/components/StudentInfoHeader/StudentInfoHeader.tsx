@@ -17,19 +17,20 @@ const StudentInfoHeader = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getStudent(getUserId());
-        if (data && data.length > 0) {
-          setStudent(data[0]);
+        const student = await getStudent(getUserId());
+        if (student) {
+          setStudent(student);
         }
       } catch (error) {
         console.error('Error fetching student data:', error);
       } finally {
         setLoading(false);
+        console.log(student);
       }
     };
 
     fetchData();
-  }, [getStudent]);
+  }, []);
 
   const formatValue = (value: string | number | Date | undefined) => {
     if (value instanceof Date) {
