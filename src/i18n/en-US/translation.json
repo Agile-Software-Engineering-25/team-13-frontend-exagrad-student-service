@@ -15,13 +15,11 @@
       "title": "Your Status",
       "degreeProgram": "Degree Program",
       "matriculationNumber": "Matriculation Number",
-      "creditPoints": "Credit Points",
-      "start": "Start",
-      "major": "Major",
-      "year": "Year",
-      "group": "Group",
-      "average": "Average",
-      "end": "End"
+      "semester": "Semester",
+      "cohort": "cohort",
+      "studyStatus": "Status",
+      "loading": "Loading",
+      "noDataAvailable": "There is no data available"
     },
     "examDatesModal": {
       "header": "Exam Dates Overview",

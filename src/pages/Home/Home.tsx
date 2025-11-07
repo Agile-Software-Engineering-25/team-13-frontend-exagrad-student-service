@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Box, Button } from '@mui/joy';
-import LanguageSelectorComponent from '@components/LanguageSelectorComponent/LanguageSelectorComponent';
 import { useTranslation } from 'react-i18next';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
@@ -87,7 +86,6 @@ const Home = () => {
           />
         )}
       </Box>
-      <LanguageSelectorComponent />
       <UserDebugDisplay /> {/* TODO: REMOVE - Debug component */}
     </Box>
   );

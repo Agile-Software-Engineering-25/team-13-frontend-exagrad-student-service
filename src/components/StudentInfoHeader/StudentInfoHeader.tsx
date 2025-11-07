@@ -1,51 +1,38 @@
 import { Box, Typography } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
+import type { StudentDataResponse } from '@/@custom-types/studentData';
+import useStudentDataApi from '@/hooks/useStudentDataApi';
+import useUser from '@/hooks/useUser';
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
+  const { getStudent } = useStudentDataApi();
+  const { getUserId } = useUser();
 
-  interface StudentData {
-    degreeProgram: string;
-    matriculationNumber: string;
-    creditPoints: string;
-    start: Date;
-    end: Date;
-    major: string;
-    year: string;
-    group: string;
-    average: string;
-  }
+  const [student, setStudent] = useState<StudentDataResponse | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const headerProperties = [
-    'degreeProgram',
-    'matriculationNumber',
-    'creditPoints',
-    'start',
-    'major',
-    'year',
-    'group',
-    'average',
-    'end',
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const student = await getStudent(getUserId());
+        if (student) {
+          setStudent(student);
+        }
+      } catch (error) {
+        console.error('Error fetching student data:', error);
+      } finally {
+        setLoading(false);
+        console.log(student);
+      }
+    };
 
-  const mockData: Record<string, StudentData> = {
-    '1': {
-      degreeProgram: 'Bachelor Informatik Telekom',
-      matriculationNumber: 'A025',
-      creditPoints: '90/170',
-      start: new Date('2025-02-01'),
-      end: new Date('2026-05-03'),
-      major: 'N/A',
-      year: '2025',
-      group: 'BIN-T25-F-4',
-      average: '2.0',
-    },
-  };
+    fetchData();
+  }, []);
 
-  const student = mockData['1'];
-
-  const formatValue = (value: StudentData[keyof StudentData]) => {
+  const formatValue = (value: string | number | Date | undefined) => {
     if (value instanceof Date) {
       return value.toLocaleDateString(i18n.language, {
         day: '2-digit',
@@ -53,8 +40,45 @@ const StudentInfoHeader = () => {
         year: 'numeric',
       });
     }
-    return value;
+    return value ?? '-';
   };
+
+  if (loading) {
+    return (
+      <Typography level="body-md" sx={{ p: 2, color: '#00122B' }}>
+        {t('components.studentInfoHeader.loading')}...
+      </Typography>
+    );
+  }
+
+  if (!student) {
+    return (
+      <Typography level="body-md" sx={{ p: 2, color: '#00122B' }}>
+        {t('components.studentInfoHeader.noDataAvailable')}
+      </Typography>
+    );
+  }
+
+  const headerProperties: { key: keyof StudentDataResponse; label: string }[] =
+    [
+      { key: 'degreeProgram', label: 'degreeProgram' },
+      { key: 'matriculationNumber', label: 'matriculationNumber' },
+      { key: 'semester', label: 'semester' },
+      { key: 'cohort', label: 'cohort' },
+      { key: 'studyStatus', label: 'studyStatus' },
+    ];
+
+  /*const headerProperties = [
+    'degreeProgram',
+    'matriculationNumber',
+    'creditPoints',  --> NOT IN STUDENT DATA API
+    'start', --> NOT IN STUDENT DATA API
+    'major',
+    'year', --> NOT IN STUDENT DATA API
+    'group', --> cohort
+    'average', --> NOT IN STUDENT DATA API
+    'end', --> NOT IN STUDENT DATA API
+  ];*/
 
   return (
     <Box
@@ -77,7 +101,7 @@ const StudentInfoHeader = () => {
         rowSpacing={2}
         sx={{ flexGrow: 1, justifyContent: 'flex-start' }}
       >
-        {headerProperties.map((key, index) => (
+        {headerProperties.map(({ key, label }, index) => (
           <Grid
             xs={index === 0 ? 2 : 1}
             sm={index === 0 ? 4 : 2}
@@ -94,10 +118,10 @@ const StudentInfoHeader = () => {
               }}
             >
               <Typography level="title-md" sx={{ color: '#00122B' }}>
-                {formatValue(student[key as keyof StudentData])}
+                {formatValue(student[key])}
               </Typography>
               <Typography level="body-sm" sx={{ color: '#314055' }}>
-                {t(`components.studentInfoHeader.${key}`)}
+                {t(`components.studentInfoHeader.${label}`)}
               </Typography>
             </Box>
           </Grid>
