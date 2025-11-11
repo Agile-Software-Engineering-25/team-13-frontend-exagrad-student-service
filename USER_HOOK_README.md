@@ -50,9 +50,3 @@ import { setGlobalUser } from '@hooks/useUser';
 // When user logs in or auth state changes:
 setGlobalUser(userObject); // User object from oidc-client-ts
 ```
-
-## To remove debug logging:
-Search for `TODO: REMOVE` comments and delete:
-1. Console.log statements in `useUser.ts`
-2. The entire `UserDebugDisplay` component
-3. Import and usage in `Home.tsx`
