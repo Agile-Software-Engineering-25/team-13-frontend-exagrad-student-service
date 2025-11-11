@@ -2,20 +2,10 @@
 
 ## What was added:
 
-### 1. **useUser Hook** (`src/hooks/useUser.ts`)
+### **useUser Hook** (`src/hooks/useUser.ts`)
 - Custom React hook to access authenticated user data
 - Provides methods to get user ID (UUID), name, email, access token
 - Includes `hasRole()` method to check user roles from JWT
-- **Debug logging**: Console logs when user UUID is accessed (marked for removal)
-
-### 2. **UserDebugDisplay Component** (`src/components/UserDebugDisplay/UserDebugDisplay.tsx`)
-- Visual debug component that displays user information in bottom-right corner
-- Shows UUID, full name, and email
-- **TODO: REMOVE** - This is for debugging only
-
-### 3. **Integration**
-- Added to Home page (`src/pages/Home/Home.tsx`) for testing
-- Component will show in bottom-right corner when user is logged in
 
 ## How to use in your code:
 
