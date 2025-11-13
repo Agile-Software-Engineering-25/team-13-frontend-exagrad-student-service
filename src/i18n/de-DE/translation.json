@@ -4,6 +4,9 @@
       "buttons": {
         "downloadPerformanceOverview": "Leistungsübersicht herunterladen",
         "viewExamDates": "Prüfungstermine einsehen"
+      },
+      "errors": {
+        "noFeedbackData": "Keine Feedback-Daten verfügbar. Bitte versuchen Sie es später erneut oder kontaktieren Sie den Support."
       }
     }
   },
@@ -15,6 +18,8 @@
       "semester": "Semester",
       "cohort": "Gruppe",
       "studyStatus": "Status",
+      "ectsCombined": "ECTS",
+      "averageGrade": "Durchschnittsnote",
       "loading": "Lädt",
       "noDataAvailable": "Es sind keine Daten vorhanden"
     },
@@ -118,11 +123,14 @@
       "type": "Prüfungstyp",
       "date": "Datum & Uhrzeit",
       "weight": "Gewichtung",
+      "grade": "Note",
+      "points": "Punkte",
       "room": "Raum",
       "maxPoints": "Maximale Punktzahl",
       "duration": "Dauer",
       "minutes": "Minuten",
-      "tools": "Erlaubte Hilfsmittel"
+      "tools": "Erlaubte Hilfsmittel",
+      "feedback": "Feedback"
     }
   },
   "examTypes": {
@@ -133,4 +141,3 @@
     "ANDERES": "Sonstiges"
   }
 }
-

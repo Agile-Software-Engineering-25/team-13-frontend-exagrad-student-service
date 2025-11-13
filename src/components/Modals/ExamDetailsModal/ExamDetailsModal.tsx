@@ -5,6 +5,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
+import type { LecturerFeedback } from '@custom-types/lecturerFeedback';
 
 type ExamDetailsModalProps = {
   open: boolean;
@@ -18,6 +19,7 @@ type ExamDetailsModalProps = {
     maxPoints?: number;
     duration?: number;
     tools?: string[];
+    feedback?: LecturerFeedback;
   } | null;
 };
 
@@ -70,6 +72,35 @@ const ExamDetailsModal = ({ open, setOpen, exam }: ExamDetailsModalProps) => {
           </Typography>
         </Box>
 
+        {exam.feedback?.grade !== undefined && (
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <GradeOutlinedIcon color="primary" />
+            <Box>
+              <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+                {t('components.examDetailsModal.grade')}
+              </Typography>
+              <Typography level="body-md" fontWeight="lg">
+                {exam.feedback.grade.toFixed(1)}
+              </Typography>
+            </Box>
+          </Box>
+        )}
+
+        {exam.feedback?.points !== undefined && (
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <GradeOutlinedIcon color="primary" />
+            <Box>
+              <Typography level="body-sm" sx={{ color: 'text.secondary' }}>
+                {t('components.examDetailsModal.points')}
+              </Typography>
+              <Typography level="body-md" fontWeight="lg">
+                {exam.feedback.points}
+                {exam.maxPoints !== undefined && ` / ${exam.maxPoints}`}
+              </Typography>
+            </Box>
+          </Box>
+        )}
+
         {exam.room && (
           <>
             <Divider sx={{ my: 1 }} />
@@ -87,7 +118,7 @@ const ExamDetailsModal = ({ open, setOpen, exam }: ExamDetailsModalProps) => {
           </>
         )}
 
-        {exam.maxPoints !== undefined && (
+        {exam.maxPoints !== undefined && !exam.feedback?.points && (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <GradeOutlinedIcon color="primary" />
             <Box>
@@ -134,6 +165,23 @@ const ExamDetailsModal = ({ open, setOpen, exam }: ExamDetailsModalProps) => {
                   </Chip>
                 ))}
               </Box>
+            </Box>
+          </>
+        )}
+
+        {exam.feedback?.comment && (
+          <>
+            <Divider sx={{ my: 1 }} />
+            <Box>
+              <Typography
+                level="body-sm"
+                sx={{ color: 'text.secondary', mb: 0.5 }}
+              >
+                {t('components.examDetailsModal.feedback')}
+              </Typography>
+              <Typography level="body-md" sx={{ whiteSpace: 'pre-wrap' }}>
+                {exam.feedback.comment}
+              </Typography>
             </Box>
           </>
         )}

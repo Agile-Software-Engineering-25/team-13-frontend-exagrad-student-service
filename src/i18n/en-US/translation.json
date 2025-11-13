@@ -4,6 +4,9 @@
       "buttons": {
         "downloadPerformanceOverview": "Download Performance Overview",
         "viewExamDates": "View Exam Dates"
+      },
+      "errors": {
+        "noFeedbackData": "No feedback data available. Please try again later or contact support."
       }
     }
   },
@@ -15,6 +18,8 @@
       "semester": "Semester",
       "cohort": "cohort",
       "studyStatus": "Status",
+      "ectsCombined": "ECTS",
+      "averageGrade": "Average Grade",
       "loading": "Loading",
       "noDataAvailable": "There is no data available"
     },
@@ -118,11 +123,14 @@
       "type": "Assessment Type",
       "date": "Date & Time",
       "weight": "Weight",
+      "grade": "Grade",
+      "points": "Points",
       "room": "Room",
       "maxPoints": "Maximum Points",
       "duration": "Duration",
       "minutes": "minutes",
-      "tools": "Allowed Tools"
+      "tools": "Allowed Tools",
+      "feedback": "Feedback"
     }
   },
   "examTypes": {
@@ -133,4 +141,3 @@
     "ANDERES": "Other"
   }
 }
-

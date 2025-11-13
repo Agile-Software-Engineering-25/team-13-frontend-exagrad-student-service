@@ -1,22 +1,44 @@
 import { useState } from 'react';
 import { Box, Button } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
 import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
 import UserDebugDisplay from '@/components/UserDebugDisplay/UserDebugDisplay';
+import { useUser } from '@/hooks/useUser';
+import { useTypedSelector } from '@/stores/rootReducer';
+
+import { downloadPdf } from '@/services/pdf/performanceOverviewGenerator';
 
 const Home = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const { getUserId, getFirstName, getLastName } = useUser();
+  const feedbacks = useTypedSelector(
+    (state) => state.lecturerFeedback.data.feedbacks
+  );
+  const courses = useTypedSelector((state) => state.courses.data.courses);
 
   const [viewExamDates, setViewExamDates] = useState(false);
   const [selectedSemester, setSelectedSemester] = useState<{
     id: number | null;
     titleKey: string | null;
   }>({ id: null, titleKey: null });
+
+  const handleDownloadPdf = async () => {
+    const studentInfo = {
+      firstName: getFirstName(),
+      lastName: getLastName(),
+      userId: getUserId(),
+    };
+
+    if (!feedbacks || feedbacks.length === 0) {
+      alert(t('pages.home.errors.noFeedbackData'));
+      return;
+    }
+
+    await downloadPdf(feedbacks, studentInfo, { courses });
+  };
 
   return (
     <Box
@@ -39,7 +61,7 @@ const Home = () => {
           {t('pages.home.buttons.viewExamDates')}
         </Button>
 
-        <Button variant="solid" onClick={() => navigate('/')}>
+        <Button variant="solid" onClick={handleDownloadPdf}>
           {t('pages.home.buttons.downloadPerformanceOverview')}
         </Button>
       </Box>

@@ -5,3 +5,4 @@ module.exports = {
   video: true,
   screenshotOnRunFailure: true,
 };
+

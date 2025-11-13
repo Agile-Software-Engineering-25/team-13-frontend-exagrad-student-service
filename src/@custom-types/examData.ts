@@ -1,4 +1,6 @@
-export interface ExamResponse {
+import type { LecturerFeedback } from './lecturerFeedback';
+
+export interface Exam {
   id: string;
   moduleCode: string;
   examDate: string;
@@ -9,13 +11,14 @@ export interface ExamResponse {
   fileUploadRequired: boolean;
   tools: string[];
   weightPerCent: number;
+  feedback?: LecturerFeedback;
 }
 
-export interface CourseResponse {
+export interface Course {
   courseName: string;
   courseCode: string;
   lecturer: string;
   semester: number;
   creditPoints: number;
-  exams: ExamResponse[];
+  exams: Exam[];
 }

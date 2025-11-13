@@ -44,7 +44,8 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
     };
 
     fetchDocumentCounts();
-  }, [props.selectedModuleData.assessments]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.selectedModuleData.assessments]); // getExamDocuments intentionally excluded to prevent infinite loop
 
   // Refetch document counts when modal closes
   useEffect(() => {
@@ -60,7 +61,8 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
           // Ignore errors
         });
     }
-  }, [viewDocuments, selectedAssessment]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewDocuments, selectedAssessment]); // getExamDocuments intentionally excluded to prevent infinite loop
 
   const handleOpenDocuments = (assessment: Assessment) => {
     setSelectedAssessment(assessment);
@@ -87,7 +89,14 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
       }
     )
     .addColumn('weight', t('components.moduleDetailView.table.weight'))
-    .addColumn('grade', t('components.moduleDetailView.table.grade'))
+    .addColumn('grade', t('components.moduleDetailView.table.grade'), {
+      render: (value: unknown, assessment: Assessment) => {
+        if (assessment.feedback?.grade !== undefined) {
+          return assessment.feedback.grade.toFixed(1);
+        }
+        return value as string;
+      },
+    })
     .addColumn('date', t('components.moduleDetailView.table.date'))
     .addColumn('actions', '', {
       render: (_value: unknown, assessment: Assessment) =>
