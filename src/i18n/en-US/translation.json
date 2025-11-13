@@ -18,8 +18,7 @@
       "semester": "Semester",
       "cohort": "cohort",
       "studyStatus": "Status",
-      "ectsReached": "ECTS Reached",
-      "ectsTotal": "ECTS Total",
+      "ectsCombined": "ECTS",
       "averageGrade": "Average Grade",
       "loading": "Loading",
       "noDataAvailable": "There is no data available"

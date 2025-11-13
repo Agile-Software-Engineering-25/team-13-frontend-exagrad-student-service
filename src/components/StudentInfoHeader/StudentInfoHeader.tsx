@@ -144,7 +144,7 @@ const StudentInfoHeader = () => {
   }
 
   const headerProperties: {
-    key: keyof StudentData | 'ectsReached' | 'ectsTotal' | 'averageGrade';
+    key: keyof StudentData | 'ectsCombined' | 'averageGrade';
     label: string;
   }[] = [
     { key: 'degreeProgram', label: 'degreeProgram' },
@@ -152,8 +152,7 @@ const StudentInfoHeader = () => {
     { key: 'semester', label: 'semester' },
     { key: 'cohort', label: 'cohort' },
     { key: 'studyStatus', label: 'studyStatus' },
-    { key: 'ectsReached', label: 'ectsReached' },
-    { key: 'ectsTotal', label: 'ectsTotal' },
+    { key: 'ectsCombined', label: 'ectsCombined' },
     { key: 'averageGrade', label: 'averageGrade' },
   ];
 
@@ -193,10 +192,8 @@ const StudentInfoHeader = () => {
         {headerProperties.map(({ key, label }, index) => {
           let displayValue: string | number;
 
-          if (key === 'ectsReached') {
-            displayValue = `${ectsData.reached}`;
-          } else if (key === 'ectsTotal') {
-            displayValue = `${ectsData.total}`;
+          if (key === 'ectsCombined') {
+            displayValue = `${ectsData.reached} / ${ectsData.total}`;
           } else if (key === 'averageGrade') {
             displayValue = averageGrade;
           } else {
