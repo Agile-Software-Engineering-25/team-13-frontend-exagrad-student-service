@@ -121,11 +121,14 @@
       "type": "Prüfungstyp",
       "date": "Datum & Uhrzeit",
       "weight": "Gewichtung",
+      "grade": "Note",
+      "points": "Punkte",
       "room": "Raum",
       "maxPoints": "Maximale Punktzahl",
       "duration": "Dauer",
       "minutes": "Minuten",
-      "tools": "Erlaubte Hilfsmittel"
+      "tools": "Erlaubte Hilfsmittel",
+      "feedback": "Feedback"
     }
   },
   "examTypes": {

@@ -121,11 +121,14 @@
       "type": "Assessment Type",
       "date": "Date & Time",
       "weight": "Weight",
+      "grade": "Grade",
+      "points": "Points",
       "room": "Room",
       "maxPoints": "Maximum Points",
       "duration": "Duration",
       "minutes": "minutes",
-      "tools": "Allowed Tools"
+      "tools": "Allowed Tools",
+      "feedback": "Feedback"
     }
   },
   "examTypes": {
