@@ -64,11 +64,6 @@ npm i
 └─ vite.config.js                       # Vite bundler and dev server configuration
 ```
 
-## Understanding the React Architecture
-
-React is a JavaScript library for building user interfaces using components, which are reusable building blocks that describe what you see on the screen. Components can have their own state (data that changes over time) using hooks like useState and can react to changes with useEffect. To share data across multiple components without passing it manually through each level, React provides context and providers, which let components "subscribe" to shared data. This makes it easy to manage and update the UI dynamically as the user interacts with it. Essentially, React breaks your app into small, smart pieces that handle their own logic and display.
-Throughout this project, we will only use functional components (as they are easier to read and maintain).
-
 ## Used Tools
 
 ### Vite
@@ -158,8 +153,3 @@ registerApplication({
   }
 });
 ```
-
-# Todo
-
-- Single spa
-- add esling.config.js

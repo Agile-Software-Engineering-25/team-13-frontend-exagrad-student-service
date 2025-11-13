@@ -1,11 +1,17 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import type { LecturerFeedback } from '@custom-types/lecturerFeedback';
+import type { Course, Exam } from '@custom-types/examData';
 
 interface StudentInfo {
   firstName: string;
   lastName: string;
   userId: string;
+}
+
+interface PdfOptions {
+  courses?: Course[];
+  studentCourse?: string;
 }
 
 const generatePerformanceOverview = (
@@ -39,7 +45,7 @@ const generatePerformanceOverview = (
   // Table
   autoTable(doc, {
     startY: 95,
-    head: [['Course',, 'Points', 'Grade', 'Comment']],
+    head: [['Course', '', 'Points', 'Grade', 'Comment']],
     body: feedbacks.map((f) => [
       'Unknown',
       f.points,
@@ -52,11 +58,30 @@ const generatePerformanceOverview = (
 
 export const downloadPdf = (
   feedbacks: LecturerFeedback[],
-  studentInfo: StudentInfo
+  studentInfo: StudentInfo,
+  options: PdfOptions = {}
 ) => {
   const doc = new jsPDF();
 
   const fullName = `${studentInfo.firstName} ${studentInfo.lastName}`;
+  const feedbackArray = Array.isArray(feedbacks) ? feedbacks : [];
+  const { courses = [], studentCourse = 'Unknown' } = options;
+
+  // Helper to find course and exam by examUuid
+  const getExamAndCourseInfo = (examUuid: string) => {
+    for (const course of courses) {
+      const exam = course.exams?.find((e: Exam) => e.id === examUuid);
+      if (exam) {
+        return {
+          courseName: course.courseName || 'Unknown',
+          courseCode: course.courseCode || '',
+          creditPoints: course.creditPoints || 0,
+          exam,
+        };
+      }
+    }
+    return null;
+  };
 
   // Add logo
   const logo = new Image();
@@ -64,10 +89,12 @@ export const downloadPdf = (
   doc.addImage(logo, 'PNG', 14, 10, 80, 40);
 
   // Header
+  doc.setFontSize(16);
   doc.text('Leistungsuebersicht', 80, 20);
-  doc.text(`Student:in: ${fullName}`, 14, 40);
-  doc.text(`Studiengang: Unknown`, 14, 50);
-  doc.text(`Datum: ${new Date().toLocaleDateString('de-DE')}`, 14, 60);
+  doc.setFontSize(12);
+  doc.text(`Student:in: ${fullName}`, 14, 55);
+  doc.text(`Studiengang: ${studentCourse}`, 14, 62);
+  doc.text(`Datum: ${new Date().toLocaleDateString('de-DE')}`, 14, 69);
 
   // Disclaimer
   doc.setFontSize(10);
@@ -80,12 +107,33 @@ export const downloadPdf = (
   // Table
   autoTable(doc, {
     startY: 95,
-    head: [['Course', 'Credit Points', 'Grade']],
-    body: feedbacks.map((f) => [
-      'Unknown', // TODO get course name from courseAPI team-09
-      '5', // TODO get etcs from courseAPI team-09
-      f.grade,
-    ]),
+    head: [['Modul', 'ECTS', 'Punkte', 'Note', 'Kommentar']],
+    body: feedbackArray.map((f) => {
+      const info = getExamAndCourseInfo(f.examUuid);
+      return [
+        info ? `${info.courseName} (${info.courseCode})` : 'Unknown',
+        info ? info.creditPoints.toString() : '-',
+        f.points?.toString() || '-',
+        f.grade?.toFixed(1) || '-',
+        f.comment || '-',
+      ];
+    }),
+    styles: {
+      fontSize: 10,
+      cellPadding: 3,
+    },
+    headStyles: {
+      fillColor: [41, 128, 185],
+      textColor: 255,
+      fontStyle: 'bold',
+    },
+    columnStyles: {
+      0: { cellWidth: 60 },
+      1: { cellWidth: 20, halign: 'center' },
+      2: { cellWidth: 25, halign: 'center' },
+      3: { cellWidth: 20, halign: 'center' },
+      4: { cellWidth: 'auto' },
+    },
   });
 
   const date = new Date().toISOString().slice(0, 10);

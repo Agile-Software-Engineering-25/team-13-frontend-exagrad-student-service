@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { SliceState } from '..';
-import type { CourseResponse } from '@/@custom-types/examData';
+import type { Course } from '@/@custom-types/examData';
 
 interface CoursesData {
-  courses: CourseResponse[];
+  courses: Course[];
   lastFetched: number | null;
 }
 
@@ -19,7 +19,7 @@ const coursesSlice = createSlice({
     error: null,
   } as SliceState<CoursesData>,
   reducers: {
-    setCourses: (state, action: PayloadAction<CourseResponse[]>) => {
+    setCourses: (state, action: PayloadAction<Course[]>) => {
       state.data.courses = action.payload;
       state.data.lastFetched = Date.now();
       state.state = 'idle';

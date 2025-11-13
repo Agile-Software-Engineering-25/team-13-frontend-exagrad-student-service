@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { User } from 'oidc-client-ts';
 import { jwtDecode } from 'jwt-decode';
 
@@ -30,48 +30,51 @@ export const useUser = () => {
     };
   }, []);
 
-  const getUserId = (): string => {
+  const getUserId = useCallback((): string => {
     const userId = user?.profile.sub ?? '';
     // TODO: REMOVE - Debug logging for user UUID
     if (userId) {
       console.log('[DEBUG - REMOVE] getUserId() called, returning:', userId);
     }
     return userId;
-  };
+  }, [user]);
 
-  const getFirstName = (): string => {
+  const getFirstName = useCallback((): string => {
     return user?.profile.given_name ?? '';
-  };
+  }, [user]);
 
-  const getLastName = (): string => {
+  const getLastName = useCallback((): string => {
     return user?.profile.family_name ?? '';
-  };
+  }, [user]);
 
-  const getFullName = (): string => {
+  const getFullName = useCallback((): string => {
     return user?.profile.name ?? '';
-  };
+  }, [user]);
 
-  const getEmail = (): string => {
+  const getEmail = useCallback((): string => {
     return user?.profile.email ?? '';
-  };
+  }, [user]);
 
-  const getAccessToken = (): string => {
+  const getAccessToken = useCallback((): string => {
     return user?.access_token ?? '';
-  };
+  }, [user]);
 
   // Function to check if user has a specific role
-  const hasRole = (role: string): boolean => {
-    const token = getAccessToken();
-    if (!token) return false;
+  const hasRole = useCallback(
+    (role: string): boolean => {
+      const token = getAccessToken();
+      if (!token) return false;
 
-    // Decode JWT to extract roles
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const decoded: any = jwtDecode(token);
-    const roles: string[] = decoded?.realm_access?.roles || [];
+      // Decode JWT to extract roles
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const decoded: any = jwtDecode(token);
+      const roles: string[] = decoded?.realm_access?.roles || [];
 
-    if (!Array.isArray(roles) || roles.length === 0) return false;
-    return roles.includes(role);
-  };
+      if (!Array.isArray(roles) || roles.length === 0) return false;
+      return roles.includes(role);
+    },
+    [getAccessToken]
+  );
 
   return {
     user,

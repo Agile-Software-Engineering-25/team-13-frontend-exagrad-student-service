@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, Button } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
@@ -8,16 +8,16 @@ import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/Modu
 import UserDebugDisplay from '@/components/UserDebugDisplay/UserDebugDisplay';
 import { useUser } from '@/hooks/useUser';
 import { useTypedSelector } from '@/stores/rootReducer';
-import useLecturerFeedbackApi from '@/hooks/useLecturerFeedbackApi';
+
 import { downloadPdf } from '@/services/pdf/performanceOverviewGenerator';
 
 const Home = () => {
   const { t } = useTranslation();
-  const { getUserId, getFirstName, getLastName, user } = useUser();
-  const { getLecturerFeedback } = useLecturerFeedbackApi();
+  const { getUserId, getFirstName, getLastName } = useUser();
   const feedbacks = useTypedSelector(
     (state) => state.lecturerFeedback.data.feedbacks
   );
+  const courses = useTypedSelector((state) => state.courses.data.courses);
 
   const [viewExamDates, setViewExamDates] = useState(false);
   const [selectedSemester, setSelectedSemester] = useState<{
@@ -25,27 +25,19 @@ const Home = () => {
     titleKey: string | null;
   }>({ id: null, titleKey: null });
 
-  useEffect(() => {
-    const studentId = getUserId();
-    if (studentId) {
-      getLecturerFeedback(studentId);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
   const handleDownloadPdf = async () => {
     const studentInfo = {
       firstName: getFirstName(),
       lastName: getLastName(),
       userId: getUserId(),
     };
-    
+
     if (!feedbacks || feedbacks.length === 0) {
       alert(t('pages.home.errors.noFeedbackData'));
       return;
     }
-    
-    await downloadPdf(feedbacks, studentInfo);
+
+    await downloadPdf(feedbacks, studentInfo, { courses });
   };
 
   return (
@@ -92,4 +84,3 @@ const Home = () => {
 };
 
 export default Home;
-

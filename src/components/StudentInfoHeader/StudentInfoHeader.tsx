@@ -2,35 +2,34 @@ import { Box, Typography } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import type { StudentDataResponse } from '@/@custom-types/studentData';
-import useStudentDataApi from '@/hooks/useStudentDataApi';
+import type { StudentData } from '@/@custom-types/studentData';
+import useCombinedStudentData from '@/hooks/useCombinedStudentData';
 import useUser from '@/hooks/useUser';
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
-  const { getStudent } = useStudentDataApi();
+  const { fetchAndStoreCombinedData } = useCombinedStudentData();
   const { getUserId } = useUser();
 
-  const [student, setStudent] = useState<StudentDataResponse | null>(null);
+  const [student, setStudent] = useState<StudentData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const student = await getStudent(getUserId());
-        if (student) {
-          setStudent(student);
+        const studentData = await fetchAndStoreCombinedData(getUserId());
+        if (studentData) {
+          setStudent(studentData);
         }
       } catch (error) {
         console.error('Error fetching student data:', error);
       } finally {
         setLoading(false);
-        console.log(student);
       }
     };
 
     fetchData();
-  }, []);
+  }, [fetchAndStoreCombinedData, getUserId]);
 
   const formatValue = (value: string | number | Date | undefined) => {
     if (value instanceof Date) {
@@ -59,14 +58,13 @@ const StudentInfoHeader = () => {
     );
   }
 
-  const headerProperties: { key: keyof StudentDataResponse; label: string }[] =
-    [
-      { key: 'degreeProgram', label: 'degreeProgram' },
-      { key: 'matriculationNumber', label: 'matriculationNumber' },
-      { key: 'semester', label: 'semester' },
-      { key: 'cohort', label: 'cohort' },
-      { key: 'studyStatus', label: 'studyStatus' },
-    ];
+  const headerProperties: { key: keyof StudentData; label: string }[] = [
+    { key: 'degreeProgram', label: 'degreeProgram' },
+    { key: 'matriculationNumber', label: 'matriculationNumber' },
+    { key: 'semester', label: 'semester' },
+    { key: 'cohort', label: 'cohort' },
+    { key: 'studyStatus', label: 'studyStatus' },
+  ];
 
   /*const headerProperties = [
     'degreeProgram',

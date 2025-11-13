@@ -18,4 +18,3 @@ const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export { useTypedSelector };
 export default rootReducer;
-
