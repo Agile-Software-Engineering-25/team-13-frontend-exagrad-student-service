@@ -37,8 +37,16 @@ const generatePerformanceOverview = (
   // Disclaimer
   doc.setFontSize(10);
   doc.setTextColor(255, 0, 0);
-  doc.text('HINWEIS: Dies ist kein offizielles Dokument der Provadis Hochschule.', 14, 80);
-  doc.text('NOTE: This is not an official document from Provadis Hochschule.', 14, 86);
+  doc.text(
+    'HINWEIS: Dies ist kein offizielles Dokument der Provadis Hochschule.',
+    14,
+    80
+  );
+  doc.text(
+    'NOTE: This is not an official document from Provadis Hochschule.',
+    14,
+    86
+  );
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
 
@@ -46,11 +54,7 @@ const generatePerformanceOverview = (
   autoTable(doc, {
     startY: 95,
     head: [['Course', '', 'Points', 'Grade', 'Comment']],
-    body: feedbacks.map((f) => [
-      'Unknown',
-      f.points,
-      f.grade,
-    ]),
+    body: feedbacks.map((f) => ['Unknown', f.points, f.grade]),
   });
 
   return doc.output('datauristring');
@@ -101,8 +105,16 @@ export const downloadPdf = (
   // Disclaimer
   doc.setFontSize(10);
   doc.setTextColor(255, 0, 0);
-  doc.text('HINWEIS: Dies ist kein offizielles Dokument der Provadis Hochschule.', 14, 60);
-  doc.text('NOTE: This is not an official document from Provadis Hochschule.', 14, 66);
+  doc.text(
+    'HINWEIS: Dies ist kein offizielles Dokument der Provadis Hochschule.',
+    14,
+    60
+  );
+  doc.text(
+    'NOTE: This is not an official document from Provadis Hochschule.',
+    14,
+    66
+  );
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
 
@@ -148,4 +160,3 @@ export const downloadPdfFromDataUri = (dataUri: string, filename: string) => {
 };
 
 export default generatePerformanceOverview;
-
