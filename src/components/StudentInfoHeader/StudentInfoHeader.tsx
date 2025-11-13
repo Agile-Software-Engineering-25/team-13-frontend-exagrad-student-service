@@ -65,7 +65,7 @@ const StudentInfoHeader = () => {
       const allExamsHaveGrade =
         course.exams.length > 0 &&
         course.exams.every(
-          (e) => e.feedback?.grade !== undefined && e.feedback.grade >= 4.0
+          (e) => e.feedback?.grade !== undefined && e.feedback.grade <= 4.0
         );
 
       if (allExamsHaveGrade && moduleGrade !== null) {
