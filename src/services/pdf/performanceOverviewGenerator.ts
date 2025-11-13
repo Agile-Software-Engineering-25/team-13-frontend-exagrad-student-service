@@ -84,29 +84,31 @@ export const downloadPdf = (
   };
 
   // Add logo
-  const logo = new Image();
-  logo.src = '/provadis_logo.png';
-  doc.addImage(logo, 'PNG', 14, 10, 80, 40);
+  try {
+    doc.addImage('/provadis_logo.png', 'PNG', 14, 10, 30, 20);
+  } catch (e) {
+    console.warn('Could not load logo image');
+  }
 
   // Header
   doc.setFontSize(16);
-  doc.text('Leistungsuebersicht', 80, 20);
+  doc.text('Leistungsuebersicht', 50, 20);
   doc.setFontSize(12);
-  doc.text(`Student:in: ${fullName}`, 14, 55);
-  doc.text(`Studiengang: ${studentCourse}`, 14, 62);
-  doc.text(`Datum: ${new Date().toLocaleDateString('de-DE')}`, 14, 69);
+  doc.text(`Student:in: ${fullName}`, 14, 35);
+  doc.text(`Studiengang: ${studentCourse}`, 14, 42);
+  doc.text(`Datum: ${new Date().toLocaleDateString('de-DE')}`, 14, 49);
 
   // Disclaimer
   doc.setFontSize(10);
   doc.setTextColor(255, 0, 0);
-  doc.text('HINWEIS: Dies ist kein offizielles Dokument der Provadis Hochschule.', 14, 80);
-  doc.text('NOTE: This is not an official document from Provadis Hochschule.', 14, 86);
+  doc.text('HINWEIS: Dies ist kein offizielles Dokument der Provadis Hochschule.', 14, 60);
+  doc.text('NOTE: This is not an official document from Provadis Hochschule.', 14, 66);
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
 
   // Table
   autoTable(doc, {
-    startY: 95,
+    startY: 75,
     head: [['Modul', 'ECTS', 'Note']],
     body: feedbackArray.map((f) => {
       const info = getExamAndCourseInfo(f.examUuid);
