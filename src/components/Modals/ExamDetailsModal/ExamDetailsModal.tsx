@@ -173,7 +173,10 @@ const ExamDetailsModal = ({ open, setOpen, exam }: ExamDetailsModalProps) => {
           <>
             <Divider sx={{ my: 1 }} />
             <Box>
-              <Typography level="body-sm" sx={{ color: 'text.secondary', mb: 0.5 }}>
+              <Typography
+                level="body-sm"
+                sx={{ color: 'text.secondary', mb: 0.5 }}
+              >
                 {t('components.examDetailsModal.feedback')}
               </Typography>
               <Typography level="body-md" sx={{ whiteSpace: 'pre-wrap' }}>
