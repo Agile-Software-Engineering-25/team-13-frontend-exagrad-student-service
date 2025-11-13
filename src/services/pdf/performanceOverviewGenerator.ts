@@ -54,7 +54,11 @@ const generatePerformanceOverview = (
   autoTable(doc, {
     startY: 95,
     head: [['Course', '', 'Points', 'Grade', 'Comment']],
-    body: feedbacks.map((f) => ['Unknown', f.points, f.grade]),
+    body: feedbacks.map((feedback) => [
+      'Unknown',
+      feedback.points,
+      feedback.grade,
+    ]),
   });
 
   return doc.output('datauristring');
@@ -74,7 +78,7 @@ export const downloadPdf = (
   // Helper to find course and exam by examUuid
   const getExamAndCourseInfo = (examUuid: string) => {
     for (const course of courses) {
-      const exam = course.exams?.find((e: Exam) => e.id === examUuid);
+      const exam = course.exams?.find((exam: Exam) => exam.id === examUuid);
       if (exam) {
         return {
           courseName: course.courseName || 'Unknown',
@@ -90,7 +94,7 @@ export const downloadPdf = (
   // Add logo
   try {
     doc.addImage('/provadis_logo.png', 'PNG', 14, 10, 30, 20);
-  } catch (e) {
+  } catch {
     console.warn('Could not load logo image');
   }
 
@@ -122,12 +126,12 @@ export const downloadPdf = (
   autoTable(doc, {
     startY: 75,
     head: [['Modul', 'ECTS', 'Note']],
-    body: feedbackArray.map((f) => {
-      const info = getExamAndCourseInfo(f.examUuid);
+    body: feedbackArray.map((feedback) => {
+      const info = getExamAndCourseInfo(feedback.examUuid);
       return [
         info ? `${info.courseName} (${info.courseCode})` : 'Unknown',
         info ? info.creditPoints.toString() : '-',
-        f.grade?.toFixed(1) || '-',
+        feedback.grade?.toFixed(1) || '-',
       ];
     }),
     styles: {
