@@ -18,6 +18,9 @@
       "semester": "Semester",
       "cohort": "Gruppe",
       "studyStatus": "Status",
+      "ectsReached": "ECTS erreicht",
+      "ectsTotal": "ECTS gesamt",
+      "averageGrade": "Durchschnittsnote",
       "loading": "Lädt",
       "noDataAvailable": "Es sind keine Daten vorhanden"
     },
@@ -139,4 +142,3 @@
     "ANDERES": "Sonstiges"
   }
 }
-
