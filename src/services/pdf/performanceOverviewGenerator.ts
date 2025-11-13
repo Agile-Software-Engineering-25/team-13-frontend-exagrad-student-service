@@ -107,15 +107,13 @@ export const downloadPdf = (
   // Table
   autoTable(doc, {
     startY: 95,
-    head: [['Modul', 'ECTS', 'Punkte', 'Note', 'Kommentar']],
+    head: [['Modul', 'ECTS', 'Note']],
     body: feedbackArray.map((f) => {
       const info = getExamAndCourseInfo(f.examUuid);
       return [
         info ? `${info.courseName} (${info.courseCode})` : 'Unknown',
         info ? info.creditPoints.toString() : '-',
-        f.points?.toString() || '-',
         f.grade?.toFixed(1) || '-',
-        f.comment || '-',
       ];
     }),
     styles: {
@@ -128,11 +126,9 @@ export const downloadPdf = (
       fontStyle: 'bold',
     },
     columnStyles: {
-      0: { cellWidth: 60 },
-      1: { cellWidth: 20, halign: 'center' },
-      2: { cellWidth: 25, halign: 'center' },
-      3: { cellWidth: 20, halign: 'center' },
-      4: { cellWidth: 'auto' },
+      0: { cellWidth: 100 },
+      1: { cellWidth: 30, halign: 'center' },
+      2: { cellWidth: 30, halign: 'center' },
     },
   });
 
