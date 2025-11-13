@@ -89,7 +89,14 @@ const AssessmentTable = (props: { selectedModuleData: ModuleData }) => {
       }
     )
     .addColumn('weight', t('components.moduleDetailView.table.weight'))
-    .addColumn('grade', t('components.moduleDetailView.table.grade'))
+    .addColumn('grade', t('components.moduleDetailView.table.grade'), {
+      render: (value: unknown, assessment: Assessment) => {
+        if (assessment.feedback?.grade !== undefined) {
+          return assessment.feedback.grade.toFixed(1);
+        }
+        return value as string;
+      },
+    })
     .addColumn('date', t('components.moduleDetailView.table.date'))
     .addColumn('actions', '', {
       render: (_value: unknown, assessment: Assessment) =>

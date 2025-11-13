@@ -53,6 +53,41 @@ const ModuleOverviewComponent = (props: {
     });
   };
 
+  const calculateModuleGrade = (assessments: Assessment[]): string => {
+    const assessmentsWithFeedback = assessments.filter(
+      (a) => a.feedback?.grade !== undefined
+    );
+
+    // Only calculate weighted average if multiple exams with feedback exist and all have feedback
+    if (
+      assessments.length > 1 &&
+      assessmentsWithFeedback.length === assessments.length
+    ) {
+      const totalWeight = assessments.reduce((sum, a) => {
+        const weight = parseInt(a.weight) || 0;
+        return sum + weight;
+      }, 0);
+
+      if (totalWeight === 0) return 'N/A';
+
+      const weightedSum = assessments.reduce((sum, a) => {
+        const weight = parseInt(a.weight) || 0;
+        const grade = a.feedback?.grade || 0;
+        return sum + grade * weight;
+      }, 0);
+
+      const avgGrade = weightedSum / totalWeight;
+      return avgGrade.toFixed(1);
+    }
+
+    // If single exam or not all have feedback, use first available grade
+    if (assessmentsWithFeedback.length > 0) {
+      return assessmentsWithFeedback[0].feedback?.grade?.toString() || 'N/A';
+    }
+
+    return 'N/A';
+  };
+
   useEffect(() => {
     const processCourses = (allCourses: Course[]) => {
       const groupedBySemester: Record<number, SemesterData> = {};
@@ -67,14 +102,17 @@ const ModuleOverviewComponent = (props: {
           moduleCode: exam.moduleCode,
           assessmentTyp: exam.examType,
           weight: `${exam.weightPerCent}%`,
-          grade: 'N/A',
+          grade: exam.feedback?.grade?.toString() || 'N/A',
           date: formatDateTime(exam.examDate),
           requiresSubmission: exam.fileUploadRequired,
           room: exam.room,
           maxPoints: exam.maxPoints,
           duration: exam.duration,
           tools: exam.tools,
+          feedback: exam.feedback,
         }));
+
+        const moduleGrade = calculateModuleGrade(assessments);
 
         groupedBySemester[course.semester][course.courseCode] = {
           moduleInfo: {
@@ -82,7 +120,7 @@ const ModuleOverviewComponent = (props: {
             moduleCode: course.courseCode,
             lecturer: course.lecturer,
             creditPoints: course.creditPoints,
-            grade: 'N/A',
+            grade: moduleGrade,
           },
           assessments,
         };

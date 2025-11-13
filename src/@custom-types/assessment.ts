@@ -1,3 +1,5 @@
+import type { LecturerFeedback } from './lecturerFeedback';
+
 export interface Assessment {
   id: string;
   moduleCode: string;
@@ -11,4 +13,5 @@ export interface Assessment {
   duration?: number;
   tools?: string[];
   examId?: string;
+  feedback?: LecturerFeedback;
 }
