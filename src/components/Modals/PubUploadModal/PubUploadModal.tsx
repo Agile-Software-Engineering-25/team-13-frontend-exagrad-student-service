@@ -268,7 +268,7 @@ const PubUpload = ({ open, setOpen, studentId }: PubUploadModalProps) => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 1, // Abstand zwischen Dropzone und Button
+                gap: 1,
               }}
             >
               <Box sx={{ flex: 1, minWidth: 0 }}>
