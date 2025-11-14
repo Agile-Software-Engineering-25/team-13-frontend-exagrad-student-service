@@ -9,7 +9,7 @@ interface StudentDocumentsListProps {
   uploading: boolean;
   canDelete: boolean;
   onDelete: (documentId: string) => void;
-  onDownload: (doc: ExamDocumentResponse) => void;
+  onDownload: (downloadUrl: string) => void;
 }
 
 const StudentDocumentsList = ({
@@ -70,7 +70,7 @@ const StudentDocumentsList = ({
                   t('components.dokumentModal.unknownFile', 'Unbekannte Datei')
                 }
                 onDelete={canDelete ? () => onDelete(doc.id) : undefined}
-                onClick={() => onDownload(doc)}
+                onClick={() => onDownload(doc.downloadUrl)}
               />
             ))}
           </Box>

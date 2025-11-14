@@ -39,7 +39,6 @@ const ExamDocumentModal = ({
     uploadExamDocument,
     getExamDocuments,
     deleteExamDocument,
-    downloadExamDocument,
   } = useExamDocumentsApi();
 
   const { documents } = useTypedSelector((state) => state.examDocuments.data);
@@ -180,20 +179,8 @@ const ExamDocumentModal = ({
     }
   };
 
-  const handleDownload = async (doc: ExamDocumentResponse) => {
-    setErrorMessage(null);
-    try {
-      await downloadExamDocument(doc.downloadUrl, doc.fileName);
-    } catch (error: unknown) {
-      let errorMsg = 'Download failed';
-      if (isAxiosError(error)) {
-        errorMsg =
-          error.response?.data?.error?.message ??
-          error.message ??
-          'Download failed';
-      }
-      setErrorMessage(errorMsg);
-    }
+  const handleDownload = (downloadUrl: string) => {
+    window.open(downloadUrl, '_blank');
   };
 
   const lecturerFiles = ['MockDozentenDatei.pdf', 'Mock.pdf'];
