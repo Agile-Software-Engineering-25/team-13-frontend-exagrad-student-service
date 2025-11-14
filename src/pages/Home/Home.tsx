@@ -3,7 +3,6 @@ import { Box, Button } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import StudentInfoHeader from '@/components/StudentInfoHeader/StudentInfoHeader';
 import SemesterOverviewComponent from '@/components/SemesterOverviewComponent/SemesterOverviewComponent';
-import ExamDatesModal from '@/components/Modals/ExamDatesModal/ExamDatesModal';
 import ModuleOverviewComponent from '@/components/SemesterOverviewComponent/ModuleOverviewComponent';
 import { useUser } from '@/hooks/useUser';
 import { useTypedSelector } from '@/stores/rootReducer';
@@ -18,7 +17,6 @@ const Home = () => {
   );
   const courses = useTypedSelector((state) => state.courses.data.courses);
 
-  const [viewExamDates, setViewExamDates] = useState(false);
   const [selectedSemester, setSelectedSemester] = useState<{
     id: number | null;
     titleKey: string | null;
@@ -56,15 +54,10 @@ const Home = () => {
           gap: 2,
         }}
       >
-        <Button variant="outlined" onClick={() => setViewExamDates(true)}>
-          {t('pages.home.buttons.viewExamDates')}
-        </Button>
-
         <Button variant="solid" onClick={handleDownloadPdf}>
           {t('pages.home.buttons.downloadPerformanceOverview')}
         </Button>
       </Box>
-      <ExamDatesModal open={viewExamDates} setOpen={setViewExamDates} />
       <Box sx={{ mt: 4 }}>
         {selectedSemester.id === null ? (
           <SemesterOverviewComponent
