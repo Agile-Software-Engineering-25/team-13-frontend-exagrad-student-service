@@ -5,7 +5,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { useTypedSelector } from '@stores/rootReducer';
-import type { ExamDocumentResponse } from '@custom-types/examDocument';
 import type { Assessment } from '@custom-types/assessment';
 import { isAxiosError } from '@custom-types/errors';
 import { clearDocuments } from '@stores/slices/examDocumentsSlice';
@@ -35,12 +34,8 @@ const ExamDocumentModal = ({
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [dropzoneKey, setDropzoneKey] = useState(0);
 
-  const {
-    uploadExamDocument,
-    getExamDocuments,
-    deleteExamDocument,
-    downloadExamDocument,
-  } = useExamDocumentsApi();
+  const { uploadExamDocument, getExamDocuments, deleteExamDocument } =
+    useExamDocumentsApi();
 
   const { documents } = useTypedSelector((state) => state.examDocuments.data);
   const loadingState = useTypedSelector((state) => state.examDocuments.state);
@@ -180,20 +175,8 @@ const ExamDocumentModal = ({
     }
   };
 
-  const handleDownload = async (doc: ExamDocumentResponse) => {
-    setErrorMessage(null);
-    try {
-      await downloadExamDocument(doc.downloadUrl, doc.fileName);
-    } catch (error: unknown) {
-      let errorMsg = 'Download failed';
-      if (isAxiosError(error)) {
-        errorMsg =
-          error.response?.data?.error?.message ??
-          error.message ??
-          'Download failed';
-      }
-      setErrorMessage(errorMsg);
-    }
+  const handleDownload = (downloadUrl: string) => {
+    window.open(downloadUrl, '_blank');
   };
 
   const lecturerFiles = ['MockDozentenDatei.pdf', 'Mock.pdf'];
