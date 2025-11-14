@@ -64,11 +64,6 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
                   ? assessment.date
                   : t('components.dokumentModal.assessmentInfo.noDeadline')}
               </Typography>
-              {assessment.date && isDeadlinePassed() && (
-                <Chip size="sm" color="danger" variant="solid">
-                  {t('components.dokumentModal.assessmentInfo.expired')}
-                </Chip>
-              )}
             </Box>
           </Box>
         </Box>
