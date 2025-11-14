@@ -1,4 +1,4 @@
-import { Box, Typography, Chip } from '@mui/joy';
+import { Box, Typography } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { Card } from '@agile-software/shared-components';
 import type { Assessment } from '@custom-types/assessment';
@@ -11,11 +11,6 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
   const { t } = useTranslation();
 
   if (!assessment) return null;
-
-  const isDeadlinePassed = () => {
-    if (!assessment.date) return false;
-    return new Date() > new Date(assessment.date);
-  };
 
   return (
     <Card cardSX={{ variant: 'soft', mb: 3 }}>
@@ -64,11 +59,6 @@ const AssessmentInfoCard = ({ assessment }: AssessmentInfoCardProps) => {
                   ? assessment.date
                   : t('components.dokumentModal.assessmentInfo.noDeadline')}
               </Typography>
-              {assessment.date && isDeadlinePassed() && (
-                <Chip size="sm" color="danger" variant="solid">
-                  {t('components.dokumentModal.assessmentInfo.expired')}
-                </Chip>
-              )}
             </Box>
           </Box>
         </Box>
