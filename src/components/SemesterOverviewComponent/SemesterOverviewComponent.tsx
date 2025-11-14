@@ -1,15 +1,7 @@
 import { Box, Grid, Typography } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import useExamDataApi from '@/hooks/useExamDataApi';
-import { useUser } from '@/hooks/useUser';
 import { useTypedSelector } from '@stores/rootReducer';
-import {
-  setCourses,
-  setLoading as setCoursesLoading,
-  setError,
-} from '@stores/slices/coursesSlice';
 
 const SemesterOverviewComponent = (props: {
   setSelectedSemester: (semester: {
@@ -18,12 +10,8 @@ const SemesterOverviewComponent = (props: {
   }) => void;
 }) => {
   const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const { getAllCourses } = useExamDataApi();
-  const { getUserId } = useUser();
-
   const coursesState = useTypedSelector((state) => state.courses);
-  const { courses, lastFetched } = coursesState.data;
+  const { courses } = coursesState.data;
   const loading = coursesState.state === 'loading';
 
   const [availableSemesters, setAvailableSemesters] = useState<number[]>([]);
@@ -56,51 +44,14 @@ const SemesterOverviewComponent = (props: {
   ];
 
   useEffect(() => {
-    const studentId = getUserId();
-    if (!studentId) {
-      return;
-    }
-
-    // Check if we already have courses in Redux
-    if (courses.length > 0 && lastFetched) {
+    if (courses.length > 0) {
       const semesterIds = new Set<number>();
       courses.forEach((course) => {
         semesterIds.add(course.semester);
       });
       setAvailableSemesters(Array.from(semesterIds).sort((a, b) => a - b));
-      return;
     }
-
-    const fetchAvailableSemesters = async () => {
-      try {
-        dispatch(setCoursesLoading());
-        const allCourses = await getAllCourses();
-
-        if (!Array.isArray(allCourses)) {
-          console.error('getAllCourses returned not an array:', allCourses);
-          dispatch(setError('Invalid response format'));
-          return;
-        }
-
-        dispatch(setCourses(allCourses));
-
-        const semesterIds = new Set<number>();
-        allCourses.forEach((course) => {
-          semesterIds.add(course.semester);
-        });
-
-        setAvailableSemesters(Array.from(semesterIds).sort((a, b) => a - b));
-      } catch (err) {
-        console.error('Error fetching courses:', err);
-        dispatch(
-          setError(err instanceof Error ? err.message : 'Unknown error')
-        );
-      }
-    };
-
-    fetchAvailableSemesters();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getUserId(), courses.length]);
+  }, [courses]);
 
   if (loading) {
     return (
