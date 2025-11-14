@@ -100,8 +100,7 @@
         "grade": "Note",
         "date": "Termin",
         "deadline": "Abgabefrist",
-        "noDeadline": "Keine Deadline gesetzt",
-        "expired": "Abgelaufen"
+        "noDeadline": "Keine Deadline gesetzt"
       }
     },
     "examDetailsModal": {
