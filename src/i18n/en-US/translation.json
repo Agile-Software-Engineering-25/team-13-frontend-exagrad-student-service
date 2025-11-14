@@ -2,8 +2,7 @@
   "pages": {
     "home": {
       "buttons": {
-        "downloadPerformanceOverview": "Download Performance Overview",
-        "viewExamDates": "View Exam Dates"
+        "downloadPerformanceOverview": "Download Performance Overview"
       },
       "errors": {
         "noFeedbackData": "No feedback data available. Please try again later or contact support."
@@ -22,18 +21,6 @@
       "averageGrade": "Average Grade",
       "loading": "Loading",
       "noDataAvailable": "There is no data available"
-    },
-    "examDatesModal": {
-      "header": "Exam Dates Overview",
-      "semester": "Semester",
-      "exams": "Exams",
-      "retakes": "Retake Exams",
-      "table": {
-        "code": "Course Code",
-        "lecturer": "Lecturer",
-        "room": "Room",
-        "date": "Date"
-      }
     },
     "pubUploadModal": {
       "header": "Upload Medical Certificate",

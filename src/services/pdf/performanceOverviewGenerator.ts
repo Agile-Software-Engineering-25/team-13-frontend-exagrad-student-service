@@ -22,19 +22,16 @@ const generatePerformanceOverview = (
 
   const fullName = `${studentInfo.firstName} ${studentInfo.lastName}`;
 
-  // Add logo
   const logo = new Image();
   logo.src = '/provadis_logo.png';
   doc.addImage(logo, 'PNG', 14, 10, 40, 20);
 
-  // Header
   doc.text('Provadis Hochschule', 60, 20);
   doc.text(`Student: ${fullName}`, 14, 40);
   doc.text(`Student ID: ${studentInfo.userId}`, 14, 50);
   doc.text(`Course: Unknown`, 14, 60);
   doc.text(`Date: ${new Date().toLocaleDateString('de-DE')}`, 14, 70);
 
-  // Disclaimer
   doc.setFontSize(10);
   doc.setTextColor(255, 0, 0);
   doc.text(
@@ -50,7 +47,6 @@ const generatePerformanceOverview = (
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
 
-  // Table
   autoTable(doc, {
     startY: 95,
     head: [['Course', '', 'Points', 'Grade', 'Comment']],
@@ -91,14 +87,12 @@ export const downloadPdf = (
     return null;
   };
 
-  // Add logo
   try {
     doc.addImage('/provadis_logo.png', 'PNG', 14, 10, 30, 20);
   } catch {
     console.warn('Could not load logo image');
   }
 
-  // Header
   doc.setFontSize(16);
   doc.text('Leistungsuebersicht', 50, 20);
   doc.setFontSize(12);
@@ -106,7 +100,6 @@ export const downloadPdf = (
   doc.text(`Studiengang: ${studentCourse}`, 14, 42);
   doc.text(`Datum: ${new Date().toLocaleDateString('de-DE')}`, 14, 49);
 
-  // Disclaimer
   doc.setFontSize(10);
   doc.setTextColor(255, 0, 0);
   doc.text(
@@ -122,7 +115,6 @@ export const downloadPdf = (
   doc.setTextColor(0, 0, 0);
   doc.setFontSize(12);
 
-  // Table
   autoTable(doc, {
     startY: 75,
     head: [['Modul', 'ECTS', 'Note']],

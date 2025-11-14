@@ -9,10 +9,6 @@ let subscribers: Array<(user: User | null) => void> = [];
 // Function to set user data (called from singleSpa.tsx)
 export const setGlobalUser = (user: User | null) => {
   globalUser = user;
-  // TODO: REMOVE - Debug logging for user UUID
-  if (user?.profile?.sub) {
-    console.log('[DEBUG - REMOVE] User UUID:', user.profile.sub);
-  }
   subscribers.forEach((callback) => callback(user));
 };
 
@@ -32,10 +28,6 @@ export const useUser = () => {
 
   const getUserId = useCallback((): string => {
     const userId = user?.profile.sub ?? '';
-    // TODO: REMOVE - Debug logging for user UUID
-    if (userId) {
-      console.log('[DEBUG - REMOVE] getUserId() called, returning:', userId);
-    }
     return userId;
   }, [user]);
 
