@@ -1,7 +1,6 @@
 export interface FileReference {
-  fileUuid: string;
-  filename: string;
-  downloadLink: string | null;
+  fileName: string;
+  downloadUrl: string | null;
 }
 
 export interface LecturerFeedback {
