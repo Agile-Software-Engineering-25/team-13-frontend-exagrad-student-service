@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import useExamDocumentsApi from '@hooks/useExamDocumentsApi';
 import { useTypedSelector } from '@stores/rootReducer';
 import type { Assessment } from '@custom-types/assessment';
+import type { FileReference } from '@custom-types/lecturerFeedback';
 import { isAxiosError } from '@custom-types/errors';
 import { clearDocuments } from '@stores/slices/examDocumentsSlice';
 import UploadSection from '@components/UploadSection/UploadSection';
@@ -179,7 +180,8 @@ const ExamDocumentModal = ({
     window.open(downloadUrl, '_blank');
   };
 
-  const lecturerFiles = ['MockDozentenDatei.pdf', 'Mock.pdf'];
+  const lecturerFiles: FileReference[] =
+    assessment?.feedback?.fileReference || [];
 
   return (
     <Modal
@@ -226,7 +228,7 @@ const ExamDocumentModal = ({
 
       <Divider sx={{ my: 2, width: '100%', mt: 4 }} />
 
-      <LecturerFilesSection files={lecturerFiles} />
+      <LecturerFilesSection files={lecturerFiles} onDownload={handleDownload} />
     </Modal>
   );
 };
