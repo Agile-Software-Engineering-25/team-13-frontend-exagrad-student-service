@@ -31,18 +31,24 @@ const Home = () => {
   const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   useEffect(() => {
+    // Prevent repeated loading spinner flicker: only fetch once when userId is available and no courses cached
+    const userId = getUserId();
+    if (!userId) return; // wait for user
+    if (courses.length > 0) {
+      if (isInitialLoading) setIsInitialLoading(false); // mark initial load done if data already present
+      return; // skip refetch if we already have courses
+    }
     const initializeData = async () => {
       try {
-        await fetchAndStoreCombinedData(getUserId());
+        await fetchAndStoreCombinedData(userId);
       } catch (error) {
         console.error('Error fetching initial data:', error);
       } finally {
         setIsInitialLoading(false);
       }
     };
-
     initializeData();
-  }, [fetchAndStoreCombinedData, getUserId]);
+  }, [fetchAndStoreCombinedData, getUserId, courses.length, isInitialLoading]);
 
   const handleDownloadPdf = async () => {
     const studentInfo = {
