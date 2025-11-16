@@ -3,6 +3,4 @@ describe('Exagrad Student Home Page', () => {
     cy.visit('/');
     cy.contains('Semester');
   });
-
 });
-

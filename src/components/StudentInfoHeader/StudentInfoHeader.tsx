@@ -233,4 +233,3 @@ const StudentInfoHeader = () => {
 };
 
 export default StudentInfoHeader;
-
