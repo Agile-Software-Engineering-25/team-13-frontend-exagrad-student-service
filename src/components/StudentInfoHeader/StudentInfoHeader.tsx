@@ -7,6 +7,7 @@ import useCombinedStudentData from '@/hooks/useCombinedStudentData';
 import useUser from '@/hooks/useUser';
 import { useTypedSelector } from '@/stores/rootReducer';
 import type { Course } from '@/@custom-types/examData';
+import LoadingSpinner from '@components/LoadingSpinner/LoadingSpinner';
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
@@ -129,9 +130,9 @@ const StudentInfoHeader = () => {
 
   if (loading) {
     return (
-      <Typography level="body-md" sx={{ p: 2, color: '#00122B' }}>
-        {t('components.studentInfoHeader.loading')}...
-      </Typography>
+      <LoadingSpinner
+        message={t('components.studentInfoHeader.loading') + '...'}
+      />
     );
   }
 
@@ -232,3 +233,4 @@ const StudentInfoHeader = () => {
 };
 
 export default StudentInfoHeader;
+

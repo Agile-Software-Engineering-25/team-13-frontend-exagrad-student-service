@@ -1,7 +1,8 @@
-import { Box, CircularProgress, Typography } from '@mui/joy';
+import { Box, Typography } from '@mui/joy';
 import { FileChip } from '@agile-software/shared-components';
 import { useTranslation } from 'react-i18next';
 import type { ExamDocumentResponse } from '@custom-types/examDocument';
+import LoadingSpinner from '@components/LoadingSpinner/LoadingSpinner';
 
 interface StudentDocumentsListProps {
   examDocuments: ExamDocumentResponse[];
@@ -42,8 +43,18 @@ const StudentDocumentsList = ({
       >
         {/* Show loading spinner while loading */}
         {loading && !uploading && examDocuments.length === 0 && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 2 }}>
-            <CircularProgress size="sm" />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: '200px',
+            }}
+          >
+            <LoadingSpinner
+              message={t('common.loading') || 'Loading...'}
+              size="md"
+            />
           </Box>
         )}
 

@@ -2,6 +2,7 @@ import { Box, Grid, Typography } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useTypedSelector } from '@stores/rootReducer';
+import LoadingSpinner from '@components/LoadingSpinner/LoadingSpinner';
 
 const SemesterOverviewComponent = (props: {
   setSelectedSemester: (semester: {
@@ -54,20 +55,7 @@ const SemesterOverviewComponent = (props: {
   }, [courses]);
 
   if (loading) {
-    return (
-      <Box
-        sx={{
-          p: 3,
-          background: '#F3F8FF',
-          borderRadius: 30,
-          textAlign: 'center',
-        }}
-      >
-        <Typography level="body-md">
-          {t('common.loading') || 'Loading...'}
-        </Typography>
-      </Box>
-    );
+    return <LoadingSpinner message={t('common.loading') || 'Loading...'} />;
   }
 
   return (
