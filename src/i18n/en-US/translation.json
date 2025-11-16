@@ -89,6 +89,7 @@
       "uploadFiles": "Upload Your Files",
       "uploadedFiles": "Your Uploaded Files",
       "lecturerFiles": "Files from Lecturer",
+      "noLecturerFiles": "No files uploaded by lecturer yet",
       "uploadButton": "Upload",
       "noDocuments": "No documents uploaded yet",
       "unknownFile": "Unknown File",
