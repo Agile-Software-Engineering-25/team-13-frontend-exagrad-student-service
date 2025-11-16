@@ -7,11 +7,15 @@ import useCombinedStudentData from '@/hooks/useCombinedStudentData';
 import useUser from '@/hooks/useUser';
 import { useTypedSelector } from '@/stores/rootReducer';
 import type { Course } from '@/@custom-types/examData';
+import useAxiosInstance from '@/hooks/useAxiosInstance';
+import { BACKEND_BASE_URL } from '@/config';
+import type { CombinedDataResponse } from '@/@custom-types/combinedData';
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
   const { fetchAndStoreCombinedData } = useCombinedStudentData();
   const { getUserId } = useUser();
+  const axios = useAxiosInstance(BACKEND_BASE_URL);
   const courses = useTypedSelector((state) => state.courses.data.courses);
 
   const [student, setStudent] = useState<StudentData | null>(null);
@@ -93,11 +97,20 @@ const StudentInfoHeader = () => {
   };
 
   useEffect(() => {
+    const userId = getUserId();
+    if (!userId) return;
+
     const fetchData = async () => {
       try {
-        const studentData = await fetchAndStoreCombinedData(getUserId());
-        if (studentData) {
-          setStudent(studentData);
+        if (courses.length === 0) {
+          // Initial load path: populate store and get student
+          const studentData = await fetchAndStoreCombinedData(userId);
+          if (studentData) setStudent(studentData);
+        } else {
+          // Silent refresh for student only: avoid toggling global loading state
+          const response = await axios.get<CombinedDataResponse>(`${userId}`);
+          const combinedData = response.data.data;
+          setStudent(combinedData.student);
         }
       } catch (error) {
         console.error('Error fetching student data:', error);
@@ -105,7 +118,7 @@ const StudentInfoHeader = () => {
     };
 
     fetchData();
-  }, [fetchAndStoreCombinedData, getUserId]);
+  }, [fetchAndStoreCombinedData, getUserId, courses.length]);
 
   useEffect(() => {
     if (courses.length > 0) {
