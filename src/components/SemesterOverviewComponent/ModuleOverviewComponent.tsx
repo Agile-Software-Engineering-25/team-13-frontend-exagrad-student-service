@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import type { Course } from '@custom-types/examData';
 import type { Assessment } from '@custom-types/assessment';
 import { useTypedSelector } from '@stores/rootReducer';
+import LoadingSpinner from '@components/LoadingSpinner/LoadingSpinner';
 
 type Semester = {
   id: number | null;
@@ -138,13 +139,7 @@ const ModuleOverviewComponent = (props: {
 
   // Show loading only if we're actually fetching and have no cached data
   if (loading && courses.length === 0) {
-    return (
-      <Box sx={{ p: 3, textAlign: 'center' }}>
-        <Typography level="body-md">
-          {t('common.loading') || 'Loading...'}
-        </Typography>
-      </Box>
-    );
+    return <LoadingSpinner message={t('common.loading') || 'Loading...'} />;
   }
 
   // Don't show anything if we have courses but haven't processed them yet

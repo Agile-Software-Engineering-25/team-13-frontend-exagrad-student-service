@@ -1,25 +1,22 @@
-import { Box, Typography } from '@mui/joy';
+import { Box, Typography, CircularProgress } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import type { StudentData } from '@/@custom-types/studentData';
-import useCombinedStudentData from '@/hooks/useCombinedStudentData';
-import useUser from '@/hooks/useUser';
+
 import { useTypedSelector } from '@/stores/rootReducer';
 import type { Course } from '@/@custom-types/examData';
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
-  const { fetchAndStoreCombinedData } = useCombinedStudentData();
-  const { getUserId } = useUser();
-  const courses = useTypedSelector((state) => state.courses.data.courses);
 
-  const [student, setStudent] = useState<StudentData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [ectsData, setEctsData] = useState<{
-    reached: number;
-    total: number;
-  }>({ reached: 0, total: 0 });
+  const courses = useTypedSelector((state) => state.courses.data.courses);
+  const student = useTypedSelector((state) => state.student.data.student);
+
+  const [ectsData, setEctsData] = useState<{ reached: number; total: number }>({
+    reached: 0,
+    total: 0,
+  });
   const [averageGrade, setAverageGrade] = useState<string>('N/A');
 
   // Calculate module grade (weighted by exam weight)
@@ -94,21 +91,8 @@ const StudentInfoHeader = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const studentData = await fetchAndStoreCombinedData(getUserId());
-        if (studentData) {
-          setStudent(studentData);
-        }
-      } catch (error) {
-        console.error('Error fetching student data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [fetchAndStoreCombinedData, getUserId]);
+    // Data is fetched once in Home and stored in Redux; no extra fetch here
+  }, []);
 
   useEffect(() => {
     if (courses.length > 0) {
@@ -127,15 +111,17 @@ const StudentInfoHeader = () => {
     return value ?? '-';
   };
 
-  if (loading) {
-    return (
-      <Typography level="body-md" sx={{ p: 2, color: '#00122B' }}>
-        {t('components.studentInfoHeader.loading')}...
-      </Typography>
-    );
-  }
-
   if (!student) {
+    if (courses.length > 0) {
+      return (
+        <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+          <CircularProgress size="sm" />
+          <Typography level="body-md" sx={{ color: '#00122B' }}>
+            {t('common.loading') || 'Loading...'}
+          </Typography>
+        </Box>
+      );
+    }
     return (
       <Typography level="body-md" sx={{ p: 2, color: '#00122B' }}>
         {t('components.studentInfoHeader.noDataAvailable')}

@@ -12,7 +12,6 @@ const SemesterOverviewComponent = (props: {
   const { t } = useTranslation();
   const coursesState = useTypedSelector((state) => state.courses);
   const { courses } = coursesState.data;
-  const loading = coursesState.state === 'loading';
 
   const [availableSemesters, setAvailableSemesters] = useState<number[]>([]);
 
@@ -52,23 +51,6 @@ const SemesterOverviewComponent = (props: {
       setAvailableSemesters(Array.from(semesterIds).sort((a, b) => a - b));
     }
   }, [courses]);
-
-  if (loading) {
-    return (
-      <Box
-        sx={{
-          p: 3,
-          background: '#F3F8FF',
-          borderRadius: 30,
-          textAlign: 'center',
-        }}
-      >
-        <Typography level="body-md">
-          {t('common.loading') || 'Loading...'}
-        </Typography>
-      </Box>
-    );
-  }
 
   return (
     <Box

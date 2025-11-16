@@ -1,6 +1,6 @@
 # Exagrad Student Service - Frontend
 
-This is the frontend application for the Exagrad Student Service. 
+This is the frontend application for the Exagrad Student Service.
 
 # Commands
 
@@ -8,7 +8,6 @@ This is the frontend application for the Exagrad Student Service.
 - `npm run build` - package the application
 - `npm run cy:open` - open the UI of Cypress for testing
 - `npm run cy:run` - run all tests with a headless browser
-
 
 ### Local development
 
@@ -22,4 +21,3 @@ npm run dev # serves standalone at http://localhost:5173
 ```bash
 npm run build
 ```
-

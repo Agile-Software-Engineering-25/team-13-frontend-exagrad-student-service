@@ -5,11 +5,13 @@ import type { RootState } from './index';
 import examDocumentsReducer from '@stores/slices/examDocumentsSlice';
 import lecturerFeedbackReducer from '@stores/slices/lecturerFeedbackSlice';
 import coursesReducer from '@stores/slices/coursesSlice';
+import studentReducer from '@stores/slices/studentSlice';
 
 const appReducer = combineReducers({
   examDocuments: examDocumentsReducer,
   courses: coursesReducer,
   lecturerFeedback: lecturerFeedbackReducer,
+  student: studentReducer,
 });
 
 const rootReducer = appReducer;

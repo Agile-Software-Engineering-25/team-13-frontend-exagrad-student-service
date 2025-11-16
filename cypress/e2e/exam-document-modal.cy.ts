@@ -15,7 +15,9 @@ describe.skip('ExamDocumentModal - Dropzone Deadline Behavior', () => {
     // Wait for module details to load
     cy.wait(500);
 
-    cy.contains('Agile Software Engineering und Softwaretechnik').click({ force: true });
+    cy.contains('Agile Software Engineering und Softwaretechnik').click({
+      force: true,
+    });
 
     cy.wait(500);
 
@@ -44,7 +46,9 @@ describe.skip('ExamDocumentModal - Dropzone Deadline Behavior', () => {
     cy.contains('Semester 4').click({ force: true });
     cy.wait(500);
 
-    cy.contains('Agile Software Engineering und Softwaretechnik').click({ force: true });
+    cy.contains('Agile Software Engineering und Softwaretechnik').click({
+      force: true,
+    });
 
     cy.wait(500);
 

@@ -120,6 +120,12 @@
       "feedback": "Feedback"
     }
   },
+  "comman": {
+    "loading": "Loading..."
+  },
+  "common": {
+    "loading": "Loading..."
+  },
   "examTypes": {
     "KLAUSUR": "Written Exam",
     "MUENDLICH": "Oral Exam",

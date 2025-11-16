@@ -120,6 +120,12 @@
       "feedback": "Feedback"
     }
   },
+  "comman": {
+    "loading": "Lädt..."
+  },
+  "common": {
+    "loading": "Lädt..."
+  },
   "examTypes": {
     "KLAUSUR": "Klausur",
     "MUENDLICH": "Mündliche Prüfung",
