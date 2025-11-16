@@ -5,6 +5,7 @@ import { BACKEND_BASE_URL } from '@/config';
 import type { CombinedDataResponse } from '@/@custom-types/combinedData';
 import type { StudentData } from '@/@custom-types/studentData';
 import { setCourses, setLoading, setError } from '@/stores/slices/coursesSlice';
+import { setStudent } from '@/stores/slices/studentSlice';
 import type { Exam } from '@/@custom-types/examData';
 import { setFeedbacks } from '@/stores/slices/lecturerFeedbackSlice';
 import type { LecturerFeedback } from '@/@custom-types/lecturerFeedback';

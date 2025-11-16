@@ -7,18 +7,17 @@ import useCombinedStudentData from '@/hooks/useCombinedStudentData';
 import useUser from '@/hooks/useUser';
 import { useTypedSelector } from '@/stores/rootReducer';
 import type { Course } from '@/@custom-types/examData';
-import useAxiosInstance from '@/hooks/useAxiosInstance';
-import { BACKEND_BASE_URL } from '@/config';
-import type { CombinedDataResponse } from '@/@custom-types/combinedData';
+
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
   const { fetchAndStoreCombinedData } = useCombinedStudentData();
   const { getUserId } = useUser();
-  const axios = useAxiosInstance(BACKEND_BASE_URL);
   const courses = useTypedSelector((state) => state.courses.data.courses);
+  const student = useTypedSelector((state) => state.student.data.student);
 
-  const [student, setStudent] = useState<StudentData | null>(null);
+  const [ectsData, setEctsData] = useState<{ reached: number; total: number }>({ reached: 0, total: 0 });
+  const [averageGrade, setAverageGrade] = useState<string>('N/A');
   const [ectsData, setEctsData] = useState<{
     reached: number;
     total: number;
@@ -97,28 +96,8 @@ const StudentInfoHeader = () => {
   };
 
   useEffect(() => {
-    const userId = getUserId();
-    if (!userId) return;
-
-    const fetchData = async () => {
-      try {
-        if (courses.length === 0) {
-          // Initial load path: populate store and get student
-          const studentData = await fetchAndStoreCombinedData(userId);
-          if (studentData) setStudent(studentData);
-        } else {
-          // Silent refresh for student only: avoid toggling global loading state
-          const response = await axios.get<CombinedDataResponse>(`${userId}`);
-          const combinedData = response.data.data;
-          setStudent(combinedData.student);
-        }
-      } catch (error) {
-        console.error('Error fetching student data:', error);
-      }
-    };
-
-    fetchData();
-  }, [fetchAndStoreCombinedData, getUserId, courses.length]);
+    // Data is fetched once in Home and stored in Redux; no extra fetch here
+  }, []);
 
   useEffect(() => {
     if (courses.length > 0) {
