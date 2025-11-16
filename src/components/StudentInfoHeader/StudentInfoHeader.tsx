@@ -4,19 +4,19 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import type { StudentData } from '@/@custom-types/studentData';
 
-
 import { useTypedSelector } from '@/stores/rootReducer';
 import type { Course } from '@/@custom-types/examData';
-
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
 
-
   const courses = useTypedSelector((state) => state.courses.data.courses);
   const student = useTypedSelector((state) => state.student.data.student);
 
-  const [ectsData, setEctsData] = useState<{ reached: number; total: number }>({ reached: 0, total: 0 });
+  const [ectsData, setEctsData] = useState<{ reached: number; total: number }>({
+    reached: 0,
+    total: 0,
+  });
   const [averageGrade, setAverageGrade] = useState<string>('N/A');
 
   // Calculate module grade (weighted by exam weight)
