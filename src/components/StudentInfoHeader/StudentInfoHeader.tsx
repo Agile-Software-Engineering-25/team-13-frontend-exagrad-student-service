@@ -7,7 +7,6 @@ import useCombinedStudentData from '@/hooks/useCombinedStudentData';
 import useUser from '@/hooks/useUser';
 import { useTypedSelector } from '@/stores/rootReducer';
 import type { Course } from '@/@custom-types/examData';
-import LoadingSpinner from '@components/LoadingSpinner/LoadingSpinner';
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
@@ -16,7 +15,6 @@ const StudentInfoHeader = () => {
   const courses = useTypedSelector((state) => state.courses.data.courses);
 
   const [student, setStudent] = useState<StudentData | null>(null);
-  const [loading, setLoading] = useState(true);
   const [ectsData, setEctsData] = useState<{
     reached: number;
     total: number;
@@ -103,8 +101,6 @@ const StudentInfoHeader = () => {
         }
       } catch (error) {
         console.error('Error fetching student data:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -127,14 +123,6 @@ const StudentInfoHeader = () => {
     }
     return value ?? '-';
   };
-
-  if (loading) {
-    return (
-      <LoadingSpinner
-        message={t('components.studentInfoHeader.loading') + '...'}
-      />
-    );
-  }
 
   if (!student) {
     return (

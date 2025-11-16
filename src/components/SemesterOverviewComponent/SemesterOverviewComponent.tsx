@@ -2,7 +2,6 @@ import { Box, Grid, Typography } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { useTypedSelector } from '@stores/rootReducer';
-import LoadingSpinner from '@components/LoadingSpinner/LoadingSpinner';
 
 const SemesterOverviewComponent = (props: {
   setSelectedSemester: (semester: {
@@ -13,7 +12,6 @@ const SemesterOverviewComponent = (props: {
   const { t } = useTranslation();
   const coursesState = useTypedSelector((state) => state.courses);
   const { courses } = coursesState.data;
-  const loading = coursesState.state === 'loading';
 
   const [availableSemesters, setAvailableSemesters] = useState<number[]>([]);
 
@@ -53,10 +51,6 @@ const SemesterOverviewComponent = (props: {
       setAvailableSemesters(Array.from(semesterIds).sort((a, b) => a - b));
     }
   }, [courses]);
-
-  if (loading) {
-    return <LoadingSpinner message={t('common.loading') || 'Loading...'} />;
-  }
 
   return (
     <Box
