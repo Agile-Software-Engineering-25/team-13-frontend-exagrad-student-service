@@ -18,11 +18,6 @@ const StudentInfoHeader = () => {
 
   const [ectsData, setEctsData] = useState<{ reached: number; total: number }>({ reached: 0, total: 0 });
   const [averageGrade, setAverageGrade] = useState<string>('N/A');
-  const [ectsData, setEctsData] = useState<{
-    reached: number;
-    total: number;
-  }>({ reached: 0, total: 0 });
-  const [averageGrade, setAverageGrade] = useState<string>('N/A');
 
   // Calculate module grade (weighted by exam weight)
   const calculateModuleGrade = (course: Course): number | null => {

@@ -23,8 +23,9 @@ const useCombinedStudentData = () => {
         );
         const combinedData = response.data.data;
 
-        // Dispatch courses to redux store
+        // Dispatch courses and student to redux store
         dispatch(setCourses(combinedData.courses));
+        dispatch(setStudent(combinedData.student));
 
         // Extract and dispatch feedbacks to redux store
         const feedbacks: LecturerFeedback[] = [];
