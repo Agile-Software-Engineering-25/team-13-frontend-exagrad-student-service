@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/joy';
+import { Box, Typography, CircularProgress } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
@@ -138,6 +138,16 @@ const StudentInfoHeader = () => {
   };
 
   if (!student) {
+    if (courses.length > 0) {
+      return (
+        <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+          <CircularProgress size="sm" />
+          <Typography level="body-md" sx={{ color: '#00122B' }}>
+            {t('common.loading') || 'Loading...'}
+          </Typography>
+        </Box>
+      );
+    }
     return (
       <Typography level="body-md" sx={{ p: 2, color: '#00122B' }}>
         {t('components.studentInfoHeader.noDataAvailable')}
