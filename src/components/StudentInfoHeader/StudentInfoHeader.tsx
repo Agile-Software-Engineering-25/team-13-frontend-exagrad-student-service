@@ -3,16 +3,16 @@ import Grid from '@mui/joy/Grid';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import type { StudentData } from '@/@custom-types/studentData';
-import useCombinedStudentData from '@/hooks/useCombinedStudentData';
-import useUser from '@/hooks/useUser';
+
+
 import { useTypedSelector } from '@/stores/rootReducer';
 import type { Course } from '@/@custom-types/examData';
 
 
 const StudentInfoHeader = () => {
   const { t, i18n } = useTranslation();
-  const { fetchAndStoreCombinedData } = useCombinedStudentData();
-  const { getUserId } = useUser();
+
+
   const courses = useTypedSelector((state) => state.courses.data.courses);
   const student = useTypedSelector((state) => state.student.data.student);
 
